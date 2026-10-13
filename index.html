@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#061a33">
+<title>מחלקת סגל | חיל הים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep:#061a33;      /* כחול עמוק */
+    --navy:#0a2a52;      /* כחול צי */
+    --sea:#1565c0;       /* כחול ים */
+    --wave:#3fa9f5;      /* תכלת גל */
+    --foam:#e9f4ff;      /* קצף */
+    --brass:#d4a84b;     /* זהב-פליז */
+    --bg:#f2f6fb; --card:#ffffff; --text:#0f1d30; --muted:#5b6a80; --line:#dde6f1;
+    --shadow:0 6px 20px rgba(6,26,51,.08);
+  }
+  /* מצב לילה: לפי הגדרת הטלפון, אלא אם המשתמש בחר ידנית */
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#050f1d; --card:#0c1b2f; --text:#e6eef8; --muted:#93a4ba; --line:#1a2c45;
+      --foam:#10263f; --shadow:0 6px 20px rgba(0,0,0,.35);
+      --nav-active:linear-gradient(135deg,#3fa9f5,#8fd0ff);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#050f1d; --card:#0c1b2f; --text:#e6eef8; --muted:#93a4ba; --line:#1a2c45;
+    --foam:#10263f; --shadow:0 6px 20px rgba(0,0,0,.35);
+    --nav-active:linear-gradient(135deg,#3fa9f5,#8fd0ff);
+  }
+  body{transition:background-color .3s ease, color .3s ease}
+
+  /* כפתור יום/לילה */
+  .theme-btn{
+    position:absolute; top:22px; left:16px; z-index:3;
+    width:42px; height:42px; border-radius:50%; cursor:pointer;
+    display:grid; place-items:center; color:var(--brass);
+    background:rgba(255,255,255,.1); border:1px solid rgba(212,168,75,.55);
+    transition:transform .3s ease, background .2s ease;
+  }
+  .theme-btn:active{transform:scale(.9) rotate(-20deg)}
+  .theme-btn svg{width:21px; height:21px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
+  .theme-btn .sun{display:none}
+  .is-dark .theme-btn .sun{display:block}
+  .is-dark .theme-btn .moon{display:none}
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:"Heebo",Arial,sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.6;
+    padding-bottom:calc(84px + env(safe-area-inset-bottom));
+    -webkit-tap-highlight-color:transparent;
+  }
+  button,input,select,textarea{font-family:inherit}
+
+  /* ===== כותרת עם גלים ===== */
+  header{
+    position:relative; overflow:hidden; color:#fff;
+    background:radial-gradient(120% 90% at 85% 0%, #1b4f8f 0%, var(--navy) 45%, var(--deep) 100%);
+    padding:26px 18px 64px;
+  }
+  .brand{display:flex; align-items:center; gap:12px; position:relative; z-index:2}
+  .emblem{
+    width:48px; height:48px; border-radius:14px; display:grid; place-items:center;
+    background:rgba(255,255,255,.08); border:1px solid rgba(212,168,75,.55);
+    box-shadow:inset 0 0 0 4px rgba(212,168,75,.08);
+  }
+  .emblem svg{width:28px; height:28px; stroke:var(--brass); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+  .unit{font-size:.82rem; font-weight:500; color:var(--brass); letter-spacing:.04em}
+  header h1{margin:0; font-size:1.6rem; font-weight:800; line-height:1.2}
+  .updated{
+    position:relative; z-index:2; display:inline-flex; align-items:center; gap:6px;
+    margin-top:14px; font-size:.78rem; font-weight:500;
+    background:rgba(255,255,255,.1); padding:4px 10px; border-radius:99px;
+  }
+  .updated i{width:7px; height:7px; border-radius:50%; background:#5ee08a; box-shadow:0 0 0 0 rgba(94,224,138,.7); animation:pulse 2s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 7px rgba(94,224,138,0)}100%{box-shadow:0 0 0 0 rgba(94,224,138,0)}}
+
+  .waves{position:absolute; inset:auto 0 -1px 0; height:60px; z-index:1}
+  .waves svg{position:absolute; bottom:0; width:200%; height:100%}
+  .w1{fill:var(--wave); opacity:.25; animation:drift 14s linear infinite}
+  .w2{fill:var(--sea); opacity:.35; animation:drift 9s linear infinite reverse}
+  .w3{fill:var(--bg); animation:drift 18s linear infinite}
+  @keyframes drift{from{transform:translateX(0)}to{transform:translateX(50%)}}
+
+  /* ===== תוכן ===== */
+  main{max-width:640px; margin:-18px auto 0; padding:0 16px; position:relative; z-index:3}
+  .page{display:none}
+  .page.active{display:block; animation:rise .35s ease both}
+  @keyframes rise{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
+
+  .page-head{
+    display:flex; align-items:center; gap:12px; margin:0 0 14px;
+    background:var(--card); border-radius:18px; padding:14px 16px; box-shadow:var(--shadow);
+    border-inline-start:5px solid var(--accent, var(--sea));
+  }
+  .page-head .ic{
+    width:42px; height:42px; flex:none; border-radius:12px; display:grid; place-items:center;
+    background:var(--accent, var(--sea)); color:#fff;
+  }
+  .page-head .ic svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
+  .page-head h2{margin:0; font-size:1.2rem; font-weight:800}
+  .page-head p{margin:0; color:var(--muted); font-size:.86rem}
+
+  #news{--accent:#1565c0}
+  #plans{--accent:#0a2a52}
+  #orders{--accent:#b8862f}
+  #edu{--accent:#1e88a8}
+
+  .card{
+    position:relative; background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:15px 16px; margin-bottom:12px; box-shadow:var(--shadow); overflow:hidden;
+    transition:transform .15s ease;
+  }
+  .card:active{transform:scale(.985)}
+  .card::before{
+    content:""; position:absolute; inset:0 0 auto 0; height:3px;
+    background:linear-gradient(90deg, var(--accent, var(--sea)), var(--wave));
+  }
+  .card h3{margin:0 0 4px; font-size:1.04rem; font-weight:700}
+  .card p{margin:0; font-size:.95rem; font-weight:400}
+  .meta{display:flex; gap:8px; align-items:center; margin-bottom:6px; flex-wrap:wrap}
+  .date{font-size:.78rem; color:var(--muted); font-weight:500}
+  .tag{font-size:.74rem; font-weight:700; background:var(--foam); color:var(--accent, var(--sea)); padding:2px 9px; border-radius:99px}
+  .tag.new{background:var(--brass); color:var(--deep)}
+  a.btn{
+    display:inline-flex; align-items:center; gap:6px; margin-top:12px;
+    font-size:.88rem; font-weight:700; text-decoration:none; color:#fff;
+    background:linear-gradient(135deg, var(--accent, var(--sea)), var(--sea));
+    padding:8px 14px; border-radius:10px;
+  }
+  .placeholder{
+    border:1.5px dashed var(--line); border-radius:12px; padding:10px 14px;
+    color:var(--muted); font-size:.82rem; margin-bottom:12px; text-align:center;
+  }
+
+  /* ===== תפריט תחתון ===== */
+  nav{
+    position:fixed; inset:auto 10px calc(10px + env(safe-area-inset-bottom)) 10px;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:4px; padding:6px;
+    background:rgba(6,26,51,.92); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border-radius:20px; box-shadow:0 10px 30px rgba(6,26,51,.35); z-index:10;
+  }
+  nav a{
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    padding:8px 2px 6px; border-radius:14px; text-decoration:none;
+    color:rgba(255,255,255,.62); font-size:.7rem; font-weight:500; transition:all .2s ease;
+  }
+  nav a svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+  nav a.active{color:var(--deep); background:var(--nav-active, linear-gradient(135deg,#fff,#e9f4ff)); font-weight:700}
+
+  /* כרטיס פניות בתחתית כל עמוד */
+  .contact{
+    margin:22px 0 6px; padding:18px 16px; border-radius:18px; text-align:center; color:#fff;
+    background:radial-gradient(120% 120% at 85% 0%, #1b4f8f 0%, var(--navy) 50%, var(--deep) 100%);
+    box-shadow:var(--shadow); position:relative; overflow:hidden;
+  }
+  .contact::after{
+    content:""; position:absolute; inset:auto -10% -40px -10%; height:70px; border-radius:50%;
+    background:rgba(63,169,245,.18);
+  }
+  .contact h3{margin:0 0 2px; font-size:1.05rem; font-weight:800}
+  .contact p{margin:0 0 12px; font-size:.86rem; opacity:.8}
+  .contact-btn{
+    position:relative; z-index:1; display:inline-flex; align-items:center; gap:8px;
+    padding:11px 22px; border-radius:12px; border:0; cursor:pointer; text-decoration:none;
+    font-size:.95rem; font-weight:700; color:var(--deep);
+    background:linear-gradient(135deg,#f3d58e,var(--brass));
+    box-shadow:0 4px 14px rgba(212,168,75,.35); transition:transform .15s ease;
+  }
+  .contact-btn:active{transform:scale(.96)}
+  .contact-btn svg{width:19px; height:19px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+
+  footer{text-align:center; color:var(--muted); font-size:.74rem; padding:10px 16px 18px}
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important} }
+</style>
+</head>
+<body>
+
+<header>
+  <button class="theme-btn" id="themeBtn" type="button" aria-label="מעבר בין מצב יום למצב לילה">
+    <svg class="moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+    <svg class="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
+  <div class="brand">
+    <div class="emblem">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 7v14M8 11h8"/><path d="M4 14c0 4 3.6 7 8 7s8-3 8-7"/><path d="M4 14l-1.5 1.5M20 14l1.5 1.5"/></svg>
+    </div>
+    <div>
+      <div class="unit">חיל הים</div>
+      <h1>מחלקת סגל</h1>
+    </div>
+  </div>
+  <div class="updated"><i></i>עודכן לאחרונה: 13.10.2026</div>
+
+  <div class="waves" aria-hidden="true">
+    <svg class="w1" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 V60 H0Z"/></svg>
+    <svg class="w2" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 38 Q150 14 300 38 T600 38 T900 38 T1200 38 V60 H0Z"/></svg>
+    <svg class="w3" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 46 Q150 28 300 46 T600 46 T900 46 T1200 46 V60 H0Z"/></svg>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== הודעות ===== -->
+  <section class="page" id="news">
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 10v4l12 5V5z"/><path d="M16 9a3 3 0 0 1 0 6M7 14l1 5h3"/></svg></div>
+      <div><h2>הודעות מחלקת סגל</h2><p>עדכונים שוטפים, מהחדש לישן</p></div>
+    </div>
+    <div class="placeholder">תוכן לדוגמה בלבד</div>
+
+    <article class="card">
+      <div class="meta"><span class="tag new">חדש</span><span class="date">13.10.2026</span></div>
+      <h3>כותרת הודעה לדוגמה</h3>
+      <p>כאן יופיע תוכן ההודעה: מה קרה, את מי זה מעניין ומה צריך לעשות.</p>
+    </article>
+    <article class="card">
+      <div class="meta"><span class="date">01.10.2026</span></div>
+      <h3>הודעה קודמת לדוגמה</h3>
+      <p>הודעות ישנות יותר נשארות בהמשך העמוד.</p>
+    </article>
+  </section>
+
+  <!-- ===== תוכניות שירות ===== -->
+  <section class="page" id="plans">
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg></div>
+      <div><h2>תוכניות שירות</h2><p>מסלולי השירות ואבני הדרך</p></div>
+    </div>
+    <div class="placeholder">תוכן לדוגמה בלבד</div>
+
+    <article class="card">
+      <div class="meta"><span class="tag">מסלול</span></div>
+      <h3>שם מסלול לדוגמה</h3>
+      <p>תיאור קצר של המסלול, משך השירות ואבני הדרך העיקריות.</p>
+      <a class="btn" href="#">למסמך המלא ←</a>
+    </article>
+  </section>
+
+  <!-- ===== פקודות ונהלים ===== -->
+  <section class="page" id="orders">
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></div>
+      <div><h2>פקודות ונהלים</h2><p>הנהלים הרלוונטיים, בשפה פשוטה</p></div>
+    </div>
+    <div class="placeholder">תוכן לדוגמה בלבד</div>
+
+    <article class="card">
+      <div class="meta"><span class="tag">נוהל</span><span class="date">בתוקף מ־01.2026</span></div>
+      <h3>שם נוהל לדוגמה</h3>
+      <p>תקציר: למי הנוהל רלוונטי ומה עיקריו.</p>
+    </article>
+  </section>
+
+  <!-- ===== השכלה והעשרה ===== -->
+  <section class="page" id="edu">
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></div>
+      <div><h2>השכלה והעשרה</h2><p>לימודים, קורסים והזדמנויות</p></div>
+    </div>
+    <div class="placeholder">תוכן לדוגמה בלבד</div>
+
+    <article class="card">
+      <div class="meta"><span class="tag">לימודים</span></div>
+      <h3>תוכנית לימודים לדוגמה</h3>
+      <p>למי מתאים, מועד הרשמה ואיך נרשמים.</p>
+      <a class="btn" href="#">להרשמה ←</a>
+    </article>
+  </section>
+
+</main>
+
+<footer>מידע לא מסווג · מחלקת סגל, חיל הים</footer>
+
+<nav>
+  <a href="#news" data-page="news">
+    <svg viewBox="0 0 24 24"><path d="M4 10v4l12 5V5z"/><path d="M16 9a3 3 0 0 1 0 6"/></svg>
+    הודעות
+  </a>
+  <a href="#plans" data-page="plans">
+    <svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg>
+    תוכניות שירות
+  </a>
+  <a href="#orders" data-page="orders">
+    <svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg>
+    פקודות ונהלים
+  </a>
+  <a href="#edu" data-page="edu">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg>
+    השכלה והעשרה
+  </a>
+</nav>
+
+<script>
+  function show(id){
+    if(!id || !document.getElementById(id) || !document.getElementById(id).classList.contains('page')) id = 'news';
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.toggle('active', p.id === id); });
+    document.querySelectorAll('nav a').forEach(function(a){ a.classList.toggle('active', a.dataset.page === id); });
+    window.scrollTo(0,0);
+  }
+  // מעבר בין עמודים בלחיצה, גם בתצוגות שחוסמות שינוי כתובת
+  document.querySelectorAll('nav a').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var id = a.dataset.page;
+      show(id);
+      try{ history.replaceState(null, '', '#' + id); }catch(err){}
+    });
+  });
+  // קישור ישיר לעמוד, למשל ...#plans
+  window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
+  show(location.hash.slice(1));
+
+  // ===== כפתור פניות בתחתית כל עמוד =====
+  var CONTACT_EMAIL = '';                       // כתובת המייל תתווסף כאן בהמשך
+  var CONTACT_SUBJECT = 'פנייה למחלקת סגל';
+  document.querySelectorAll('.page').forEach(function(p){
+    var title = p.querySelector('.page-head h2');
+    var box = document.createElement('div');
+    box.className = 'contact';
+    box.innerHTML =
+      '<h3>יש לך שאלה?</h3>' +
+      '<p>מחלקת הסגל זמינה לפניות בנושא ' + (title ? title.textContent : 'זה') + '</p>' +
+      '<a class="contact-btn" href="#" role="button">' +
+        '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>' +
+        'שליחת פנייה' +
+      '</a>';
+    box.querySelector('.contact-btn').addEventListener('click', function(e){
+      e.preventDefault();
+      if(!CONTACT_EMAIL) return;              // עד שתוגדר כתובת, הכפתור לא שולח
+      var subject = CONTACT_SUBJECT + (title ? ' – ' + title.textContent : '');
+      window.location.href = 'mailto:' + CONTACT_EMAIL + '?subject=' + encodeURIComponent(subject);
+    });
+    p.appendChild(box);
+  });
+
+  // ===== מצב יום / לילה =====
+  var root = document.documentElement;
+  var darkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  function isDark(){
+    var t = root.getAttribute('data-theme');
+    if(t) return t === 'dark';
+    return !!(darkQuery && darkQuery.matches);
+  }
+  function syncTheme(){
+    var dark = isDark();
+    root.classList.toggle('is-dark', dark);
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if(meta) meta.setAttribute('content', dark ? '#050f1d' : '#061a33');
+  }
+  try{
+    var saved = localStorage.getItem('theme');
+    if(saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+  }catch(err){}
+  syncTheme();
+  if(darkQuery && darkQuery.addEventListener) darkQuery.addEventListener('change', syncTheme);
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try{ localStorage.setItem('theme', next); }catch(err){}
+    syncTheme();
+  });
+</script>
+</body>
+</html>
