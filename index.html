@@ -25,25 +25,32 @@
     --brass:#d4a84b;     /* זהב-פליז */
     --bg:#f2f6fb; --card:#ffffff; --text:#0f1d30; --muted:#5b6a80; --line:#dde6f1;
     --shadow:0 6px 20px rgba(6,26,51,.08);
+    /* מערכת ריווח קבועה: כפולות של 8 */
+    --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:40px;
+    --r-sm:12px; --r-md:16px; --r-lg:20px;
+    /* צבעי עמודים */
+    --c-news:#1565c0; --c-plans:#2f5d8f; --c-orders:#a8782a; --c-edu:#1b7f9c; --c-perks:#2a8166;
   }
   /* מצב לילה: לפי הגדרת הטלפון, אלא אם המשתמש בחר ידנית */
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#050f1d; --card:#0c1b2f; --text:#e6eef8; --muted:#93a4ba; --line:#1a2c45;
-      --foam:#10263f; --shadow:0 6px 20px rgba(0,0,0,.35);
-      --nav-active:linear-gradient(135deg,#3fa9f5,#8fd0ff);
+      --bg:#06101d; --card:#0f1f35; --text:#e8eff8; --muted:#a2b2c7; --line:#223854;
+      --foam:#15304f; --shadow:0 0 0 1px rgba(255,255,255,.02), 0 8px 24px rgba(0,0,0,.45);
+      --nav-active:#d6ebff;
+      --c-news:#6cb4f5; --c-plans:#93b6e0; --c-orders:#e3b866; --c-edu:#5cc8e2; --c-perks:#5fcfa6;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#050f1d; --card:#0c1b2f; --text:#e6eef8; --muted:#93a4ba; --line:#1a2c45;
-    --foam:#10263f; --shadow:0 6px 20px rgba(0,0,0,.35);
-    --nav-active:linear-gradient(135deg,#3fa9f5,#8fd0ff);
+    --bg:#06101d; --card:#0f1f35; --text:#e8eff8; --muted:#a2b2c7; --line:#223854;
+    --foam:#15304f; --shadow:0 0 0 1px rgba(255,255,255,.02), 0 8px 24px rgba(0,0,0,.45);
+    --nav-active:#d6ebff;
+    --c-news:#6cb4f5; --c-plans:#93b6e0; --c-orders:#e3b866; --c-edu:#5cc8e2; --c-perks:#5fcfa6;
   }
   body{transition:background-color .3s ease, color .3s ease}
 
   /* כפתור יום/לילה */
   .theme-btn{
-    position:absolute; top:calc(22px + env(safe-area-inset-top)); left:16px; z-index:3;
+    position:absolute; top:calc(var(--s3) + env(safe-area-inset-top)); left:var(--s2); z-index:3;
     width:42px; height:42px; border-radius:50%; cursor:pointer;
     display:grid; place-items:center; color:var(--brass);
     background:rgba(255,255,255,.1); border:1px solid rgba(212,168,75,.55);
@@ -55,7 +62,7 @@
   .is-dark .theme-btn .sun{display:block}
   .is-dark .theme-btn .moon{display:none}
   /* שורת "עודכן לאחרונה" + כפתור הוספה למסך הבית */
-  .hdr-row{position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:14px; flex-wrap:nowrap}
+  .hdr-row{position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:var(--s1); margin-top:var(--s2); flex-wrap:nowrap}
   .hdr-row .updated{margin-top:0}
   .install-btn{
     white-space:nowrap; flex:none;
@@ -79,14 +86,14 @@
   .sheet-bg.open{opacity:1; pointer-events:auto}
   .sheet{
     width:100%; max-width:560px; max-height:88vh; overflow:auto;
-    background:var(--card); color:var(--text); border-radius:22px 22px 0 0;
-    padding:10px 18px calc(22px + env(safe-area-inset-bottom));
+    background:var(--card); color:var(--text); border-radius:24px 24px 0 0;
+    padding:var(--s1) var(--s3) calc(var(--s3) + env(safe-area-inset-bottom));
     transform:translateY(100%); transition:transform .3s cubic-bezier(.2,.8,.2,1);
     box-shadow:0 -10px 40px rgba(0,0,0,.3);
   }
   .sheet-bg.open .sheet{transform:none}
-  .sheet .grab{width:42px; height:5px; border-radius:99px; background:var(--line); margin:0 auto 12px}
-  .sheet-head{display:flex; align-items:center; gap:12px; margin-bottom:14px}
+  .sheet .grab{width:40px; height:5px; border-radius:99px; background:var(--line); margin:0 auto var(--s2)}
+  .sheet-head{display:flex; align-items:center; gap:var(--s2); margin-bottom:var(--s3)}
   .sheet-head img{width:52px; height:52px; border-radius:13px; box-shadow:var(--shadow)}
   .sheet-head h3{margin:0; font-size:1.15rem; font-weight:800}
   .sheet-head p{margin:0; font-size:.85rem; color:var(--muted)}
@@ -95,7 +102,7 @@
     background:var(--foam); color:var(--text); display:grid; place-items:center; flex:none;
   }
   .sheet-close svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round}
-  .os-tabs{display:grid; grid-template-columns:1fr 1fr; gap:4px; padding:4px; background:var(--foam); border-radius:14px; margin-bottom:14px}
+  .os-tabs{display:grid; grid-template-columns:1fr 1fr; gap:4px; padding:4px; background:var(--foam); border-radius:var(--r-md); margin-bottom:var(--s2)}
   .os-tabs button{
     font-family:inherit; font-size:.92rem; font-weight:700; border:0; cursor:pointer;
     padding:9px 6px; border-radius:11px; background:transparent; color:var(--muted);
@@ -105,8 +112,8 @@
   .os-pane.on{display:block}
   .steps{list-style:none; margin:0; padding:0; counter-reset:st}
   .steps li{
-    counter-increment:st; display:flex; gap:12px; align-items:flex-start;
-    padding:11px 0; border-top:1px solid var(--line); font-size:.95rem;
+    counter-increment:st; display:flex; gap:var(--s2); align-items:flex-start;
+    padding:12px 0; border-top:1px solid var(--line); font-size:.95rem;
   }
   .steps li:first-child{border-top:0}
   .steps li::before{
@@ -119,7 +126,7 @@
     border-radius:6px; background:var(--foam); color:var(--sea); margin:0 2px;
   }
   .steps .ico svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
-  .sheet-tip{margin-top:12px; font-size:.84rem; color:var(--muted); background:var(--foam); border-radius:12px; padding:10px 12px}
+  .sheet-tip{margin-top:var(--s2); font-size:.84rem; color:var(--muted); background:var(--foam); border-radius:var(--r-sm); padding:12px var(--s2)}
   .install-now{
     display:none; width:100%; margin-top:12px; font-family:inherit; font-size:1rem; font-weight:800;
     border:0; border-radius:12px; padding:12px; cursor:pointer; color:var(--deep);
@@ -129,7 +136,7 @@
 
   /* תאריך עדכון בכל עמוד */
   .pg-upd{
-    display:inline-flex; align-items:center; gap:5px; margin-top:4px;
+    display:inline-flex; align-items:center; gap:4px; margin-top:var(--s1);
     font-size:.74rem; font-weight:600; color:var(--accent, var(--sea));
     background:var(--foam); padding:2px 9px; border-radius:99px;
   }
@@ -145,14 +152,14 @@
 
   /* כפתור שיתוף */
   .share-btn{
-    display:inline-flex; align-items:center; gap:7px; margin-top:14px; cursor:pointer;
+    display:inline-flex; align-items:center; gap:var(--s1); margin-top:var(--s2); cursor:pointer;
     font-family:inherit; font-size:.88rem; font-weight:700; color:var(--accent, var(--sea));
-    background:var(--foam); border:1px solid var(--line); padding:8px 14px; border-radius:11px;
+    background:var(--foam); border:1px solid var(--line); padding:var(--s1) var(--s2); border-radius:var(--r-sm);
     transition:transform .15s ease;
   }
   .share-btn:active{transform:scale(.96)}
   .share-btn svg{width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
-  .share-btn.wide{display:flex; justify-content:center; width:100%; padding:11px 14px; background:var(--card); box-shadow:var(--shadow)}
+  .share-btn.wide{display:flex; justify-content:center; width:100%; margin-top:var(--s3); padding:12px var(--s2); background:var(--card); box-shadow:var(--shadow)}
 
   /* הדגשת הודעה שנפתחה מקישור ישיר */
   details.msg.flash{animation:flash 1.6s ease}
@@ -173,7 +180,7 @@
   body{
     font-family:"Heebo",Arial,sans-serif;
     background:var(--bg); color:var(--text); line-height:1.6;
-    padding-bottom:calc(84px + env(safe-area-inset-bottom));
+    padding-bottom:calc(88px + env(safe-area-inset-bottom));
     -webkit-tap-highlight-color:transparent;
   }
   button,input,select,textarea{font-family:inherit}
@@ -182,7 +189,7 @@
   header{
     position:relative; overflow:hidden; color:#fff;
     background:radial-gradient(120% 90% at 85% 0%, #1b4f8f 0%, var(--navy) 45%, var(--deep) 100%);
-    padding:calc(26px + env(safe-area-inset-top)) 18px 64px;
+    padding:calc(var(--s3) + env(safe-area-inset-top)) var(--s2) 64px;
   }
   .brand{display:flex; align-items:center; gap:12px; position:relative; z-index:2}
   .emblem{
@@ -209,44 +216,44 @@
   @keyframes drift{from{transform:translateX(0)}to{transform:translateX(50%)}}
 
   /* ===== תוכן ===== */
-  main{max-width:640px; margin:-18px auto 0; padding:0 16px; position:relative; z-index:3}
+  main{max-width:640px; margin:calc(-1 * var(--s2)) auto 0; padding:0 var(--s2); position:relative; z-index:3}
   .page{display:none}
   .page.active{display:block; animation:rise .35s ease both}
   @keyframes rise{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
 
   .page-head{
-    display:flex; align-items:center; gap:12px; margin:0 0 14px;
-    background:var(--card); border-radius:18px; padding:14px 16px; box-shadow:var(--shadow);
+    display:flex; align-items:center; gap:var(--s2); margin:0 0 var(--s3);
+    background:var(--card); border-radius:var(--r-lg); padding:var(--s2); box-shadow:var(--shadow);
     border-inline-start:5px solid var(--accent, var(--sea));
   }
   .page-head .ic{
-    width:42px; height:42px; flex:none; border-radius:12px; display:grid; place-items:center;
+    width:48px; height:48px; flex:none; border-radius:var(--r-sm); display:grid; place-items:center;
     background:var(--accent, var(--sea)); color:#fff;
   }
   .page-head .ic svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
-  .page-head h2{margin:0; font-size:1.2rem; font-weight:800}
+  .page-head h2{margin:0; font-size:1.25rem; font-weight:800; line-height:1.3}
   .page-head p{margin:0; color:var(--muted); font-size:.86rem}
 
-  #news{--accent:#1565c0}
-  #plans{--accent:#0a2a52}
-  #orders{--accent:#b8862f}
-  #edu{--accent:#1e88a8}
-  #perks{--accent:#2e8b6e}
-  #newport{--accent:#1e88a8}
+  #news{--accent:var(--c-news)}
+  #plans{--accent:var(--c-plans)}
+  #orders{--accent:var(--c-orders)}
+  #edu{--accent:var(--c-edu)}
+  #perks{--accent:var(--c-perks)}
+  #newport{--accent:var(--c-edu)}
 
   /* כפתור חזרה בעמוד משנה */
   a.back{
-    display:inline-flex; align-items:center; gap:4px; margin:0 0 10px;
+    display:inline-flex; align-items:center; gap:4px; margin:0 0 var(--s2);
     font-size:.86rem; font-weight:700; color:var(--accent); text-decoration:none;
-    background:var(--card); padding:6px 12px 6px 14px; border-radius:99px; box-shadow:var(--shadow);
+    background:var(--card); padding:var(--s1) var(--s2); border-radius:99px; box-shadow:var(--shadow);
   }
   a.back svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
 
   /* כותרת ניו פורט: מפה מאוירת + שעון */
   .np-hero{
-    position:relative; margin:0 0 14px; border-radius:18px; overflow:hidden; color:#fff;
+    position:relative; margin:0 0 var(--s3); border-radius:var(--r-lg); overflow:hidden; color:#fff;
     background:radial-gradient(130% 90% at 80% 0%, #1b5e9a 0%, var(--navy) 55%, var(--deep) 100%);
-    box-shadow:var(--shadow); padding:14px 14px 12px;
+    box-shadow:var(--shadow); padding:var(--s2);
   }
   .np-mapbox{position:relative; border-radius:14px; overflow:hidden; border:1px solid rgba(212,168,75,.45); background:#a9cbe8}
   .np-gmap{display:block; width:100%; height:260px; border:0}
@@ -257,29 +264,29 @@
     box-shadow:0 3px 10px rgba(0,0,0,.25);
   }
   .np-clock{
-    margin:10px auto 0; text-align:center; padding:12px 10px 10px; border-radius:14px;
+    margin:var(--s2) auto 0; text-align:center; padding:var(--s2); border-radius:var(--r-md);
     background:rgba(255,255,255,.08); border:1px solid rgba(212,168,75,.45);
   }
   .np-clock-label{font-size:.8rem; color:#f3d58e; font-weight:500}
   .np-time{font-size:2.2rem; font-weight:800; letter-spacing:.04em; direction:ltr; font-variant-numeric:tabular-nums; line-height:1.15}
   .np-date{font-size:.86rem; opacity:.85}
   .np-diff{font-size:.78rem; opacity:.7; margin-top:2px}
-  .np-note{text-align:center; font-size:.68rem; opacity:.5; margin-top:8px}
+  .np-note{text-align:center; font-size:.72rem; opacity:.55; margin-top:var(--s1)}
 
   /* טבלת מידע: קטגוריה | הסבר */
   .info-table{
-    background:var(--card); border:1px solid var(--line); border-radius:18px;
+    background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg);
     overflow:hidden; box-shadow:var(--shadow);
   }
   .info-table .row{display:grid; grid-template-columns:38% 1fr}
   .info-table .row + .row{border-top:1px solid var(--line)}
   .info-table .cat{
-    display:flex; align-items:center; gap:8px; padding:14px 12px;
+    display:flex; align-items:center; gap:var(--s1); padding:var(--s2) 12px;
     font-weight:700; font-size:.92rem; color:var(--accent);
     background:var(--foam); border-inline-end:3px solid var(--accent);
   }
   .info-table .cat svg{width:20px; height:20px; flex:none; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
-  .info-table .val{padding:14px 14px; font-size:.95rem; display:flex; align-items:center}
+  .info-table .val{padding:var(--s2); font-size:.95rem; line-height:1.6; display:flex; align-items:center}
   .info-table a.ext{
     color:#fff; text-decoration:none; font-weight:700; font-size:.86rem;
     background:linear-gradient(135deg, var(--accent), var(--sea)); padding:7px 12px; border-radius:10px;
@@ -287,11 +294,11 @@
   }
 
   /* רשימת כפתורי תמריצים */
-  .perk-list{display:flex; flex-direction:column; gap:10px}
+  .perk-list{display:flex; flex-direction:column; gap:var(--s2)}
   a.perk{
-    display:flex; align-items:center; gap:14px; text-decoration:none; color:var(--text);
-    background:var(--card); border:1px solid var(--line); border-radius:16px;
-    padding:14px 14px; box-shadow:var(--shadow); position:relative; overflow:hidden;
+    display:flex; align-items:center; gap:var(--s2); text-decoration:none; color:var(--text);
+    background:var(--card); border:1px solid var(--line); border-radius:var(--r-md);
+    padding:var(--s2); box-shadow:var(--shadow); position:relative; overflow:hidden;
     transition:transform .15s ease;
   }
   a.perk:active{transform:scale(.98)}
@@ -300,7 +307,7 @@
     background:linear-gradient(180deg, var(--accent), var(--wave));
   }
   a.perk .p-ic{
-    width:44px; height:44px; flex:none; border-radius:12px; display:grid; place-items:center;
+    width:48px; height:48px; flex:none; border-radius:var(--r-sm); display:grid; place-items:center;
     background:var(--foam); color:var(--accent);
   }
   a.perk .p-ic svg, a.perk .p-go svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
@@ -310,8 +317,8 @@
   a.perk .p-go{color:var(--accent); flex:none}
 
   .card{
-    position:relative; background:var(--card); border:1px solid var(--line); border-radius:16px;
-    padding:15px 16px; margin-bottom:12px; box-shadow:var(--shadow); overflow:hidden;
+    position:relative; background:var(--card); border:1px solid var(--line); border-radius:var(--r-md);
+    padding:var(--s2); margin-bottom:var(--s2); box-shadow:var(--shadow); overflow:hidden;
     transition:transform .15s ease;
   }
   .card:active{transform:scale(.985)}
@@ -319,9 +326,9 @@
     content:""; position:absolute; inset:0 0 auto 0; height:3px;
     background:linear-gradient(90deg, var(--accent, var(--sea)), var(--wave));
   }
-  .card h3{margin:0 0 4px; font-size:1.04rem; font-weight:700}
-  .card p{margin:0; font-size:.95rem; font-weight:400}
-  .meta{display:flex; gap:8px; align-items:center; margin-bottom:6px; flex-wrap:wrap}
+  .card h3{margin:0 0 4px; font-size:1.06rem; font-weight:700; line-height:1.45}
+  .card p{margin:0; font-size:1rem; font-weight:400; line-height:1.7}
+  .meta{display:flex; gap:var(--s1); align-items:center; margin-bottom:var(--s1); flex-wrap:wrap}
   .date{font-size:.78rem; color:var(--muted); font-weight:500}
   .tag{font-size:.74rem; font-weight:700; background:var(--foam); color:var(--accent, var(--sea)); padding:2px 9px; border-radius:99px}
   .tag.new{background:var(--brass); color:var(--deep)}
@@ -335,19 +342,19 @@
   details.msg{padding:0}
   details.msg summary{
     list-style:none; cursor:pointer; position:relative;
-    padding:15px 16px 15px 52px; user-select:none;
+    padding:var(--s2) var(--s2) var(--s2) 56px; user-select:none;
   }
   details.msg summary::-webkit-details-marker{display:none}
   details.msg summary h3{margin:0}
   details.msg .chev{
-    position:absolute; left:14px; top:50%; transform:translateY(-50%);
-    width:28px; height:28px; border-radius:50%; display:grid; place-items:center;
+    position:absolute; left:var(--s2); top:50%; transform:translateY(-50%);
+    width:32px; height:32px; border-radius:50%; display:grid; place-items:center;
     background:var(--foam); color:var(--accent, var(--sea)); transition:transform .25s ease;
   }
   details.msg .chev svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
   details.msg[open] .chev{transform:translateY(-50%) rotate(180deg)}
   details.msg .msg-body{
-    padding:12px 16px 16px; border-top:1px solid var(--line);
+    padding:var(--s2) var(--s2) var(--s3); border-top:1px solid var(--line);
     animation:rise .25s ease both;
   }
 
@@ -372,31 +379,51 @@
     transition:color .2s ease, background .2s ease;
   }
   nav a svg{width:22px; height:22px; flex:none; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
-  nav a.active{color:var(--deep); background:var(--nav-active, linear-gradient(135deg,#fff,#e9f4ff))}
+  nav a.active{color:var(--deep); background:var(--nav-active, #fff)}
 
-  /* כרטיס פניות בתחתית כל עמוד */
+  /* כרטיס פניות: עדין, באותה שפה של שאר הכרטיסים */
   .contact{
-    margin:22px 0 6px; padding:18px 16px; border-radius:18px; text-align:center; color:#fff;
-    background:radial-gradient(120% 120% at 85% 0%, #1b4f8f 0%, var(--navy) 50%, var(--deep) 100%);
-    box-shadow:var(--shadow); position:relative; overflow:hidden;
+    display:flex; align-items:center; gap:var(--s2); flex-wrap:wrap;
+    margin:var(--s4) 0 var(--s1); padding:var(--s2);
+    background:var(--card); border:1px solid var(--line); border-radius:var(--r-md);
   }
-  .contact::after{
-    content:""; position:absolute; inset:auto -10% -40px -10%; height:70px; border-radius:50%;
-    background:rgba(63,169,245,.18);
+  .contact .c-ic{
+    width:40px; height:40px; flex:none; border-radius:50%; display:grid; place-items:center;
+    background:var(--foam); color:var(--accent, var(--sea));
   }
-  .contact h3{margin:0 0 2px; font-size:1.05rem; font-weight:800}
-  .contact p{margin:0 0 12px; font-size:.86rem; opacity:.8}
+  .contact .c-ic svg{width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
+  .contact .c-txt{flex:1; min-width:140px}
+  .contact h3{margin:0; font-size:.98rem; font-weight:700; line-height:1.4}
+  .contact p{margin:2px 0 0; font-size:.84rem; color:var(--muted); line-height:1.5}
   .contact-btn{
-    position:relative; z-index:1; display:inline-flex; align-items:center; gap:8px;
-    padding:11px 22px; border-radius:12px; border:0; cursor:pointer; text-decoration:none;
-    font-size:.95rem; font-weight:700; color:var(--deep);
-    background:linear-gradient(135deg,#f3d58e,var(--brass));
-    box-shadow:0 4px 14px rgba(212,168,75,.35); transition:transform .15s ease;
+    display:inline-flex; align-items:center; gap:var(--s1); flex:none;
+    padding:10px var(--s2); border-radius:var(--r-sm); text-decoration:none;
+    font-size:.9rem; font-weight:700; color:var(--accent, var(--sea));
+    background:transparent; border:1.5px solid currentColor; transition:background .2s ease, transform .15s ease;
   }
-  .contact-btn:active{transform:scale(.96)}
-  .contact-btn svg{width:19px; height:19px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+  .contact-btn:active{transform:scale(.96); background:var(--foam)}
+  .contact-btn svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
 
-  footer{text-align:center; color:var(--muted); font-size:.74rem; padding:10px 16px 18px}
+  footer{text-align:center; color:var(--muted); font-size:.74rem; padding:var(--s2) var(--s2) var(--s3)}
+  /* ===== ליטוש מצב לילה ===== */
+  .is-dark .page-head .ic{background:var(--foam); color:var(--accent)}
+  .is-dark .card::before{opacity:.7}
+  .is-dark .tag.new{background:#e3b866; color:#1a1305}
+  .is-dark .info-table .cat{background:rgba(255,255,255,.03)}
+  .is-dark .info-table a.ext, .is-dark a.btn{background:var(--foam); color:var(--accent); box-shadow:inset 0 0 0 1px var(--line)}
+  .is-dark nav{background:rgba(10,22,40,.94); box-shadow:0 0 0 1px var(--line), 0 10px 30px rgba(0,0,0,.5)}
+  .is-dark nav a{color:rgba(232,239,248,.6)}
+  .is-dark nav a.active{color:#061a33}
+  .is-dark nav a .dot{box-shadow:0 0 0 2px rgba(10,22,40,.94)}
+  .is-dark .np-gmap{filter:invert(.9) hue-rotate(180deg) brightness(.95) contrast(.9) saturate(.8)}
+  .is-dark .np-mapbox{background:#1b2a3e}
+  .is-dark a.back{box-shadow:0 0 0 1px var(--line)}
+  .is-dark .toast{background:#d6ebff; color:#061a33}
+  .is-dark .share-btn.wide{box-shadow:0 0 0 1px var(--line)}
+  .is-dark .os-tabs button.on{color:var(--c-news); box-shadow:0 0 0 1px var(--line)}
+  .is-dark .steps li::before{background:var(--foam); color:var(--c-news); box-shadow:inset 0 0 0 1px var(--line)}
+  .is-dark .sheet{box-shadow:0 -1px 0 var(--line), 0 -10px 40px rgba(0,0,0,.5)}
+
   @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important} }
 </style>
 </head>
@@ -447,9 +474,9 @@
       </summary>
       <div class="msg-body">
       <p>בנינו אתר חדש שמטרתו להנגיש מידע חשוב לכלל אנשי הקבע.</p>
-      <p style="margin-top:8px">האתר נמצא בתהליכי בנייה ועדכון מתמשכים, נשמח לשמוע רעיונות לתוספות בנוגע לתוכן ומידע שהייתם שמחים לקבל.</p>
-      <p style="margin-top:8px">כמו כן, הנכם מזומנים לשאול כל שאלה בכל נושא דרך הקישור למייל.</p>
-      <p style="margin-top:12px; font-weight:700">עלה ים!</p>
+      <p style="margin-top:12px">האתר נמצא בתהליכי בנייה ועדכון מתמשכים, נשמח לשמוע רעיונות לתוספות בנוגע לתוכן ומידע שהייתם שמחים לקבל.</p>
+      <p style="margin-top:12px">כמו כן, הנכם מזומנים לשאול כל שאלה בכל נושא דרך הקישור למייל.</p>
+      <p style="margin-top:var(--s2); font-weight:700">עלה ים!</p>
       <button class="share-btn" type="button" data-share="msg-new-site" data-title="אתר חדש למחלקת הסגל בזרוע הים!">
         <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
         שיתוף ההודעה
@@ -465,11 +492,11 @@
       </summary>
       <div class="msg-body">
       <p>מפקדים/מתמודדים יקרים,</p>
-      <p style="margin-top:8px">הופצו אליכם תוכנית התנועות והגאנט המתוכנן לאיוש סא״ל-רס״ן לקיץ 27׳, כפי שאושרו ע"י מפקד זרוע הים ובתיאום מול הגאנט המטכ״לי.</p>
-      <p style="margin-top:8px">חשוב שתכירו, תיערכו וכן תשקפו לכלל המתמודדים בעונת האיוש את הגאנט ואת תוכנית התנועות.</p>
-      <p style="margin-top:8px">התהליך ינוהל בצורה סדורה, הוגנת ושקופה, בתיאום עם ראשי המערכים.</p>
-      <p style="margin-top:8px">אנו זמינים לכל שאלה או הבהרה.</p>
-      <p style="margin-top:12px; font-weight:700">מחלקת הסגל,<br>זרוע הים</p>
+      <p style="margin-top:12px">הופצו אליכם תוכנית התנועות והגאנט המתוכנן לאיוש סא״ל-רס״ן לקיץ 27׳, כפי שאושרו ע"י מפקד זרוע הים ובתיאום מול הגאנט המטכ״לי.</p>
+      <p style="margin-top:12px">חשוב שתכירו, תיערכו וכן תשקפו לכלל המתמודדים בעונת האיוש את הגאנט ואת תוכנית התנועות.</p>
+      <p style="margin-top:12px">התהליך ינוהל בצורה סדורה, הוגנת ושקופה, בתיאום עם ראשי המערכים.</p>
+      <p style="margin-top:12px">אנו זמינים לכל שאלה או הבהרה.</p>
+      <p style="margin-top:var(--s2); font-weight:700">מחלקת הסגל,<br>זרוע הים</p>
       <button class="share-btn" type="button" data-share="msg-gantt27" data-title="תוכנית התנועות והגאנט לאיוש סא״ל-רס״ן – קיץ 27׳">
         <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
         שיתוף ההודעה
@@ -833,8 +860,9 @@
     var box = document.createElement('div');
     box.className = 'contact';
     box.innerHTML =
-      '<h3>יש לך שאלה?</h3>' +
-      '<p>מחלקת הסגל זמינה לפניות בנושא ' + (title ? title.textContent : 'זה') + '</p>' +
+      '<span class="c-ic"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.8-.9 1.4"/><path d="M12 16h.01"/></svg></span>' +
+      '<div class="c-txt"><h3>יש לך שאלה?</h3>' +
+      '<p>מחלקת הסגל זמינה לפניות בנושא ' + (title ? title.textContent : 'זה') + '</p></div>' +
       '<a class="contact-btn" href="#" role="button">' +
         '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>' +
         'שליחת פנייה' +
