@@ -127,20 +127,14 @@
     background:radial-gradient(130% 90% at 80% 0%, #1b5e9a 0%, var(--navy) 55%, var(--deep) 100%);
     box-shadow:var(--shadow); padding:14px 14px 12px;
   }
-  .np-map{display:block; width:100%; max-width:260px; height:auto; margin:0 auto}
-  .np-map .land path{fill:#2a5d8f; stroke:#7fb8e6; stroke-width:1; stroke-linejoin:round}
-  .np-map path.land.hl{fill:#d4a84b; stroke:#f3d58e; stroke-width:1.2}
-  .np-map .city{fill:#e6eef8}
-  .np-map .lbl{font-family:"Heebo",Arial,sans-serif; font-size:9px; fill:#cfe3f7; font-weight:500}
-  .np-map .lbl.big{font-size:13px; font-weight:800; fill:#fff; letter-spacing:.02em}
-  .np-map .lbl.sea{font-size:9px; fill:#7fb8e6; font-style:italic}
-  .np-map .lbl.gold{font-size:12px; font-weight:800; fill:#f3d58e}
-  .np-map .pin{fill:#f3d58e; stroke:#061a33; stroke-width:1}
-  .np-map .ring{fill:none; stroke:#f3d58e; stroke-width:1.5; transform-origin:0 0; animation:npRing 2s ease-out infinite}
-  @keyframes npRing{0%{transform:scale(.4); opacity:.9}100%{transform:scale(2.2); opacity:0}}
-  .np-map .compass circle{fill:rgba(255,255,255,.06); stroke:rgba(212,168,75,.6)}
-  .np-map .compass path{fill:#d4a84b}
-  .np-map .compass text{font-family:"Heebo",Arial,sans-serif; font-size:8px; font-weight:700; fill:#d4a84b}
+  .np-mapbox{position:relative; border-radius:14px; overflow:hidden; border:1px solid rgba(212,168,75,.45); background:#a9cbe8}
+  .np-gmap{display:block; width:100%; height:260px; border:0}
+  .np-maplink{
+    position:absolute; bottom:10px; left:10px; z-index:2;
+    font-size:.78rem; font-weight:700; text-decoration:none; color:var(--deep);
+    background:linear-gradient(135deg,#f3d58e,var(--brass)); padding:6px 10px; border-radius:10px;
+    box-shadow:0 3px 10px rgba(0,0,0,.25);
+  }
   .np-clock{
     margin:10px auto 0; text-align:center; padding:12px 10px 10px; border-radius:14px;
     background:rgba(255,255,255,.08); border:1px solid rgba(212,168,75,.45);
@@ -392,44 +386,18 @@
     </div>
 
     <div class="np-hero">
-      <svg class="np-map" viewBox="0 0 200 290" role="img" aria-label="מפה מאוירת של רוד איילנד עם מיקום ניו פורט">
-        <defs>
-          <pattern id="npWaves" width="24" height="12" patternUnits="userSpaceOnUse">
-            <path d="M0 6 Q6 2 12 6 T24 6" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
-          </pattern>
-        </defs>
-        <rect width="200" height="290" fill="url(#npWaves)"/>
-        <g class="land">
-          <path d="M26.9 15.0 L121.1 12.0 L121.1 48.0 L116.7 72.0 L121.1 90.0 L112.2 102.0 L107.7 126.0 L105.4 150.0 L105.4 174.0 L96.5 207.0 L76.3 207.0 L49.4 216.0 L13.5 222.0 L26.9 192.0 L29.2 108.0Z"/>
-          <path d="M125.6 78.0 L132.4 81.0 L145.8 93.0 L148.1 120.0 L139.1 114.0 L130.1 99.0Z"/>
-          <path d="M161.5 99.0 L177.2 117.0 L179.5 171.0 L161.5 180.0 L159.3 132.0Z"/>
-          <path d="M121.1 141.0 L125.6 142.5 L123.4 168.0 L118.9 183.0 L112.2 177.0 L116.7 159.0Z"/>
-          <path d="M71.8 249.0 L83.0 252.0 L83.0 273.0 L74.0 273.0 L69.5 261.0Z"/>
-        </g>
-        <path class="land hl" d="M145.8 126.0 L157.0 124.5 L159.3 138.0 L150.3 168.0 L141.3 180.0 L130.1 177.0 L136.8 159.0 L139.1 138.0Z"/>
-        <circle cx="114.4" cy="72" r="2.6" class="city"/>
-        <text x="110" y="70" class="lbl" text-anchor="end">פרובידנס</text>
-        <text x="64" y="120" class="lbl big" text-anchor="middle">רוד איילנד</text>
-        <text x="132" y="250" class="lbl sea" text-anchor="middle">האוקיינוס האטלנטי</text>
-        <g class="np-pin" transform="translate(136.8 171)">
-          <circle r="9" class="ring"/>
-          <path d="M0 0 C-6 -8 -7 -12 -7 -15 A7 7 0 1 1 7 -15 C7 -12 6 -8 0 0Z" class="pin"/>
-          <circle cy="-15" r="2.6" fill="#061a33"/>
-        </g>
-        <text x="138" y="196" class="lbl gold" text-anchor="middle">ניו פורט</text>
-        <g transform="translate(180 28)" class="compass">
-          <circle r="11"/>
-          <path d="M0 -8 L3 0 L0 8 L-3 0Z"/>
-          <text y="-14" text-anchor="middle">N</text>
-        </g>
-      </svg>
+      <div class="np-mapbox">
+        <iframe class="np-gmap" title="מפת ניו פורט, רוד איילנד" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://maps.google.com/maps?q=Newport,+Rhode+Island,+USA&amp;z=9&amp;hl=iw&amp;output=embed"></iframe>
+        <a class="np-maplink" href="https://maps.google.com/?q=Naval+War+College,+Newport,+RI" target="_blank" rel="noopener">פתיחה בגוגל מפות ↗</a>
+      </div>
       <div class="np-clock">
         <div class="np-clock-label">השעה עכשיו בניו פורט</div>
         <div class="np-time" id="npTime">--:--:--</div>
         <div class="np-date" id="npDate">&nbsp;</div>
         <div class="np-diff" id="npDiff">&nbsp;</div>
       </div>
-      <div class="np-note">איור להמחשה בלבד</div>
+      <div class="np-note">ניו פורט, רוד איילנד, ארה״ב</div>
     </div>
 
     <div class="info-table" role="table" aria-label="פירוט תוכנית ניו פורט">
