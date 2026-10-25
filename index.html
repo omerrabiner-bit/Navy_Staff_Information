@@ -110,6 +110,30 @@
   #plans{--accent:#0a2a52}
   #orders{--accent:#b8862f}
   #edu{--accent:#1e88a8}
+  #perks{--accent:#2e8b6e}
+
+  /* רשימת כפתורי תמריצים */
+  .perk-list{display:flex; flex-direction:column; gap:10px}
+  a.perk{
+    display:flex; align-items:center; gap:14px; text-decoration:none; color:var(--text);
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:14px 14px; box-shadow:var(--shadow); position:relative; overflow:hidden;
+    transition:transform .15s ease;
+  }
+  a.perk:active{transform:scale(.98)}
+  a.perk::before{
+    content:""; position:absolute; top:0; bottom:0; right:0; width:4px;
+    background:linear-gradient(180deg, var(--accent), var(--wave));
+  }
+  a.perk .p-ic{
+    width:44px; height:44px; flex:none; border-radius:12px; display:grid; place-items:center;
+    background:var(--foam); color:var(--accent);
+  }
+  a.perk .p-ic svg, a.perk .p-go svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
+  a.perk .p-txt{flex:1; min-width:0}
+  a.perk .p-txt strong{display:block; font-size:1.02rem; font-weight:700}
+  a.perk .p-txt span{display:block; font-size:.84rem; color:var(--muted)}
+  a.perk .p-go{color:var(--accent); flex:none}
 
   .card{
     position:relative; background:var(--card); border:1px solid var(--line); border-radius:16px;
@@ -161,14 +185,14 @@
   /* ===== תפריט תחתון ===== */
   nav{
     position:fixed; inset:auto 10px calc(10px + env(safe-area-inset-bottom)) 10px;
-    display:grid; grid-template-columns:repeat(4,1fr); gap:4px; padding:6px;
+    display:grid; grid-template-columns:repeat(5,1fr); gap:2px; padding:5px;
     background:rgba(6,26,51,.92); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
     border-radius:20px; box-shadow:0 10px 30px rgba(6,26,51,.35); z-index:10;
   }
   nav a{
     display:flex; flex-direction:column; align-items:center; gap:2px;
-    padding:8px 2px 6px; border-radius:14px; text-decoration:none;
-    color:rgba(255,255,255,.62); font-size:.7rem; font-weight:500; transition:all .2s ease;
+    padding:8px 1px 6px; border-radius:14px; text-decoration:none; text-align:center; line-height:1.25;
+    color:rgba(255,255,255,.62); font-size:.66rem; font-weight:500; transition:all .2s ease;
   }
   nav a svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
   nav a.active{color:var(--deep); background:var(--nav-active, linear-gradient(135deg,#fff,#e9f4ff)); font-weight:700}
@@ -296,6 +320,25 @@
     </article>
   </section>
 
+  <!-- ===== תמריצים ===== -->
+  <section class="page" id="perks">
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6-.5 6-1.5S14 4 12 8z"/></svg></div>
+      <div><h2>תמריצים</h2><p>הטבות ותמריצים למשרתים</p></div>
+    </div>
+
+    <div class="perk-list">
+      <a class="perk" href="https://share.google/uFcHBv2jcFx3aASZv" target="_blank" rel="noopener">
+        <span class="p-ic"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></span>
+        <span class="p-txt">
+          <strong>פרויקט מגורים בת גלים</strong>
+          <span>מנהלת המגורים של צה״ל בשת״פ עם KTV</span>
+        </span>
+        <span class="p-go"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
+      </a>
+    </div>
+  </section>
+
 </main>
 
 <footer>מידע לא מסווג · מחלקת סגל, חיל הים</footer>
@@ -316,6 +359,10 @@
   <a href="#edu" data-page="edu">
     <svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg>
     השכלה והעשרה
+  </a>
+  <a href="#perks" data-page="perks">
+    <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6-.5 6-1.5S14 4 12 8z"/></svg>
+    תמריצים
   </a>
 </nav>
 
