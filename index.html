@@ -127,6 +127,47 @@
   }
   .install-now.show{display:block}
 
+  /* תאריך עדכון בכל עמוד */
+  .pg-upd{
+    display:inline-flex; align-items:center; gap:5px; margin-top:4px;
+    font-size:.74rem; font-weight:600; color:var(--accent, var(--sea));
+    background:var(--foam); padding:2px 9px; border-radius:99px;
+  }
+  .pg-upd svg{width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+
+  /* נקודת "חדש" בתפריט התחתון */
+  nav a{position:relative}
+  nav a .dot{
+    position:absolute; top:6px; left:calc(50% - 16px); width:9px; height:9px; border-radius:50%;
+    background:#ff5a4e; box-shadow:0 0 0 2px rgba(6,26,51,.92); display:none;
+  }
+  nav a.has-new .dot{display:block}
+
+  /* כפתור שיתוף */
+  .share-btn{
+    display:inline-flex; align-items:center; gap:7px; margin-top:14px; cursor:pointer;
+    font-family:inherit; font-size:.88rem; font-weight:700; color:var(--accent, var(--sea));
+    background:var(--foam); border:1px solid var(--line); padding:8px 14px; border-radius:11px;
+    transition:transform .15s ease;
+  }
+  .share-btn:active{transform:scale(.96)}
+  .share-btn svg{width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+  .share-btn.wide{display:flex; justify-content:center; width:100%; padding:11px 14px; background:var(--card); box-shadow:var(--shadow)}
+
+  /* הדגשת הודעה שנפתחה מקישור ישיר */
+  details.msg.flash{animation:flash 1.6s ease}
+  @keyframes flash{0%,60%{box-shadow:0 0 0 3px var(--brass), var(--shadow)}100%{box-shadow:var(--shadow)}}
+
+  /* הודעה קופצת קטנה */
+  .toast{
+    position:fixed; left:50%; bottom:calc(92px + env(safe-area-inset-bottom)); z-index:60;
+    transform:translate(-50%, 20px); opacity:0; pointer-events:none;
+    background:var(--deep); color:#fff; font-size:.88rem; font-weight:600;
+    padding:10px 16px; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.3);
+    transition:opacity .25s ease, transform .25s ease; white-space:nowrap;
+  }
+  .toast.show{opacity:1; transform:translate(-50%, 0)}
+
   *{box-sizing:border-box}
   html,body{margin:0}
   body{
@@ -393,12 +434,12 @@
 <main>
 
   <!-- ===== הודעות ===== -->
-  <section class="page" id="news">
+  <section class="page" id="news" data-updated="2026-10-25">
     <div class="page-head">
       <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 10v4l12 5V5z"/><path d="M16 9a3 3 0 0 1 0 6M7 14l1 5h3"/></svg></div>
       <div><h2>הודעות מחלקת סגל</h2><p>עדכונים שוטפים, מהחדש לישן</p></div>
     </div>
-    <details class="card msg">
+    <details class="card msg" id="msg-gantt27" data-date="2026-10-14">
       <summary>
         <div class="meta"><span class="tag new">חדש</span><span class="date">14.10.2026</span></div>
         <h3>תוכנית התנועות והגאנט לאיוש סא״ל-רס״ן – קיץ 27׳</h3>
@@ -411,12 +452,16 @@
       <p style="margin-top:8px">התהליך ינוהל בצורה סדורה, הוגנת ושקופה, בתיאום עם ראשי המערכים.</p>
       <p style="margin-top:8px">אנו זמינים לכל שאלה או הבהרה.</p>
       <p style="margin-top:12px; font-weight:700">מחלקת הסגל,<br>זרוע הים</p>
+      <button class="share-btn" type="button" data-share="msg-gantt27" data-title="תוכנית התנועות והגאנט לאיוש סא״ל-רס״ן – קיץ 27׳">
+        <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+        שיתוף ההודעה
+      </button>
       </div>
     </details>
   </section>
 
   <!-- ===== תוכניות שירות ===== -->
-  <section class="page" id="plans">
+  <section class="page" id="plans" data-updated="2026-10-13">
     <div class="page-head">
       <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg></div>
       <div><h2>תוכניות שירות</h2><p>מסלולי השירות ואבני הדרך</p></div>
@@ -432,7 +477,7 @@
   </section>
 
   <!-- ===== פקודות ונהלים ===== -->
-  <section class="page" id="orders">
+  <section class="page" id="orders" data-updated="2026-10-13">
     <div class="page-head">
       <div class="ic"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></div>
       <div><h2>פקודות ונהלים</h2><p>הנהלים הרלוונטיים, בשפה פשוטה</p></div>
@@ -447,7 +492,7 @@
   </section>
 
   <!-- ===== השכלה והעשרה ===== -->
-  <section class="page" id="edu">
+  <section class="page" id="edu" data-updated="2026-10-25">
     <div class="page-head">
       <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></div>
       <div><h2>השכלה והעשרה</h2><p>לימודים, קורסים והזדמנויות</p></div>
@@ -465,7 +510,7 @@
   </section>
 
   <!-- ===== עמוד משנה: ניו פורט ===== -->
-  <section class="page" id="newport" data-parent="edu">
+  <section class="page" id="newport" data-parent="edu" data-updated="2026-10-26">
     <a class="back" href="#edu" data-goto="edu">
       <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה להשכלה והעשרה
     </a>
@@ -542,10 +587,14 @@
         </div>
       </div>
     </div>
+    <button class="share-btn wide" type="button" data-share="newport" data-title="ניו פורט רס״ן וסא״ל – תוכנית לימודים">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
   </section>
 
   <!-- ===== תמריצים ===== -->
-  <section class="page" id="perks">
+  <section class="page" id="perks" data-updated="2026-10-25">
     <div class="page-head">
       <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6-.5 6-1.5S14 4 12 8z"/></svg></div>
       <div><h2>תמריצים</h2><p>הטבות ותמריצים למשרתים</p></div>
@@ -590,6 +639,7 @@
   </a>
 </nav>
 
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="sheet-bg" id="installSheet" aria-hidden="true">
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
     <div class="grab"></div>
@@ -637,34 +687,125 @@
 </div>
 
 <script>
+  // ===== עזרים לתאריכים =====
+  var NEW_DAYS = 14;                                   // כמה ימים תוכן נחשב "חדש"
+  var DOT_DAYS = 7;                                    // למבקר חדש: נקודה רק על עמודים שעודכנו בשבוע האחרון
+  function fmt(iso){ var p = iso.split('-'); return p[2] + '.' + p[1] + '.' + p[0]; }
+  function daysAgo(iso){ return (Date.now() - new Date(iso + 'T00:00:00').getTime()) / 86400000; }
+  function store(key, val){
+    try{
+      if(val === undefined) return JSON.parse(localStorage.getItem(key) || 'null');
+      localStorage.setItem(key, JSON.stringify(val));
+    }catch(err){ return null; }
+  }
+  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+
+  // תאריך עדכון בכותרת של כל עמוד
+  var updIcon = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+  pages.forEach(function(p){
+    var d = p.dataset.updated, box = p.querySelector('.page-head > div:last-child');
+    if(!d || !box) return;
+    var el = document.createElement('div');
+    el.innerHTML = '<span class="pg-upd">' + updIcon + 'עודכן: ' + fmt(d) + '</span>';
+    box.appendChild(el.firstChild);
+  });
+
+  // התאריך בכותרת האתר = העדכון האחרון מכל העמודים
+  var latest = pages.map(function(p){ return p.dataset.updated || ''; }).sort().pop();
+  var hdrUpd = document.querySelector('.updated');
+  if(latest && hdrUpd) hdrUpd.innerHTML = '<i></i>עודכן: ' + fmt(latest);
+
+  // תגית "חדש" נעלמת אוטומטית אחרי NEW_DAYS ימים
+  document.querySelectorAll('[data-date]').forEach(function(it){
+    if(daysAgo(it.dataset.date) > NEW_DAYS){ var t = it.querySelector('.tag.new'); if(t) t.remove(); }
+  });
+
+  // ===== נקודת "חדש" בתפריט =====
+  function navUpdated(navId){                          // כולל עמודי משנה
+    return pages.filter(function(p){ return p.id === navId || p.dataset.parent === navId; })
+                .map(function(p){ return p.dataset.updated || ''; }).sort().pop() || '';
+  }
+  var seen = store('seenPages') || {};
+  document.querySelectorAll('nav a').forEach(function(a){
+    var dot = document.createElement('span'); dot.className = 'dot'; a.appendChild(dot);
+  });
+  function refreshDots(activeNav){
+    document.querySelectorAll('nav a').forEach(function(a){
+      var id = a.dataset.page, upd = navUpdated(id);
+      var isNew = upd && (seen[id] ? upd > seen[id] : daysAgo(upd) <= DOT_DAYS);
+      a.classList.toggle('has-new', !!isNew && id !== activeNav);
+    });
+  }
+  function markSeen(navId){
+    seen[navId] = navUpdated(navId);
+    store('seenPages', seen);
+  }
+
+  // ===== מעבר בין עמודים =====
   function show(id){
-    if(!id || !document.getElementById(id) || !document.getElementById(id).classList.contains('page')) id = 'news';
-    document.querySelectorAll('.page').forEach(function(p){ p.classList.toggle('active', p.id === id); });
-    var navId = document.getElementById(id).dataset.parent || id;   // עמוד משנה מדגיש את עמוד האב בתפריט
+    var target = id ? document.getElementById(id) : null;
+    var item = null;
+    if(target && !target.classList.contains('page')){  // קישור ישיר לפריט בתוך עמוד (למשל הודעה)
+      item = target; target = target.closest('.page');
+    }
+    if(!target || !target.classList.contains('page')) target = document.getElementById('news');
+    pages.forEach(function(p){ p.classList.toggle('active', p === target); });
+    var navId = target.dataset.parent || target.id;    // עמוד משנה מדגיש את עמוד האב בתפריט
     document.querySelectorAll('nav a').forEach(function(a){ a.classList.toggle('active', a.dataset.page === navId); });
-    window.scrollTo(0,0);
+    markSeen(navId);
+    refreshDots(navId);
+    if(item){
+      if(item.tagName === 'DETAILS') item.open = true;
+      setTimeout(function(){
+        item.scrollIntoView({behavior:'smooth', block:'start'});
+        item.classList.remove('flash'); void item.offsetWidth; item.classList.add('flash');
+      }, 80);
+    } else {
+      window.scrollTo(0,0);
+    }
+  }
+  function go(id){
+    show(id);
+    try{ history.replaceState(null, '', '#' + id); }catch(err){}
   }
   // קישורים פנימיים בתוך העמודים (למשל לעמוד משנה וחזרה)
   document.querySelectorAll('[data-goto]').forEach(function(a){
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      var id = a.dataset.goto;
-      show(id);
-      try{ history.replaceState(null, '', '#' + id); }catch(err){}
-    });
+    a.addEventListener('click', function(e){ e.preventDefault(); go(a.dataset.goto); });
   });
   // מעבר בין עמודים בלחיצה, גם בתצוגות שחוסמות שינוי כתובת
   document.querySelectorAll('nav a').forEach(function(a){
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      var id = a.dataset.page;
-      show(id);
-      try{ history.replaceState(null, '', '#' + id); }catch(err){}
-    });
+    a.addEventListener('click', function(e){ e.preventDefault(); go(a.dataset.page); });
   });
-  // קישור ישיר לעמוד, למשל ...#plans
+  // קישור ישיר לעמוד או להודעה, למשל ...#plans או ...#msg-gantt27
   window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
   show(location.hash.slice(1));
+
+  // ===== שיתוף =====
+  var toastEl = document.getElementById('toast'), toastT;
+  function toast(msg){
+    toastEl.textContent = msg; toastEl.classList.add('show');
+    clearTimeout(toastT); toastT = setTimeout(function(){ toastEl.classList.remove('show'); }, 2200);
+  }
+  function copyText(txt){
+    if(navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(txt);
+    return new Promise(function(res, rej){
+      var ta = document.createElement('textarea'); ta.value = txt; ta.setAttribute('readonly','');
+      ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy') ? res() : rej(); }catch(e){ rej(e); } ta.remove();
+    });
+  }
+  document.querySelectorAll('[data-share]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var url = location.href.split('#')[0] + '#' + btn.dataset.share;
+      var title = btn.dataset.title || document.title;
+      if(navigator.share){
+        navigator.share({title: title, text: title + ' – מחלקת סגל', url: url}).catch(function(){});
+      } else {
+        copyText(url).then(function(){ toast('הקישור הועתק'); }, function(){ prompt('העתק את הקישור:', url); });
+      }
+    });
+  });
 
   // ===== כפתור פניות בתחתית כל עמוד =====
   var CONTACT_EMAIL = 'segelnavy@gmail.com';
