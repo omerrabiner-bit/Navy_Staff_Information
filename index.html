@@ -111,6 +111,35 @@
   #orders{--accent:#b8862f}
   #edu{--accent:#1e88a8}
   #perks{--accent:#2e8b6e}
+  #newport{--accent:#1e88a8}
+
+  /* כפתור חזרה בעמוד משנה */
+  a.back{
+    display:inline-flex; align-items:center; gap:4px; margin:0 0 10px;
+    font-size:.86rem; font-weight:700; color:var(--accent); text-decoration:none;
+    background:var(--card); padding:6px 12px 6px 14px; border-radius:99px; box-shadow:var(--shadow);
+  }
+  a.back svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+
+  /* טבלת מידע: קטגוריה | הסבר */
+  .info-table{
+    background:var(--card); border:1px solid var(--line); border-radius:18px;
+    overflow:hidden; box-shadow:var(--shadow);
+  }
+  .info-table .row{display:grid; grid-template-columns:38% 1fr}
+  .info-table .row + .row{border-top:1px solid var(--line)}
+  .info-table .cat{
+    display:flex; align-items:center; gap:8px; padding:14px 12px;
+    font-weight:700; font-size:.92rem; color:var(--accent);
+    background:var(--foam); border-inline-end:3px solid var(--accent);
+  }
+  .info-table .cat svg{width:20px; height:20px; flex:none; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
+  .info-table .val{padding:14px 14px; font-size:.95rem; display:flex; align-items:center}
+  .info-table a.ext{
+    color:#fff; text-decoration:none; font-weight:700; font-size:.86rem;
+    background:linear-gradient(135deg, var(--accent), var(--sea)); padding:7px 12px; border-radius:10px;
+    direction:ltr; display:inline-block;
+  }
 
   /* רשימת כפתורי תמריצים */
   .perk-list{display:flex; flex-direction:column; gap:10px}
@@ -310,14 +339,60 @@
       <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></div>
       <div><h2>השכלה והעשרה</h2><p>לימודים, קורסים והזדמנויות</p></div>
     </div>
-    <div class="placeholder">תוכן לדוגמה בלבד</div>
+    <div class="perk-list">
+      <a class="perk" href="#newport" data-goto="newport">
+        <span class="p-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></span>
+        <span class="p-txt">
+          <strong>ניו פורט רס״ן וסא״ל</strong>
+          <span>תוכנית לימודים · מכללת המלחמה הימית האמריקאית</span>
+        </span>
+        <span class="p-go"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
+      </a>
+    </div>
+  </section>
 
-    <article class="card">
-      <div class="meta"><span class="tag">לימודים</span></div>
-      <h3>תוכנית לימודים לדוגמה</h3>
-      <p>למי מתאים, מועד הרשמה ואיך נרשמים.</p>
-      <a class="btn" href="#">להרשמה ←</a>
-    </article>
+  <!-- ===== עמוד משנה: ניו פורט ===== -->
+  <section class="page" id="newport" data-parent="edu">
+    <a class="back" href="#edu" data-goto="edu">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה להשכלה והעשרה
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></div>
+      <div><h2>ניו פורט רס״ן וסא״ל</h2><p>פירוט תוכנית הלימודים</p></div>
+    </div>
+
+    <div class="info-table" role="table" aria-label="פירוט תוכנית ניו פורט">
+      <div class="row" role="row">
+        <div class="cat" role="rowheader">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14.2c2.9.3 5.5 2.6 5.5 5.8"/></svg>
+          אוכלוסיית יעד
+        </div>
+        <div class="val" role="cell">רס״ן / סא״ל ממערך הים</div>
+      </div>
+      <div class="row" role="row">
+        <div class="cat" role="rowheader">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+          מועדים
+        </div>
+        <div class="val" role="cell">יולי עד יוני</div>
+      </div>
+      <div class="row" role="row">
+        <div class="cat" role="rowheader">
+          <svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          תנאים
+        </div>
+        <div class="val" role="cell">שליחות מלאה דרך משרד הביטחון</div>
+      </div>
+      <div class="row" role="row">
+        <div class="cat" role="rowheader">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>
+          אתר המכללה
+        </div>
+        <div class="val" role="cell">
+          <a class="ext" href="https://usnwc.edu/naval-command-college/" target="_blank" rel="noopener">Naval Command College ↗</a>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ===== תמריצים ===== -->
@@ -370,9 +445,19 @@
   function show(id){
     if(!id || !document.getElementById(id) || !document.getElementById(id).classList.contains('page')) id = 'news';
     document.querySelectorAll('.page').forEach(function(p){ p.classList.toggle('active', p.id === id); });
-    document.querySelectorAll('nav a').forEach(function(a){ a.classList.toggle('active', a.dataset.page === id); });
+    var navId = document.getElementById(id).dataset.parent || id;   // עמוד משנה מדגיש את עמוד האב בתפריט
+    document.querySelectorAll('nav a').forEach(function(a){ a.classList.toggle('active', a.dataset.page === navId); });
     window.scrollTo(0,0);
   }
+  // קישורים פנימיים בתוך העמודים (למשל לעמוד משנה וחזרה)
+  document.querySelectorAll('[data-goto]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var id = a.dataset.goto;
+      show(id);
+      try{ history.replaceState(null, '', '#' + id); }catch(err){}
+    });
+  });
   // מעבר בין עמודים בלחיצה, גם בתצוגות שחוסמות שינוי כתובת
   document.querySelectorAll('nav a').forEach(function(a){
     a.addEventListener('click', function(e){
