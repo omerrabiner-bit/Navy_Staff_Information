@@ -237,18 +237,21 @@
 
   /* ===== תפריט תחתון ===== */
   nav{
-    position:fixed; inset:auto 10px calc(10px + env(safe-area-inset-bottom)) 10px;
-    display:grid; grid-template-columns:repeat(5,1fr); gap:2px; padding:5px;
+    position:fixed; inset:auto 6px calc(8px + env(safe-area-inset-bottom)) 6px;
+    display:flex; gap:0; padding:4px;
     background:rgba(6,26,51,.92); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
     border-radius:20px; box-shadow:0 10px 30px rgba(6,26,51,.35); z-index:10;
   }
+  /* גובה ורוחב קבועים: הטקסט בשורה אחת ובאותו משקל בכל מצב, כך שהפס לא משנה גודל */
   nav a{
-    display:flex; flex-direction:column; align-items:center; gap:2px;
-    padding:8px 1px 6px; border-radius:14px; text-decoration:none; text-align:center; line-height:1.25;
-    color:rgba(255,255,255,.62); font-size:.66rem; font-weight:500; transition:all .2s ease;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+    flex:1 1 auto; min-width:0; height:56px; padding:0 5px; border-radius:14px; text-decoration:none; text-align:center;
+    color:rgba(255,255,255,.62); font-size:clamp(.58rem, 2.75vw, .74rem); font-weight:600;
+    line-height:1; white-space:nowrap; letter-spacing:-.01em;
+    transition:color .2s ease, background .2s ease;
   }
-  nav a svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
-  nav a.active{color:var(--deep); background:var(--nav-active, linear-gradient(135deg,#fff,#e9f4ff)); font-weight:700}
+  nav a svg{width:22px; height:22px; flex:none; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+  nav a.active{color:var(--deep); background:var(--nav-active, linear-gradient(135deg,#fff,#e9f4ff))}
 
   /* כרטיס פניות בתחתית כל עמוד */
   .contact{
