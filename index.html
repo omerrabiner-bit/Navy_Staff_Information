@@ -133,6 +133,26 @@
     background:linear-gradient(135deg, var(--accent, var(--sea)), var(--sea));
     padding:8px 14px; border-radius:10px;
   }
+  /* הודעה מתקפלת: רק כותרת, לחיצה פותחת */
+  details.msg{padding:0}
+  details.msg summary{
+    list-style:none; cursor:pointer; position:relative;
+    padding:15px 16px 15px 52px; user-select:none;
+  }
+  details.msg summary::-webkit-details-marker{display:none}
+  details.msg summary h3{margin:0}
+  details.msg .chev{
+    position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    width:28px; height:28px; border-radius:50%; display:grid; place-items:center;
+    background:var(--foam); color:var(--accent, var(--sea)); transition:transform .25s ease;
+  }
+  details.msg .chev svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+  details.msg[open] .chev{transform:translateY(-50%) rotate(180deg)}
+  details.msg .msg-body{
+    padding:12px 16px 16px; border-top:1px solid var(--line);
+    animation:rise .25s ease both;
+  }
+
   .placeholder{
     border:1.5px dashed var(--line); border-radius:12px; padding:10px 14px;
     color:var(--muted); font-size:.82rem; margin-bottom:12px; text-align:center;
@@ -212,16 +232,21 @@
       <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 10v4l12 5V5z"/><path d="M16 9a3 3 0 0 1 0 6M7 14l1 5h3"/></svg></div>
       <div><h2>הודעות מחלקת סגל</h2><p>עדכונים שוטפים, מהחדש לישן</p></div>
     </div>
-    <article class="card">
-      <div class="meta"><span class="tag new">חדש</span><span class="date">14.10.2026</span></div>
-      <h3>תוכנית התנועות והגאנט לאיוש סא״ל-רס״ן – קיץ 27׳</h3>
+    <details class="card msg">
+      <summary>
+        <div class="meta"><span class="tag new">חדש</span><span class="date">14.10.2026</span></div>
+        <h3>תוכנית התנועות והגאנט לאיוש סא״ל-רס״ן – קיץ 27׳</h3>
+        <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="msg-body">
       <p>מפקדים/מתמודדים יקרים,</p>
       <p style="margin-top:8px">הופצו אליכם תוכנית התנועות והגאנט המתוכנן לאיוש סא״ל-רס״ן לקיץ 27׳, כפי שאושרו ע"י מפקד זרוע הים ובתיאום מול הגאנט המטכ״לי.</p>
       <p style="margin-top:8px">חשוב שתכירו, תיערכו וכן תשקפו לכלל המתמודדים בעונת האיוש את הגאנט ואת תוכנית התנועות.</p>
       <p style="margin-top:8px">התהליך ינוהל בצורה סדורה, הוגנת ושקופה, בתיאום עם ראשי המערכים.</p>
       <p style="margin-top:8px">אנו זמינים לכל שאלה או הבהרה.</p>
       <p style="margin-top:12px; font-weight:700">מחלקת הסגל,<br>זרוע הים</p>
-    </article>
+      </div>
+    </details>
   </section>
 
   <!-- ===== תוכניות שירות ===== -->
@@ -315,7 +340,7 @@
   show(location.hash.slice(1));
 
   // ===== כפתור פניות בתחתית כל עמוד =====
-  var CONTACT_EMAIL = '';                       // כתובת המייל תתווסף כאן בהמשך
+  var CONTACT_EMAIL = 'segelnavy@gmail.com';
   var CONTACT_SUBJECT = 'פנייה למחלקת סגל';
   document.querySelectorAll('.page').forEach(function(p){
     var title = p.querySelector('.page-head h2');
