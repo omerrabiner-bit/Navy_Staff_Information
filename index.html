@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#061a33">
 <title>מחלקת סגל | חיל הים</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="מחלקת סגל">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -36,7 +43,7 @@
 
   /* כפתור יום/לילה */
   .theme-btn{
-    position:absolute; top:22px; left:16px; z-index:3;
+    position:absolute; top:calc(22px + env(safe-area-inset-top)); left:16px; z-index:3;
     width:42px; height:42px; border-radius:50%; cursor:pointer;
     display:grid; place-items:center; color:var(--brass);
     background:rgba(255,255,255,.1); border:1px solid rgba(212,168,75,.55);
@@ -61,7 +68,7 @@
   header{
     position:relative; overflow:hidden; color:#fff;
     background:radial-gradient(120% 90% at 85% 0%, #1b4f8f 0%, var(--navy) 45%, var(--deep) 100%);
-    padding:26px 18px 64px;
+    padding:calc(26px + env(safe-area-inset-top)) 18px 64px;
   }
   .brand{display:flex; align-items:center; gap:12px; position:relative; z-index:2}
   .emblem{
