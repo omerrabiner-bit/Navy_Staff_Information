@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600;700&family=Rubik:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --deep:#061a33;      /* כחול עמוק */
@@ -26,6 +26,9 @@
     --bg:#f2f6fb; --card:#ffffff; --text:#0f1d30; --muted:#5b6a80; --line:#dde6f1;
     --shadow:0 6px 20px rgba(6,26,51,.08);
     /* מערכת ריווח קבועה: כפולות של 8 */
+    /* גופנים: Rubik לכותרות, IBM Plex Sans Hebrew לתוכן */
+    --font-head:"Rubik","IBM Plex Sans Hebrew",Arial,sans-serif;
+    --font-body:"IBM Plex Sans Hebrew",Arial,sans-serif;
     --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:40px;
     --r-sm:12px; --r-md:16px; --r-lg:20px;
     /* צבעי עמודים */
@@ -178,12 +181,15 @@
   *{box-sizing:border-box}
   html,body{margin:0}
   body{
-    font-family:"Heebo",Arial,sans-serif;
+    font-family:var(--font-body);
     background:var(--bg); color:var(--text); line-height:1.6;
     padding-bottom:calc(88px + env(safe-area-inset-bottom));
     -webkit-tap-highlight-color:transparent;
   }
   button,input,select,textarea{font-family:inherit}
+  /* כותרות ומספרים גדולים ב-Rubik */
+  header h1, .page-head h2, .card h3, .contact h3, .sheet-head h3,
+  a.perk .p-txt strong, .np-time, .footer-title{font-family:var(--font-head)}
 
   /* ===== כותרת עם גלים ===== */
   header{
