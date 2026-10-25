@@ -121,6 +121,36 @@
   }
   a.back svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
 
+  /* כותרת ניו פורט: מפה מאוירת + שעון */
+  .np-hero{
+    position:relative; margin:0 0 14px; border-radius:18px; overflow:hidden; color:#fff;
+    background:radial-gradient(130% 90% at 80% 0%, #1b5e9a 0%, var(--navy) 55%, var(--deep) 100%);
+    box-shadow:var(--shadow); padding:14px 14px 12px;
+  }
+  .np-map{display:block; width:100%; max-width:260px; height:auto; margin:0 auto}
+  .np-map .land path{fill:#2a5d8f; stroke:#7fb8e6; stroke-width:1; stroke-linejoin:round}
+  .np-map path.land.hl{fill:#d4a84b; stroke:#f3d58e; stroke-width:1.2}
+  .np-map .city{fill:#e6eef8}
+  .np-map .lbl{font-family:"Heebo",Arial,sans-serif; font-size:9px; fill:#cfe3f7; font-weight:500}
+  .np-map .lbl.big{font-size:13px; font-weight:800; fill:#fff; letter-spacing:.02em}
+  .np-map .lbl.sea{font-size:9px; fill:#7fb8e6; font-style:italic}
+  .np-map .lbl.gold{font-size:12px; font-weight:800; fill:#f3d58e}
+  .np-map .pin{fill:#f3d58e; stroke:#061a33; stroke-width:1}
+  .np-map .ring{fill:none; stroke:#f3d58e; stroke-width:1.5; transform-origin:0 0; animation:npRing 2s ease-out infinite}
+  @keyframes npRing{0%{transform:scale(.4); opacity:.9}100%{transform:scale(2.2); opacity:0}}
+  .np-map .compass circle{fill:rgba(255,255,255,.06); stroke:rgba(212,168,75,.6)}
+  .np-map .compass path{fill:#d4a84b}
+  .np-map .compass text{font-family:"Heebo",Arial,sans-serif; font-size:8px; font-weight:700; fill:#d4a84b}
+  .np-clock{
+    margin:10px auto 0; text-align:center; padding:12px 10px 10px; border-radius:14px;
+    background:rgba(255,255,255,.08); border:1px solid rgba(212,168,75,.45);
+  }
+  .np-clock-label{font-size:.8rem; color:#f3d58e; font-weight:500}
+  .np-time{font-size:2.2rem; font-weight:800; letter-spacing:.04em; direction:ltr; font-variant-numeric:tabular-nums; line-height:1.15}
+  .np-date{font-size:.86rem; opacity:.85}
+  .np-diff{font-size:.78rem; opacity:.7; margin-top:2px}
+  .np-note{text-align:center; font-size:.68rem; opacity:.5; margin-top:8px}
+
   /* טבלת מידע: קטגוריה | הסבר */
   .info-table{
     background:var(--card); border:1px solid var(--line); border-radius:18px;
@@ -361,6 +391,47 @@
       <div><h2>ניו פורט רס״ן וסא״ל</h2><p>פירוט תוכנית הלימודים</p></div>
     </div>
 
+    <div class="np-hero">
+      <svg class="np-map" viewBox="0 0 200 290" role="img" aria-label="מפה מאוירת של רוד איילנד עם מיקום ניו פורט">
+        <defs>
+          <pattern id="npWaves" width="24" height="12" patternUnits="userSpaceOnUse">
+            <path d="M0 6 Q6 2 12 6 T24 6" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="200" height="290" fill="url(#npWaves)"/>
+        <g class="land">
+          <path d="M26.9 15.0 L121.1 12.0 L121.1 48.0 L116.7 72.0 L121.1 90.0 L112.2 102.0 L107.7 126.0 L105.4 150.0 L105.4 174.0 L96.5 207.0 L76.3 207.0 L49.4 216.0 L13.5 222.0 L26.9 192.0 L29.2 108.0Z"/>
+          <path d="M125.6 78.0 L132.4 81.0 L145.8 93.0 L148.1 120.0 L139.1 114.0 L130.1 99.0Z"/>
+          <path d="M161.5 99.0 L177.2 117.0 L179.5 171.0 L161.5 180.0 L159.3 132.0Z"/>
+          <path d="M121.1 141.0 L125.6 142.5 L123.4 168.0 L118.9 183.0 L112.2 177.0 L116.7 159.0Z"/>
+          <path d="M71.8 249.0 L83.0 252.0 L83.0 273.0 L74.0 273.0 L69.5 261.0Z"/>
+        </g>
+        <path class="land hl" d="M145.8 126.0 L157.0 124.5 L159.3 138.0 L150.3 168.0 L141.3 180.0 L130.1 177.0 L136.8 159.0 L139.1 138.0Z"/>
+        <circle cx="114.4" cy="72" r="2.6" class="city"/>
+        <text x="110" y="70" class="lbl" text-anchor="end">פרובידנס</text>
+        <text x="64" y="120" class="lbl big" text-anchor="middle">רוד איילנד</text>
+        <text x="132" y="250" class="lbl sea" text-anchor="middle">האוקיינוס האטלנטי</text>
+        <g class="np-pin" transform="translate(136.8 171)">
+          <circle r="9" class="ring"/>
+          <path d="M0 0 C-6 -8 -7 -12 -7 -15 A7 7 0 1 1 7 -15 C7 -12 6 -8 0 0Z" class="pin"/>
+          <circle cy="-15" r="2.6" fill="#061a33"/>
+        </g>
+        <text x="138" y="196" class="lbl gold" text-anchor="middle">ניו פורט</text>
+        <g transform="translate(180 28)" class="compass">
+          <circle r="11"/>
+          <path d="M0 -8 L3 0 L0 8 L-3 0Z"/>
+          <text y="-14" text-anchor="middle">N</text>
+        </g>
+      </svg>
+      <div class="np-clock">
+        <div class="np-clock-label">השעה עכשיו בניו פורט</div>
+        <div class="np-time" id="npTime">--:--:--</div>
+        <div class="np-date" id="npDate">&nbsp;</div>
+        <div class="np-diff" id="npDiff">&nbsp;</div>
+      </div>
+      <div class="np-note">איור להמחשה בלבד</div>
+    </div>
+
     <div class="info-table" role="table" aria-label="פירוט תוכנית ניו פורט">
       <div class="row" role="row">
         <div class="cat" role="rowheader">
@@ -382,6 +453,27 @@
           תנאים
         </div>
         <div class="val" role="cell">שליחות מלאה דרך משרד הביטחון</div>
+      </div>
+      <div class="row" role="row">
+        <div class="cat" role="rowheader">
+          <svg viewBox="0 0 24 24"><path d="M2 8l10-4 10 4-10 4z"/><path d="M6 10v5c3.5 2.5 8.5 2.5 12 0v-5"/><path d="M22 8v6"/></svg>
+          האם כולל תואר שני?
+        </div>
+        <div class="val" role="cell">לבחירת הקצין, דורש לימודים נוספים</div>
+      </div>
+      <div class="row" role="row">
+        <div class="cat" role="rowheader">
+          <svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M12 18s-3-1.8-3-3.6A1.6 1.6 0 0 1 12 13a1.6 1.6 0 0 1 3 1.4C15 16.2 12 18 12 18z"/></svg>
+          משפחה
+        </div>
+        <div class="val" role="cell">טיסות וביטוח רפואי משפחתי מלא, משלוח תכולה, ויזה A2 לכל המשפחה</div>
+      </div>
+      <div class="row" role="row">
+        <div class="cat" role="rowheader">
+          <svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="M9 12l2 2 4-4"/></svg>
+          דרישות
+        </div>
+        <div class="val" role="cell">מעבר מבחן אנגלית בסיסית, סיכום בדש״ב שליחים (המבוצע באזור דצמבר כל שנה)</div>
       </div>
       <div class="row" role="row">
         <div class="cat" role="rowheader">
@@ -493,6 +585,30 @@
     });
     p.appendChild(box);
   });
+
+  // ===== שעון ניו פורט (שעון החוף המזרחי בארה״ב, כולל שעון קיץ/חורף) =====
+  (function(){
+    var tEl = document.getElementById('npTime'), dEl = document.getElementById('npDate'), fEl = document.getElementById('npDiff');
+    if(!tEl) return;
+    var NY = 'America/New_York', IL = 'Asia/Jerusalem';
+    var fTime = new Intl.DateTimeFormat('en-GB', {timeZone:NY, hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false});
+    var fDate = new Intl.DateTimeFormat('he-IL', {timeZone:NY, weekday:'long', day:'numeric', month:'long'});
+    function offsetMin(tz, d){
+      var p = new Intl.DateTimeFormat('en-US', {timeZone:tz, hour12:false, year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'}).formatToParts(d);
+      var o = {}; p.forEach(function(x){ o[x.type] = x.value; });
+      var asUTC = Date.UTC(+o.year, +o.month - 1, +o.day, +o.hour % 24, +o.minute);
+      return Math.round((asUTC - d.getTime()) / 60000);
+    }
+    function tick(){
+      var now = new Date();
+      tEl.textContent = fTime.format(now);
+      dEl.textContent = fDate.format(now);
+      var diff = (offsetMin(IL, now) - offsetMin(NY, now)) / 60;
+      fEl.textContent = 'ניו פורט מאחורי ישראל ב־' + diff + ' שעות';
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
 
   // ===== מצב יום / לילה =====
   var root = document.documentElement;
