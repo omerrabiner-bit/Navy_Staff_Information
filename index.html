@@ -54,6 +54,79 @@
   .theme-btn .sun{display:none}
   .is-dark .theme-btn .sun{display:block}
   .is-dark .theme-btn .moon{display:none}
+  /* שורת "עודכן לאחרונה" + כפתור הוספה למסך הבית */
+  .hdr-row{position:relative; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:14px; flex-wrap:nowrap}
+  .hdr-row .updated{margin-top:0}
+  .install-btn{
+    white-space:nowrap; flex:none;
+    display:inline-flex; align-items:center; gap:6px; cursor:pointer;
+    font-family:inherit; font-size:.78rem; font-weight:700; color:var(--deep);
+    background:linear-gradient(135deg,#f3d58e,var(--brass)); border:0;
+    padding:6px 12px; border-radius:99px; box-shadow:0 3px 10px rgba(0,0,0,.2);
+    transition:transform .15s ease;
+  }
+  .install-btn:active{transform:scale(.95)}
+  .install-btn svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+  .standalone .install-btn{display:none}
+
+  /* חלונית הסבר */
+  .sheet-bg{
+    position:fixed; inset:0; z-index:50; background:rgba(3,12,24,.55);
+    backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);
+    display:flex; align-items:flex-end; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity .25s ease;
+  }
+  .sheet-bg.open{opacity:1; pointer-events:auto}
+  .sheet{
+    width:100%; max-width:560px; max-height:88vh; overflow:auto;
+    background:var(--card); color:var(--text); border-radius:22px 22px 0 0;
+    padding:10px 18px calc(22px + env(safe-area-inset-bottom));
+    transform:translateY(100%); transition:transform .3s cubic-bezier(.2,.8,.2,1);
+    box-shadow:0 -10px 40px rgba(0,0,0,.3);
+  }
+  .sheet-bg.open .sheet{transform:none}
+  .sheet .grab{width:42px; height:5px; border-radius:99px; background:var(--line); margin:0 auto 12px}
+  .sheet-head{display:flex; align-items:center; gap:12px; margin-bottom:14px}
+  .sheet-head img{width:52px; height:52px; border-radius:13px; box-shadow:var(--shadow)}
+  .sheet-head h3{margin:0; font-size:1.15rem; font-weight:800}
+  .sheet-head p{margin:0; font-size:.85rem; color:var(--muted)}
+  .sheet-close{
+    margin-inline-start:auto; width:36px; height:36px; border-radius:50%; border:0; cursor:pointer;
+    background:var(--foam); color:var(--text); display:grid; place-items:center; flex:none;
+  }
+  .sheet-close svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round}
+  .os-tabs{display:grid; grid-template-columns:1fr 1fr; gap:4px; padding:4px; background:var(--foam); border-radius:14px; margin-bottom:14px}
+  .os-tabs button{
+    font-family:inherit; font-size:.92rem; font-weight:700; border:0; cursor:pointer;
+    padding:9px 6px; border-radius:11px; background:transparent; color:var(--muted);
+  }
+  .os-tabs button.on{background:var(--card); color:var(--sea); box-shadow:0 2px 8px rgba(6,26,51,.12)}
+  .os-pane{display:none}
+  .os-pane.on{display:block}
+  .steps{list-style:none; margin:0; padding:0; counter-reset:st}
+  .steps li{
+    counter-increment:st; display:flex; gap:12px; align-items:flex-start;
+    padding:11px 0; border-top:1px solid var(--line); font-size:.95rem;
+  }
+  .steps li:first-child{border-top:0}
+  .steps li::before{
+    content:counter(st); flex:none; width:28px; height:28px; border-radius:50%;
+    display:grid; place-items:center; font-weight:800; font-size:.85rem; color:#fff;
+    background:linear-gradient(135deg,var(--sea),var(--navy));
+  }
+  .steps .ico{
+    display:inline-grid; place-items:center; vertical-align:middle; width:24px; height:24px;
+    border-radius:6px; background:var(--foam); color:var(--sea); margin:0 2px;
+  }
+  .steps .ico svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+  .sheet-tip{margin-top:12px; font-size:.84rem; color:var(--muted); background:var(--foam); border-radius:12px; padding:10px 12px}
+  .install-now{
+    display:none; width:100%; margin-top:12px; font-family:inherit; font-size:1rem; font-weight:800;
+    border:0; border-radius:12px; padding:12px; cursor:pointer; color:var(--deep);
+    background:linear-gradient(135deg,#f3d58e,var(--brass));
+  }
+  .install-now.show{display:block}
+
   *{box-sizing:border-box}
   html,body{margin:0}
   body{
@@ -302,7 +375,13 @@
       <h1>מחלקת סגל</h1>
     </div>
   </div>
-  <div class="updated"><i></i>עודכן לאחרונה: 25.10.2026</div>
+  <div class="hdr-row">
+    <div class="updated"><i></i>עודכן: 25.10.2026</div>
+    <button class="install-btn" id="installBtn" type="button" aria-haspopup="dialog">
+      <svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 8v6M9 11h6"/></svg>
+      הוסף למסך הבית
+    </button>
+  </div>
 
   <div class="waves" aria-hidden="true">
     <svg class="w1" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 V60 H0Z"/></svg>
@@ -511,6 +590,52 @@
   </a>
 </nav>
 
+<div class="sheet-bg" id="installSheet" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="grab"></div>
+    <div class="sheet-head">
+      <img src="icon-180.png" alt="">
+      <div>
+        <h3 id="sheetTitle">הוספה למסך הבית</h3>
+        <p>האתר ייפתח כמו אפליקציה, בלחיצה אחת</p>
+      </div>
+      <button class="sheet-close" id="sheetClose" type="button" aria-label="סגירה">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <div class="os-tabs" role="tablist">
+      <button type="button" role="tab" data-os="ios">אייפון</button>
+      <button type="button" role="tab" data-os="android">אנדרואיד</button>
+    </div>
+
+    <div class="os-pane" data-pane="ios">
+      <ol class="steps">
+        <li><span>פותחים את האתר בדפדפן <b>Safari</b></span></li>
+        <li><span>לוחצים על כפתור השיתוף
+          <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11v9h12v-9"/></svg></span>
+          בתחתית המסך</span></li>
+        <li><span>גוללים מטה ובוחרים <b>"הוספה למסך הבית"</b>
+          <span class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg></span></span></li>
+        <li><span>לוחצים <b>"הוסף"</b> בפינה העליונה</span></li>
+      </ol>
+      <div class="sheet-tip">בדפדפנים אחרים באייפון (כמו Chrome) האפשרות נמצאת גם היא בתפריט השיתוף, אך לא בכל הגרסאות. ב־Safari זה תמיד עובד.</div>
+    </div>
+
+    <div class="os-pane" data-pane="android">
+      <ol class="steps">
+        <li><span>פותחים את האתר בדפדפן <b>Chrome</b></span></li>
+        <li><span>לוחצים על שלוש הנקודות
+          <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></svg></span>
+          בפינה העליונה</span></li>
+        <li><span>בוחרים <b>"הוספה למסך הבית"</b> או <b>"התקנת אפליקציה"</b></span></li>
+        <li><span>מאשרים בלחיצה על <b>"הוספה"</b> / <b>"התקנה"</b></span></li>
+      </ol>
+      <button class="install-now" id="installNow" type="button">התקנה עכשיו</button>
+    </div>
+  </div>
+</div>
+
 <script>
   function show(id){
     if(!id || !document.getElementById(id) || !document.getElementById(id).classList.contains('page')) id = 'news';
@@ -586,6 +711,43 @@
     }
     tick();
     setInterval(tick, 1000);
+  })();
+
+  // ===== הוספה למסך הבית =====
+  (function(){
+    var root = document.documentElement;
+    var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+    if(standalone){ root.classList.add('standalone'); }
+
+    var sheet = document.getElementById('installSheet');
+    var tabs = sheet.querySelectorAll('.os-tabs button');
+    var panes = sheet.querySelectorAll('.os-pane');
+    function pick(os){
+      tabs.forEach(function(t){ var on = t.dataset.os === os; t.classList.toggle('on', on); t.setAttribute('aria-selected', on); });
+      panes.forEach(function(p){ p.classList.toggle('on', p.dataset.pane === os); });
+    }
+    tabs.forEach(function(t){ t.addEventListener('click', function(){ pick(t.dataset.os); }); });
+
+    var ua = navigator.userAgent || '';
+    var isIOS = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    pick(/Android/i.test(ua) ? 'android' : (isIOS ? 'ios' : 'ios'));
+
+    function open(){ sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false'); }
+    function close(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true'); }
+    document.getElementById('installBtn').addEventListener('click', open);
+    document.getElementById('sheetClose').addEventListener('click', close);
+    sheet.addEventListener('click', function(e){ if(e.target === sheet) close(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+
+    // באנדרואיד/Chrome: כפתור התקנה ישירה כשהדפדפן מאפשר
+    var deferred = null, now = document.getElementById('installNow');
+    window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferred = e; now.classList.add('show'); });
+    now.addEventListener('click', function(){
+      if(!deferred) return;
+      deferred.prompt();
+      deferred.userChoice.then(function(){ deferred = null; now.classList.remove('show'); close(); });
+    });
+    window.addEventListener('appinstalled', function(){ root.classList.add('standalone'); close(); });
   })();
 
   // ===== מצב יום / לילה =====
