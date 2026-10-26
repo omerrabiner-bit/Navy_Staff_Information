@@ -145,13 +145,6 @@
   }
   .pg-upd svg{width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
 
-  /* נקודת "חדש" בתפריט התחתון */
-  nav a{position:relative}
-  nav a .dot{
-    position:absolute; top:6px; left:calc(50% - 16px); width:9px; height:9px; border-radius:50%;
-    background:#ff5a4e; box-shadow:0 0 0 2px rgba(6,26,51,.92); display:none;
-  }
-  nav a.has-new .dot{display:block}
 
   /* כפתור שיתוף */
   .share-btn{
@@ -170,7 +163,7 @@
 
   /* הודעה קופצת קטנה */
   .toast{
-    position:fixed; left:50%; bottom:calc(92px + env(safe-area-inset-bottom)); z-index:60;
+    position:fixed; left:50%; bottom:calc(var(--s3) + env(safe-area-inset-bottom)); z-index:60;
     transform:translate(-50%, 20px); opacity:0; pointer-events:none;
     background:var(--deep); color:#fff; font-size:.88rem; font-weight:600;
     padding:10px 16px; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.3);
@@ -183,7 +176,7 @@
   body{
     font-family:var(--font-body);
     background:var(--bg); color:var(--text); line-height:1.6;
-    padding-bottom:calc(88px + env(safe-area-inset-bottom));
+    padding-bottom:calc(var(--s2) + env(safe-area-inset-bottom));
     -webkit-tap-highlight-color:transparent;
   }
   button,input,select,textarea{font-family:inherit}
@@ -381,23 +374,77 @@
     color:var(--muted); font-size:.82rem; margin-bottom:12px; text-align:center;
   }
 
-  /* ===== תפריט תחתון ===== */
-  nav{
-    position:fixed; inset:auto 6px calc(8px + env(safe-area-inset-bottom)) 6px;
-    display:flex; gap:0; padding:4px;
-    background:rgba(6,26,51,.92); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-    border-radius:20px; box-shadow:0 10px 30px rgba(6,26,51,.35); z-index:10;
+  /* ===== כפתור תפריט (קבוע בצד ימין למעלה) ===== */
+  .menu-btn{
+    position:fixed; top:calc(var(--s3) + env(safe-area-inset-top)); right:var(--s2); z-index:40;
+    width:44px; height:44px; border-radius:var(--r-sm); cursor:pointer; color:#fff;
+    display:grid; place-items:center;
+    background:rgba(6,26,51,.55); border:1px solid rgba(255,255,255,.18);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 4px 14px rgba(0,0,0,.18); transition:background .2s ease, transform .15s ease;
   }
-  /* גובה ורוחב קבועים: הטקסט בשורה אחת ובאותו משקל בכל מצב, כך שהפס לא משנה גודל */
-  nav a{
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
-    flex:1 1 auto; min-width:0; height:56px; padding:0 5px; border-radius:14px; text-decoration:none; text-align:center;
-    color:rgba(255,255,255,.62); font-size:clamp(.58rem, 2.75vw, .74rem); font-weight:600;
-    line-height:1; white-space:nowrap; letter-spacing:-.01em;
-    transition:color .2s ease, background .2s ease;
+  .menu-btn:active{transform:scale(.94)}
+  .menu-btn svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round}
+  .menu-btn.scrolled{background:rgba(6,26,51,.88)}
+  .menu-btn .dot{
+    position:absolute; top:-3px; left:-3px; width:11px; height:11px; border-radius:50%;
+    background:#ff5a4e; box-shadow:0 0 0 2px #061a33; display:none;
   }
-  nav a svg{width:22px; height:22px; flex:none; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
-  nav a.active{color:var(--deep); background:var(--nav-active, #fff)}
+  .menu-btn.has-new .dot{display:block}
+  /* מקום לכפתור התפריט ליד הלוגו */
+  .brand{padding-inline-start:56px}
+  @media (max-width:374px){
+    .brand{gap:8px; padding-inline-start:52px}
+    .emblem-img{width:44px; height:44px}
+    .unit{font-size:.7rem; letter-spacing:0}
+    header h1{font-size:1.38rem}
+  }
+
+  /* ===== מגירת תפריט מצד ימין ===== */
+  .drawer-bg{
+    position:fixed; inset:0; z-index:45; background:rgba(3,12,24,.5);
+    backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);
+    opacity:0; pointer-events:none; transition:opacity .25s ease;
+  }
+  .drawer-bg.open{opacity:1; pointer-events:auto}
+  .drawer{
+    position:fixed; top:0; bottom:0; right:0; z-index:46;
+    width:min(82vw, 320px); display:flex; flex-direction:column;
+    background:linear-gradient(180deg, #0a2a52 0%, #061a33 100%); color:#fff;
+    padding:calc(var(--s3) + env(safe-area-inset-top)) var(--s2) calc(var(--s3) + env(safe-area-inset-bottom));
+    transform:translateX(100%); transition:transform .3s cubic-bezier(.2,.8,.2,1);
+    overflow-y:auto; visibility:hidden; transition:transform .3s cubic-bezier(.2,.8,.2,1), visibility 0s linear .3s;
+  }
+  .drawer.open{transform:none; visibility:visible; box-shadow:-12px 0 40px rgba(0,0,0,.35); transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+  .drawer-head{display:flex; align-items:center; gap:12px; padding-bottom:var(--s2); margin-bottom:var(--s2); border-bottom:1px solid rgba(255,255,255,.1)}
+  .drawer-head img{flex:none}
+  .d-unit{font-size:.74rem; color:var(--brass); font-weight:500}
+  .d-title{font-family:var(--font-head); font-size:1.2rem; font-weight:800; line-height:1.2}
+  .drawer-close{
+    margin-inline-start:auto; width:36px; height:36px; flex:none; border-radius:50%; cursor:pointer;
+    display:grid; place-items:center; color:#fff; background:rgba(255,255,255,.08); border:0;
+  }
+  .drawer-close svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round}
+  .drawer nav{display:flex; flex-direction:column; gap:4px}
+  .drawer nav a{
+    position:relative; display:flex; align-items:center; gap:14px;
+    padding:12px 14px; border-radius:var(--r-sm); text-decoration:none;
+    color:rgba(255,255,255,.82); font-size:1rem; font-weight:500;
+    transition:background .2s ease, color .2s ease;
+  }
+  .drawer nav a svg{width:22px; height:22px; flex:none; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+  .drawer nav a:active{background:rgba(255,255,255,.06)}
+  .drawer nav a.active{background:rgba(255,255,255,.1); color:#fff; font-weight:700; box-shadow:inset -3px 0 0 var(--brass)}
+  .drawer nav a.active svg{color:var(--brass)}
+  .drawer nav a .dot{
+    margin-inline-start:auto; width:9px; height:9px; border-radius:50%; background:#ff5a4e; display:none;
+  }
+  .drawer nav a.has-new .dot{display:block}
+  .drawer-foot{
+    margin-top:auto; padding-top:var(--s3); display:flex; align-items:center; gap:var(--s1);
+    font-size:.74rem; color:rgba(255,255,255,.5);
+  }
+  html.drawer-open{overflow:hidden}
 
   /* ===== סינון ===== */
   .filters{
@@ -470,14 +517,11 @@
   .is-dark .tag.new{background:#e3b866; color:#1a1305}
   .is-dark .info-table .cat{background:rgba(255,255,255,.03)}
   .is-dark .info-table a.ext, .is-dark a.btn{background:var(--foam); color:var(--accent); box-shadow:inset 0 0 0 1px var(--line)}
-  .is-dark nav{background:rgba(10,22,40,.94); box-shadow:0 0 0 1px var(--line), 0 10px 30px rgba(0,0,0,.5)}
-  .is-dark nav a{color:rgba(232,239,248,.6)}
-  .is-dark nav a.active{color:#061a33}
-  .is-dark nav a .dot{box-shadow:0 0 0 2px rgba(10,22,40,.94)}
   .is-dark .np-gmap{filter:invert(.9) hue-rotate(180deg) brightness(.95) contrast(.9) saturate(.8)}
   .is-dark .np-mapbox{background:#1b2a3e}
   .is-dark a.back{box-shadow:0 0 0 1px var(--line)}
   .is-dark .toast{background:#d6ebff; color:#061a33}
+  .is-dark .drawer{background:linear-gradient(180deg,#0c1d33 0%,#050d18 100%); box-shadow:-1px 0 0 var(--line), -12px 0 40px rgba(0,0,0,.6)}
   .is-dark .share-btn.wide{box-shadow:0 0 0 1px var(--line)}
   .is-dark .os-tabs button.on{color:var(--c-news); box-shadow:0 0 0 1px var(--line)}
   .is-dark .steps li::before{background:var(--foam); color:var(--c-news); box-shadow:inset 0 0 0 1px var(--line)}
@@ -519,11 +563,7 @@
 <main>
 
   <!-- ===== הודעות ===== -->
-  <section class="page" id="news" data-updated="2026-10-26">
-    <div class="page-head">
-      <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 10v4l12 5V5z"/><path d="M16 9a3 3 0 0 1 0 6M7 14l1 5h3"/></svg></div>
-      <div><h2>הודעות מחלקת סגל</h2><p>עדכונים שוטפים, מהחדש לישן</p></div>
-    </div>
+  <section class="page" id="news" data-updated="2026-10-27" data-title="דף הבית">
     <details class="card msg" id="msg-new-site" data-date="2026-10-23">
       <summary>
         <div class="meta"><span class="tag new">חדש</span><span class="date">23.10.2026</span></div>
@@ -756,28 +796,50 @@
   <div class="footer-sub">מידע לא מסווג</div>
 </footer>
 
-<nav>
-  <a href="#news" data-page="news">
-    <svg viewBox="0 0 24 24"><path d="M4 10v4l12 5V5z"/><path d="M16 9a3 3 0 0 1 0 6"/></svg>
-    הודעות
-  </a>
-  <a href="#plans" data-page="plans">
-    <svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg>
-    תוכניות שירות
-  </a>
-  <a href="#orders" data-page="orders">
-    <svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg>
-    פקודות ונהלים
-  </a>
-  <a href="#edu" data-page="edu">
-    <svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg>
-    השכלה והעשרה
-  </a>
-  <a href="#perks" data-page="perks">
-    <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6-.5 6-1.5S14 4 12 8z"/></svg>
-    תמריצים
-  </a>
-</nav>
+<button class="menu-btn" id="menuBtn" type="button" aria-label="תפריט" aria-controls="drawer" aria-expanded="false">
+  <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  <span class="dot" aria-hidden="true"></span>
+</button>
+
+<div class="drawer-bg" id="drawerBg" aria-hidden="true"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="תפריט עמודים">
+  <div class="drawer-head">
+    <img src="emblem-manpower.png" width="44" height="44" alt="">
+    <div>
+      <div class="d-unit">חיל הים · מספן כוח אדם</div>
+      <div class="d-title">מחלקת סגל</div>
+    </div>
+    <button class="drawer-close" id="drawerClose" type="button" aria-label="סגירת התפריט">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav>
+    <a href="#news" data-page="news">
+      <svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+      <span>דף הבית</span>
+    </a>
+    <a href="#plans" data-page="plans">
+      <svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg>
+      <span>תוכניות שירות</span>
+    </a>
+    <a href="#orders" data-page="orders">
+      <svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg>
+      <span>פקודות ונהלים</span>
+    </a>
+    <a href="#edu" data-page="edu">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg>
+      <span>השכלה והעשרה</span>
+    </a>
+    <a href="#perks" data-page="perks">
+      <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6-.5 6-1.5S14 4 12 8z"/></svg>
+      <span>תמריצים</span>
+    </a>
+  </nav>
+  <div class="drawer-foot">
+    <img src="emblem-navy.png" width="36" height="36" alt="סמל חיל הים">
+    <span>מידע לא מסווג</span>
+  </div>
+</aside>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="sheet-bg" id="installSheet" aria-hidden="true">
@@ -876,6 +938,8 @@
       var isNew = upd && (seen[id] ? upd > seen[id] : daysAgo(upd) <= DOT_DAYS);
       a.classList.toggle('has-new', !!isNew && id !== activeNav);
     });
+    var mb = document.getElementById('menuBtn');
+    if(mb) mb.classList.toggle('has-new', !!document.querySelector('nav a.has-new'));
   }
   function markSeen(navId){
     seen[navId] = navUpdated(navId);
@@ -915,8 +979,27 @@
     a.addEventListener('click', function(e){ e.preventDefault(); go(a.dataset.goto); });
   });
   // מעבר בין עמודים בלחיצה, גם בתצוגות שחוסמות שינוי כתובת
+  // ===== מגירת התפריט =====
+  var drawer = document.getElementById('drawer'), drawerBg = document.getElementById('drawerBg'), menuBtn = document.getElementById('menuBtn');
+  function openDrawer(){
+    drawer.classList.add('open'); drawerBg.classList.add('open');
+    drawer.setAttribute('aria-hidden','false'); menuBtn.setAttribute('aria-expanded','true');
+    document.documentElement.classList.add('drawer-open');
+  }
+  function closeDrawer(){
+    drawer.classList.remove('open'); drawerBg.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true'); menuBtn.setAttribute('aria-expanded','false');
+    document.documentElement.classList.remove('drawer-open');
+  }
+  menuBtn.addEventListener('click', openDrawer);
+  document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+  drawerBg.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrawer(); });
+  // כפתור התפריט מקבל רקע כהה יותר כשגוללים מעל התוכן
+  window.addEventListener('scroll', function(){ menuBtn.classList.toggle('scrolled', window.scrollY > 40); }, {passive:true});
+
   document.querySelectorAll('nav a').forEach(function(a){
-    a.addEventListener('click', function(e){ e.preventDefault(); go(a.dataset.page); });
+    a.addEventListener('click', function(e){ e.preventDefault(); go(a.dataset.page); closeDrawer(); });
   });
   // קישור ישיר לעמוד או להודעה, למשל ...#plans או ...#msg-gantt27
   window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
@@ -997,7 +1080,7 @@
     box.innerHTML =
       '<div class="c-row"><span class="c-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.4 9.2a2.7 2.7 0 0 1 5.2.9c0 1.8-2.6 2.3-2.6 3.9"/><circle cx="12" cy="17.2" r=".6" fill="currentColor"/></svg></span>' +
       '<div class="c-txt"><h3>יש לך שאלה?</h3>' +
-      '<p>מחלקת הסגל זמינה לפניות בנושא ' + (title ? title.textContent : 'זה') + '</p></div></div>' +
+      '<p>' + (title ? 'מחלקת הסגל זמינה לפניות בנושא ' + title.textContent : 'מחלקת הסגל זמינה לכל שאלה ופנייה') + '</p></div></div>' +
       '<a class="contact-btn" href="#" role="button">' +
         '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>' +
         'שליחת פנייה' +
