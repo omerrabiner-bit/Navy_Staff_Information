@@ -399,6 +399,37 @@
   nav a svg{width:22px; height:22px; flex:none; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
   nav a.active{color:var(--deep); background:var(--nav-active, #fff)}
 
+  /* ===== סינון ===== */
+  .filters{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--r-md);
+    padding:var(--s2); margin:0 0 var(--s3); box-shadow:var(--shadow);
+  }
+  .f-group + .f-group{margin-top:var(--s2); padding-top:var(--s2); border-top:1px solid var(--line)}
+  .f-label{font-size:.8rem; font-weight:600; color:var(--muted); margin-bottom:var(--s1)}
+  .chips{display:flex; flex-wrap:wrap; gap:var(--s1)}
+  .chip{
+    font-size:.88rem; font-weight:600; cursor:pointer; line-height:1;
+    padding:9px 14px; border-radius:99px; border:1px solid var(--line);
+    background:transparent; color:var(--text); transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .chip.on{background:var(--accent, var(--sea)); border-color:var(--accent, var(--sea)); color:#fff}
+  .is-dark .chip.on{color:#061a33}
+  .f-count{margin-top:var(--s2); font-size:.8rem; color:var(--muted)}
+  .p-tags{display:flex !important; flex-wrap:wrap; gap:6px; margin-top:var(--s1)}
+  .p-tag{
+    font-size:.72rem !important; font-weight:600; line-height:1; color:var(--accent, var(--sea)) !important;
+    background:var(--foam); padding:5px 9px; border-radius:99px; display:inline-flex !important; align-items:center; gap:4px;
+  }
+  .p-tag.pop{color:var(--muted) !important; background:transparent; border:1px solid var(--line)}
+  .f-empty{
+    display:flex; flex-direction:column; align-items:center; text-align:center; gap:4px;
+    padding:var(--s4) var(--s2); color:var(--muted); border:1.5px dashed var(--line); border-radius:var(--r-md);
+  }
+  .f-empty[hidden]{display:none}
+  .f-empty svg{width:32px; height:32px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; margin-bottom:var(--s1)}
+  .f-empty strong{color:var(--text); font-size:.95rem}
+  .f-empty span{font-size:.85rem}
+
   /* כרטיס פניות: עדין, באותה שפה של שאר הכרטיסים */
   .contact{
     display:flex; flex-direction:column; align-items:center; gap:var(--s2);
@@ -559,20 +590,53 @@
   </section>
 
   <!-- ===== השכלה והעשרה ===== -->
-  <section class="page" id="edu" data-updated="2026-10-25">
+  <section class="page" id="edu" data-updated="2026-10-26">
     <div class="page-head">
       <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></div>
       <div><h2>השכלה והעשרה</h2><p>לימודים, קורסים והזדמנויות</p></div>
     </div>
-    <div class="perk-list">
-      <a class="perk" href="#newport" data-goto="newport">
+
+    <!-- סינון תוכניות -->
+    <div class="filters" data-filter-for="eduList">
+      <div class="f-group" data-key="corps" role="group" aria-label="סינון לפי מערך">
+        <div class="f-label">מערך</div>
+        <div class="chips">
+          <button type="button" class="chip on" data-val="">הכל</button>
+          <button type="button" class="chip" data-val="ים">ים</button>
+          <button type="button" class="chip" data-val="שליטה">שליטה</button>
+          <button type="button" class="chip" data-val="מודיעין">מודיעין</button>
+          <button type="button" class="chip" data-val="תומכ״ל">תומכ״ל</button>
+          <button type="button" class="chip" data-val="מצ״ד">מצ״ד</button>
+          <button type="button" class="chip" data-val="משא״ן">משא״ן</button>
+        </div>
+      </div>
+      <div class="f-group" data-key="pop" role="group" aria-label="סינון לפי אוכלוסייה">
+        <div class="f-label">אוכלוסייה</div>
+        <div class="chips">
+          <button type="button" class="chip on" data-val="">הכל</button>
+          <button type="button" class="chip" data-val="קצינים">קצינים</button>
+          <button type="button" class="chip" data-val="נגדים">נגדים</button>
+        </div>
+      </div>
+      <div class="f-count" aria-live="polite"></div>
+    </div>
+
+    <div class="perk-list" id="eduList">
+      <!-- לכל תוכנית: data-corps = מערכים (מופרדים בפסיק), data-pop = אוכלוסיות -->
+      <a class="perk" href="#newport" data-goto="newport" data-corps="ים" data-pop="קצינים">
         <span class="p-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></span>
         <span class="p-txt">
           <strong>ניו פורט רס״ן וסא״ל</strong>
           <span>תוכנית לימודים · מכללת המלחמה הימית האמריקאית</span>
+          <span class="p-tags"></span>
         </span>
         <span class="p-go"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
       </a>
+    </div>
+    <div class="f-empty" id="eduEmpty" hidden>
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <strong>אין כרגע תוכניות שמתאימות לסינון</strong>
+      <span>נסו לבחור מערך או אוכלוסייה אחרים</span>
     </div>
   </section>
 
@@ -852,6 +916,48 @@
   // קישור ישיר לעמוד או להודעה, למשל ...#plans או ...#msg-gantt27
   window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
   show(location.hash.slice(1));
+
+  // ===== סינון תוכניות (השכלה והעשרה) =====
+  (function(){
+    document.querySelectorAll('.filters').forEach(function(box){
+      var list = document.getElementById(box.dataset.filterFor);
+      if(!list) return;
+      var items = Array.prototype.slice.call(list.children);
+      var empty = list.parentNode.querySelector('.f-empty');
+      var count = box.querySelector('.f-count');
+      var state = {corps:'', pop:''};
+      function split(v){ return (v || '').split(',').map(function(x){ return x.trim(); }).filter(Boolean); }
+      // תוויות על כל תוכנית לפי הנתונים שלה
+      items.forEach(function(it){
+        var tags = it.querySelector('.p-tags'); if(!tags) return;
+        tags.innerHTML = split(it.dataset.corps).map(function(c){ return '<span class="p-tag">מערך ' + c + '</span>'; }).join('') +
+                         split(it.dataset.pop).map(function(c){ return '<span class="p-tag pop">' + c + '</span>'; }).join('');
+      });
+      function apply(){
+        var shown = 0;
+        items.forEach(function(it){
+          var ok = (!state.corps || split(it.dataset.corps).indexOf(state.corps) > -1) &&
+                   (!state.pop   || split(it.dataset.pop).indexOf(state.pop) > -1);
+          it.style.display = ok ? '' : 'none';
+          if(ok) shown++;
+        });
+        if(empty) empty.hidden = shown > 0;
+        if(count) count.textContent = 'מוצגות ' + shown + ' מתוך ' + items.length + ' תוכניות';
+      }
+      box.querySelectorAll('.f-group').forEach(function(g){
+        g.querySelectorAll('.chip').forEach(function(ch){
+          ch.setAttribute('aria-pressed', ch.classList.contains('on'));
+          ch.addEventListener('click', function(){
+            g.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('on'); c.setAttribute('aria-pressed','false'); });
+            ch.classList.add('on'); ch.setAttribute('aria-pressed','true');
+            state[g.dataset.key] = ch.dataset.val;
+            apply();
+          });
+        });
+      });
+      apply();
+    });
+  })();
 
   // ===== שיתוף =====
   var toastEl = document.getElementById('toast'), toastT;
