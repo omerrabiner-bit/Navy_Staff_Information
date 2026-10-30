@@ -376,9 +376,9 @@
     color:var(--muted); font-size:.82rem; margin-bottom:12px; text-align:center;
   }
 
-  /* ===== כפתור תפריט (קבוע בצד ימין למעלה) ===== */
+  /* ===== כפתור תפריט: חלק מהכותרת, נגלל איתה ולא צף מעל התוכן ===== */
   .menu-btn{
-    position:fixed; top:calc(var(--s3) + env(safe-area-inset-top)); right:var(--s2); z-index:40;
+    position:absolute; top:calc(var(--s3) + env(safe-area-inset-top)); right:var(--s2); z-index:40;
     width:44px; height:44px; border-radius:var(--r-sm); cursor:pointer; color:#fff;
     display:grid; place-items:center;
     background:rgba(6,26,51,.55); border:1px solid rgba(255,255,255,.18);
@@ -387,12 +387,32 @@
   }
   .menu-btn:active{transform:scale(.94)}
   .menu-btn svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round}
-  .menu-btn.scrolled{background:rgba(6,26,51,.88)}
   .menu-btn .dot{
     position:absolute; top:-3px; left:-3px; width:11px; height:11px; border-radius:50%;
     background:#ff5a4e; box-shadow:0 0 0 2px #061a33; display:none;
   }
   .menu-btn.has-new .dot{display:block}
+  /* ===== פס עליון קבוע: מופיע בגלילה, עם כפתור התפריט ושם העמוד ===== */
+  .topbar{
+    position:fixed; top:0; right:0; left:0; z-index:42;
+    height:calc(60px + env(safe-area-inset-top)); padding:env(safe-area-inset-top) var(--s2) 0;
+    display:flex; align-items:center; gap:12px; color:#fff;
+    background:rgba(6,26,51,.94); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    box-shadow:0 1px 0 rgba(255,255,255,.06), 0 6px 18px rgba(6,26,51,.18);
+    transform:translateY(-100%); visibility:hidden;
+    transition:transform .25s ease, visibility 0s linear .25s;
+  }
+  .topbar.show{transform:none; visibility:visible; transition:transform .25s ease}
+  .topbar .menu-btn{position:relative; top:auto; right:auto; flex:none; background:rgba(255,255,255,.08); box-shadow:none}
+  .tb-title{
+    flex:1; min-width:0; font-family:var(--font-head); font-size:1.06rem; font-weight:700; line-height:1.2;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; background:none; border:0; color:inherit;
+    text-align:right; padding:0; cursor:pointer;
+  }
+  .tb-title small{display:block; font-family:var(--font-body); font-size:.72rem; font-weight:500; color:var(--brass)}
+  .tb-emblem{width:32px; height:32px; flex:none}
+  .is-dark .topbar{background:rgba(8,18,33,.95); box-shadow:0 1px 0 var(--line)}
+
   /* מקום לכפתור התפריט ליד הלוגו */
   .brand{padding-inline-start:56px}
   @media (max-width:374px){
@@ -895,6 +915,17 @@
   <span class="dot" aria-hidden="true"></span>
 </button>
 
+<div class="topbar" id="topbar" aria-hidden="true">
+  <button class="menu-btn" type="button" aria-label="תפריט" aria-controls="drawer" aria-expanded="false" tabindex="-1">
+    <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    <span class="dot" aria-hidden="true"></span>
+  </button>
+  <button class="tb-title" id="tbTitle" type="button" tabindex="-1" aria-label="חזרה לראש העמוד">
+    <small>מחלקת סגל</small><span id="tbText">דף הבית</span>
+  </button>
+  <img class="tb-emblem" src="emblem-manpower.png" width="32" height="32" alt="">
+</div>
+
 <div class="drawer-bg" id="drawerBg" aria-hidden="true"></div>
 <aside class="drawer" id="drawer" aria-hidden="true" aria-label="תפריט עמודים">
   <div class="drawer-head">
@@ -984,6 +1015,7 @@
 </div>
 
 <script>
+  try{ history.scrollRestoration = 'manual'; }catch(err){}
   // ===== עזרים לתאריכים =====
   var NEW_DAYS = 14;                                   // כמה ימים תוכן נחשב "חדש"
   var DOT_DAYS = 7;                                    // למבקר חדש: נקודה רק על עמודים שעודכנו בשבוע האחרון
@@ -1032,8 +1064,8 @@
       var isNew = upd && (seen[id] ? upd > seen[id] : daysAgo(upd) <= DOT_DAYS);
       a.classList.toggle('has-new', !!isNew && id !== activeNav);
     });
-    var mb = document.getElementById('menuBtn');
-    if(mb) mb.classList.toggle('has-new', !!document.querySelector('nav a.has-new'));
+    var anyNew = !!document.querySelector('nav a.has-new');
+    document.querySelectorAll('.menu-btn').forEach(function(mb){ mb.classList.toggle('has-new', anyNew); });
   }
   function markSeen(navId){
     seen[navId] = navUpdated(navId);
@@ -1051,6 +1083,11 @@
     pages.forEach(function(p){ p.classList.toggle('active', p === target); });
     var navId = target.dataset.parent || target.id;    // עמוד משנה מדגיש את עמוד האב בתפריט
     document.documentElement.dataset.nav = navId;      // מאפשר עיצוב לפי עמוד (תמונת הספינה בעמוד ההודעות)
+    var tbText = document.getElementById('tbText');
+    if(tbText){
+      var h2 = target.querySelector('.page-head h2');
+      tbText.textContent = target.dataset.title || (h2 ? h2.textContent : '');
+    }
     document.querySelectorAll('nav a').forEach(function(a){ a.classList.toggle('active', a.dataset.page === navId); });
     markSeen(navId);
     refreshDots(navId);
@@ -1062,6 +1099,9 @@
       }, 80);
     } else {
       window.scrollTo(0,0);
+      // הדפדפן קופץ לעוגן (#edu וכד') אחרי הטעינה – מחזירים לראש העמוד כדי שהכותרת תיראה
+      setTimeout(function(){ window.scrollTo(0,0); }, 0);
+      setTimeout(function(){ window.scrollTo(0,0); }, 80);
     }
   }
   function go(id){
@@ -1075,22 +1115,35 @@
   // מעבר בין עמודים בלחיצה, גם בתצוגות שחוסמות שינוי כתובת
   // ===== מגירת התפריט =====
   var drawer = document.getElementById('drawer'), drawerBg = document.getElementById('drawerBg'), menuBtn = document.getElementById('menuBtn');
+  var menuBtns = document.querySelectorAll('.menu-btn'), lastMenuBtn = menuBtn;
   function openDrawer(){
     drawer.classList.add('open'); drawerBg.classList.add('open');
-    drawer.setAttribute('aria-hidden','false'); menuBtn.setAttribute('aria-expanded','true');
+    drawer.setAttribute('aria-hidden','false'); menuBtns.forEach(function(b){ b.setAttribute('aria-expanded','true'); });
     document.documentElement.classList.add('drawer-open');
   }
   function closeDrawer(){
     drawer.classList.remove('open'); drawerBg.classList.remove('open');
-    drawer.setAttribute('aria-hidden','true'); menuBtn.setAttribute('aria-expanded','false');
+    drawer.setAttribute('aria-hidden','true'); menuBtns.forEach(function(b){ b.setAttribute('aria-expanded','false'); });
     document.documentElement.classList.remove('drawer-open');
   }
-  menuBtn.addEventListener('click', openDrawer);
+  menuBtns.forEach(function(b){ b.addEventListener('click', function(){ lastMenuBtn = b; openDrawer(); }); });
   document.getElementById('drawerClose').addEventListener('click', closeDrawer);
   drawerBg.addEventListener('click', closeDrawer);
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrawer(); });
   // כפתור התפריט מקבל רקע כהה יותר כשגוללים מעל התוכן
-  window.addEventListener('scroll', function(){ menuBtn.classList.toggle('scrolled', window.scrollY > 40); }, {passive:true});
+  // הפס העליון מופיע כשהכותרת יוצאת מהמסך
+  var topbar = document.getElementById('topbar'), headerEl = document.querySelector('header');
+  function syncTopbar(){
+    var show = headerEl.getBoundingClientRect().bottom < 72;
+    if(show === topbar.classList.contains('show')) return;
+    topbar.classList.toggle('show', show);
+    topbar.setAttribute('aria-hidden', show ? 'false' : 'true');
+    topbar.querySelectorAll('button').forEach(function(b){ b.tabIndex = show ? 0 : -1; });
+  }
+  window.addEventListener('scroll', syncTopbar, {passive:true});
+  window.addEventListener('resize', syncTopbar);
+  document.getElementById('tbTitle').addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+  syncTopbar();
 
   document.querySelectorAll('nav a').forEach(function(a){
     a.addEventListener('click', function(e){ e.preventDefault(); go(a.dataset.page); closeDrawer(); });
@@ -1098,6 +1151,11 @@
   // קישור ישיר לעמוד או להודעה, למשל ...#plans או ...#msg-gantt27
   window.addEventListener('hashchange', function(){ show(location.hash.slice(1)); });
   show(location.hash.slice(1));
+  // הדפדפן גולל לעוגן של העמוד אחרי הטעינה; בעמוד שלם (ולא הודעה) מחזירים לראש כדי שהכותרת תיראה
+  window.addEventListener('load', function(){
+    var t = document.getElementById(location.hash.slice(1));
+    if(!t || t.classList.contains('page')){ window.scrollTo(0,0); setTimeout(function(){ window.scrollTo(0,0); }, 60); }
+  });
 
   // ===== סינון תוכניות (השכלה והעשרה) =====
   (function(){
