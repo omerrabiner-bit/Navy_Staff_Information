@@ -29,6 +29,8 @@
     /* גופנים: Rubik לכותרות, IBM Plex Sans Hebrew לתוכן */
     --font-head:"Rubik","IBM Plex Sans Hebrew",Arial,sans-serif;
     --font-body:"IBM Plex Sans Hebrew",Arial,sans-serif;
+    /* סולם טקסט קבוע: 5 גדלים בלבד (12/14/16/20/28 פיקסלים) */
+    --fs-xs:.75rem; --fs-sm:.875rem; --fs-md:1rem; --fs-lg:1.25rem; --fs-xl:1.75rem;
     --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:40px;
     --r-sm:12px; --r-md:16px; --r-lg:20px;
     /* צבעי עמודים */
@@ -58,7 +60,7 @@
   /* כפתור יום/לילה */
   .theme-btn{
     position:absolute; top:calc(var(--s3) + env(safe-area-inset-top)); left:var(--s2); z-index:3;
-    width:42px; height:42px; border-radius:50%; cursor:pointer;
+    width:44px; height:44px; border-radius:50%; cursor:pointer;
     display:grid; place-items:center; color:#fff;
     background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22);
     transition:transform .3s ease, background .2s ease;
@@ -74,7 +76,7 @@
   .install-btn{
     white-space:nowrap; flex:none;
     display:inline-flex; align-items:center; gap:6px; cursor:pointer;
-    font-family:inherit; font-size:.78rem; font-weight:600; color:#fff;
+    font-family:inherit; font-size:var(--fs-xs); font-weight:600; color:#fff;
     background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22);
     padding:6px 12px; border-radius:99px;
     transition:transform .15s ease;
@@ -87,7 +89,7 @@
   .d-action{
     width:100%; display:flex; align-items:center; gap:14px; min-height:48px;
     padding:12px 14px; border-radius:var(--r-sm); cursor:pointer; text-align:right;
-    font-family:inherit; font-size:1rem; font-weight:500; color:rgba(255,255,255,.82);
+    font-family:inherit; font-size:var(--fs-md); font-weight:500; color:rgba(255,255,255,.82);
     background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
   }
   .d-action:active{background:rgba(255,255,255,.12)}
@@ -104,11 +106,11 @@
   .a2hs[hidden]{display:none}
   .a2hs img{width:44px; height:44px; border-radius:11px; flex:none}
   .a2hs-txt{flex:1; min-width:0; line-height:1.35}
-  .a2hs-txt strong{display:block; font-family:var(--font-head); font-size:.95rem; font-weight:700}
-  .a2hs-txt span{display:block; font-size:.8rem; color:rgba(255,255,255,.7)}
+  .a2hs-txt strong{display:block; font-family:var(--font-head); font-size:var(--fs-md); font-weight:700}
+  .a2hs-txt span{display:block; font-size:var(--fs-xs); color:rgba(255,255,255,.7)}
   .a2hs-go{
     flex:none; min-height:44px; padding:0 16px; border-radius:var(--r-sm); border:0; cursor:pointer;
-    font-family:inherit; font-size:.9rem; font-weight:700; color:#061a33; background:#d6ebff;
+    font-family:inherit; font-size:var(--fs-sm); font-weight:700; color:#061a33; background:#d6ebff;
   }
   .a2hs-x{
     flex:none; width:44px; height:44px; border-radius:50%; border:0; cursor:pointer; display:grid; place-items:center;
@@ -141,8 +143,8 @@
   .sheet .grab{width:40px; height:5px; border-radius:99px; background:var(--line); margin:0 auto var(--s2)}
   .sheet-head{display:flex; align-items:center; gap:var(--s2); margin-bottom:var(--s3)}
   .sheet-head img{width:52px; height:52px; border-radius:13px; box-shadow:var(--shadow)}
-  .sheet-head h3{margin:0; font-size:1.15rem; font-weight:800}
-  .sheet-head p{margin:0; font-size:.85rem; color:var(--muted)}
+  .sheet-head h3{margin:0; font-size:var(--fs-lg); font-weight:800}
+  .sheet-head p{margin:0; font-size:var(--fs-sm); color:var(--muted)}
   .sheet-close{
     margin-inline-start:auto; width:36px; height:36px; border-radius:50%; border:0; cursor:pointer;
     background:var(--foam); color:var(--text); display:grid; place-items:center; flex:none;
@@ -150,7 +152,7 @@
   .sheet-close svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round}
   .os-tabs{display:grid; grid-template-columns:1fr 1fr; gap:4px; padding:4px; background:var(--foam); border-radius:var(--r-md); margin-bottom:var(--s2)}
   .os-tabs button{
-    font-family:inherit; font-size:.92rem; font-weight:700; border:0; cursor:pointer;
+    font-family:inherit; font-size:var(--fs-sm); font-weight:700; border:0; cursor:pointer;
     padding:9px 6px; border-radius:11px; background:transparent; color:var(--muted);
   }
   .os-tabs button.on{background:var(--card); color:var(--sea); box-shadow:0 2px 8px rgba(6,26,51,.12)}
@@ -159,12 +161,12 @@
   .steps{list-style:none; margin:0; padding:0; counter-reset:st}
   .steps li{
     counter-increment:st; display:flex; gap:var(--s2); align-items:flex-start;
-    padding:12px 0; border-top:1px solid var(--line); font-size:.95rem;
+    padding:12px 0; border-top:1px solid var(--line); font-size:var(--fs-md);
   }
   .steps li:first-child{border-top:0}
   .steps li::before{
     content:counter(st); flex:none; width:28px; height:28px; border-radius:50%;
-    display:grid; place-items:center; font-weight:800; font-size:.85rem; color:#fff;
+    display:grid; place-items:center; font-weight:800; font-size:var(--fs-sm); color:#fff;
     background:var(--c-action);
   }
   .steps .ico{
@@ -172,9 +174,9 @@
     border-radius:6px; background:var(--foam); color:var(--sea); margin:0 2px;
   }
   .steps .ico svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
-  .sheet-tip{margin-top:var(--s2); font-size:.84rem; color:var(--muted); background:var(--foam); border-radius:var(--r-sm); padding:12px var(--s2)}
+  .sheet-tip{margin-top:var(--s2); font-size:var(--fs-sm); color:var(--muted); background:var(--foam); border-radius:var(--r-sm); padding:12px var(--s2)}
   .install-now{
-    display:none; width:100%; margin-top:12px; font-family:inherit; font-size:1rem; font-weight:800;
+    display:none; width:100%; margin-top:12px; font-family:inherit; font-size:var(--fs-md); font-weight:800;
     border:0; border-radius:12px; padding:12px; cursor:pointer; color:#fff;
     background:var(--c-action);
   }
@@ -183,7 +185,7 @@
   /* תאריך עדכון בכל עמוד */
   .pg-upd{
     display:inline-flex; align-items:center; gap:4px; margin-top:var(--s1);
-    font-size:.74rem; font-weight:600; color:var(--accent, var(--sea));
+    font-size:var(--fs-xs); font-weight:600; color:var(--accent, var(--sea));
     background:var(--foam); padding:2px 9px; border-radius:99px;
   }
   .pg-upd svg{width:12px; height:12px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
@@ -192,7 +194,7 @@
   /* כפתור שיתוף */
   .share-btn{
     display:inline-flex; align-items:center; gap:var(--s1); margin-top:var(--s2); cursor:pointer;
-    font-family:inherit; font-size:.88rem; font-weight:700; color:var(--accent, var(--sea));
+    font-family:inherit; font-size:var(--fs-sm); font-weight:700; color:var(--accent, var(--sea));
     background:var(--foam); border:1px solid var(--line); padding:var(--s1) var(--s2); border-radius:var(--r-sm);
     transition:transform .15s ease;
   }
@@ -208,7 +210,7 @@
   .toast{
     position:fixed; left:50%; bottom:calc(var(--s3) + env(safe-area-inset-bottom)); z-index:60;
     transform:translate(-50%, 20px); opacity:0; pointer-events:none;
-    background:var(--deep); color:#fff; font-size:.88rem; font-weight:600;
+    background:var(--deep); color:#fff; font-size:var(--fs-sm); font-weight:600;
     padding:10px 16px; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,.3);
     transition:opacity .25s ease, transform .25s ease; white-space:nowrap;
   }
@@ -254,11 +256,11 @@
   }
   .emblem svg{width:28px; height:28px; stroke:var(--brass); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
   .emblem-img{width:56px; height:56px; flex:none; filter:drop-shadow(0 4px 10px rgba(0,0,0,.35))}
-  .unit{font-size:.82rem; font-weight:500; color:var(--brass); letter-spacing:.04em}
-  header h1{margin:0; font-size:1.6rem; font-weight:800; line-height:1.2}
+  .unit{font-size:var(--fs-sm); font-weight:500; color:var(--brass); letter-spacing:.04em}
+  header h1{margin:0; font-size:var(--fs-xl); font-weight:800; line-height:1.2}
   .updated{
     position:relative; z-index:2; display:inline-flex; align-items:center; gap:6px;
-    margin-top:14px; font-size:.78rem; font-weight:500;
+    margin-top:14px; font-size:var(--fs-xs); font-weight:500;
     background:rgba(255,255,255,.1); padding:4px 10px; border-radius:99px;
   }
   .updated i{width:7px; height:7px; border-radius:50%; background:#5ee08a; box-shadow:0 0 0 0 rgba(94,224,138,.7); animation:pulse 2s infinite}
@@ -287,8 +289,8 @@
     background:var(--accent, var(--sea)); color:#fff;
   }
   .page-head .ic svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
-  .page-head h2{margin:0; font-size:1.25rem; font-weight:800; line-height:1.3}
-  .page-head p{margin:0; color:var(--muted); font-size:.86rem}
+  .page-head h2{margin:0; font-size:var(--fs-lg); font-weight:800; line-height:1.3}
+  .page-head p{margin:0; color:var(--muted); font-size:var(--fs-sm)}
 
   #news{--accent:var(--c-news)}
   #plans{--accent:var(--c-plans)}
@@ -300,7 +302,7 @@
   /* כפתור חזרה בעמוד משנה */
   a.back{
     display:inline-flex; align-items:center; gap:4px; margin:0 0 var(--s2);
-    font-size:.86rem; font-weight:700; color:var(--accent); text-decoration:none;
+    font-size:var(--fs-sm); font-weight:700; color:var(--accent); text-decoration:none;
     background:var(--card); padding:var(--s1) var(--s2); border-radius:99px; box-shadow:var(--shadow);
   }
   a.back svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
@@ -315,7 +317,7 @@
   .np-gmap{display:block; width:100%; height:260px; border:0}
   .np-maplink{
     position:absolute; bottom:10px; left:10px; z-index:2;
-    font-size:.78rem; font-weight:700; text-decoration:none; color:var(--deep);
+    font-size:var(--fs-xs); font-weight:700; text-decoration:none; color:var(--deep);
     background:#fff; padding:6px 10px; border-radius:10px;
     box-shadow:0 3px 10px rgba(0,0,0,.25);
   }
@@ -323,11 +325,11 @@
     margin:var(--s2) auto 0; text-align:center; padding:var(--s2); border-radius:var(--r-md);
     background:rgba(255,255,255,.08); border:1px solid rgba(212,168,75,.45);
   }
-  .np-clock-label{font-size:.8rem; color:#f3d58e; font-weight:500}
-  .np-time{font-size:2.2rem; font-weight:800; letter-spacing:.04em; direction:ltr; font-variant-numeric:tabular-nums; line-height:1.15}
-  .np-date{font-size:.86rem; opacity:.85}
-  .np-diff{font-size:.78rem; opacity:.7; margin-top:2px}
-  .np-note{text-align:center; font-size:.72rem; opacity:.55; margin-top:var(--s1)}
+  .np-clock-label{font-size:var(--fs-xs); color:#f3d58e; font-weight:500}
+  .np-time{font-size:var(--fs-xl); font-weight:800; letter-spacing:.04em; direction:ltr; font-variant-numeric:tabular-nums; line-height:1.15}
+  .np-date{font-size:var(--fs-sm); opacity:.85}
+  .np-diff{font-size:var(--fs-xs); opacity:.7; margin-top:2px}
+  .np-note{text-align:center; font-size:var(--fs-xs); opacity:.55; margin-top:var(--s1)}
 
   /* טבלת מידע: קטגוריה | הסבר */
   .info-table{
@@ -338,13 +340,13 @@
   .info-table .row + .row{border-top:1px solid var(--line)}
   .info-table .cat{
     display:flex; align-items:center; gap:var(--s1); padding:var(--s2) 12px;
-    font-weight:700; font-size:.92rem; color:var(--accent);
+    font-weight:700; font-size:var(--fs-sm); color:var(--accent);
     background:var(--foam); border-inline-end:1px solid var(--line);
   }
   .info-table .cat svg{width:20px; height:20px; flex:none; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
-  .info-table .val{padding:var(--s2); font-size:.95rem; line-height:1.6; display:flex; align-items:center}
+  .info-table .val{padding:var(--s2); font-size:var(--fs-md); line-height:1.6; display:flex; align-items:center}
   .info-table a.ext{
-    color:#fff; text-decoration:none; font-weight:700; font-size:.86rem;
+    color:#fff; text-decoration:none; font-weight:700; font-size:var(--fs-sm);
     background:var(--accent); padding:7px 12px; border-radius:10px;
     direction:ltr; display:inline-block;
   }
@@ -365,8 +367,8 @@
   }
   a.perk .p-ic svg, a.perk .p-go svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
   a.perk .p-txt{flex:1; min-width:0}
-  a.perk .p-txt strong{display:block; font-size:1.02rem; font-weight:700}
-  a.perk .p-txt span{display:block; font-size:.84rem; color:var(--muted)}
+  a.perk .p-txt strong{display:block; font-size:var(--fs-md); font-weight:700}
+  a.perk .p-txt span{display:block; font-size:var(--fs-sm); color:var(--muted)}
   a.perk .p-go{color:var(--accent); flex:none}
 
   .card{
@@ -376,15 +378,15 @@
   }
   .card:active{transform:scale(.985)}
   .card::before{display:none}
-  .card h3{margin:0 0 4px; font-size:1.06rem; font-weight:700; line-height:1.45}
-  .card p{margin:0; font-size:1rem; font-weight:400; line-height:1.7}
+  .card h3{margin:0 0 4px; font-size:var(--fs-md); font-weight:700; line-height:1.45}
+  .card p{margin:0; font-size:var(--fs-md); font-weight:400; line-height:1.7}
   .meta{display:flex; gap:var(--s1); align-items:center; margin-bottom:var(--s1); flex-wrap:wrap}
-  .date{font-size:.78rem; color:var(--muted); font-weight:500}
-  .tag{font-size:.74rem; font-weight:700; background:var(--foam); color:var(--accent, var(--sea)); padding:2px 9px; border-radius:99px}
+  .date{font-size:var(--fs-xs); color:var(--muted); font-weight:500}
+  .tag{font-size:var(--fs-xs); font-weight:700; background:var(--foam); color:var(--accent, var(--sea)); padding:2px 9px; border-radius:99px}
   .tag.new{background:var(--c-new); color:var(--deep)}
   a.btn{
     display:inline-flex; align-items:center; gap:6px; margin-top:12px;
-    font-size:.88rem; font-weight:700; text-decoration:none; color:#fff;
+    font-size:var(--fs-sm); font-weight:700; text-decoration:none; color:#fff;
     background:var(--accent, var(--sea));
     padding:8px 14px; border-radius:10px;
   }
@@ -410,7 +412,7 @@
 
   .placeholder{
     border:1.5px dashed var(--line); border-radius:12px; padding:10px 14px;
-    color:var(--muted); font-size:.82rem; margin-bottom:12px; text-align:center;
+    color:var(--muted); font-size:var(--fs-sm); margin-bottom:12px; text-align:center;
   }
 
   /* ===== כפתור תפריט: חלק מהכותרת, נגלל איתה ולא צף מעל התוכן ===== */
@@ -442,11 +444,11 @@
   .topbar.show{transform:none; visibility:visible; transition:transform .25s ease}
   .topbar .menu-btn{position:relative; top:auto; right:auto; flex:none; background:rgba(255,255,255,.08); box-shadow:none}
   .tb-title{
-    flex:1; min-width:0; font-family:var(--font-head); font-size:1.06rem; font-weight:700; line-height:1.2;
+    flex:1; min-width:0; font-family:var(--font-head); font-size:var(--fs-md); font-weight:700; line-height:1.2;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis; background:none; border:0; color:inherit;
     text-align:right; padding:0; cursor:pointer;
   }
-  .tb-title small{display:block; font-family:var(--font-body); font-size:.72rem; font-weight:500; color:var(--brass)}
+  .tb-title small{display:block; font-family:var(--font-body); font-size:var(--fs-xs); font-weight:500; color:var(--brass)}
   .tb-emblem{width:32px; height:32px; flex:none}
   .is-dark .topbar{background:rgba(8,18,33,.95); box-shadow:0 1px 0 var(--line)}
 
@@ -455,8 +457,8 @@
   @media (max-width:374px){
     .brand{gap:8px; padding-inline-start:52px}
     .emblem-img{width:44px; height:44px}
-    .unit{font-size:.7rem; letter-spacing:0}
-    header h1{font-size:1.38rem}
+    .unit{font-size:var(--fs-xs); letter-spacing:0}
+    header h1{font-size:var(--fs-lg)}
   }
 
   /* ===== מגירת תפריט מצד ימין ===== */
@@ -477,8 +479,8 @@
   .drawer.open{transform:none; visibility:visible; box-shadow:-12px 0 40px rgba(0,0,0,.35); transition:transform .3s cubic-bezier(.2,.8,.2,1)}
   .drawer-head{display:flex; align-items:center; gap:12px; padding-bottom:var(--s2); margin-bottom:var(--s2); border-bottom:1px solid rgba(255,255,255,.1)}
   .drawer-head img{flex:none}
-  .d-unit{font-size:.74rem; color:var(--brass); font-weight:500}
-  .d-title{font-family:var(--font-head); font-size:1.2rem; font-weight:800; line-height:1.2}
+  .d-unit{font-size:var(--fs-xs); color:var(--brass); font-weight:500}
+  .d-title{font-family:var(--font-head); font-size:var(--fs-lg); font-weight:800; line-height:1.2}
   .drawer-close{
     margin-inline-start:auto; width:36px; height:36px; flex:none; border-radius:50%; cursor:pointer;
     display:grid; place-items:center; color:#fff; background:rgba(255,255,255,.08); border:0;
@@ -488,7 +490,7 @@
   .drawer nav a{
     position:relative; display:flex; align-items:center; gap:14px;
     padding:12px 14px; border-radius:var(--r-sm); text-decoration:none;
-    color:rgba(255,255,255,.82); font-size:1rem; font-weight:500;
+    color:rgba(255,255,255,.82); font-size:var(--fs-md); font-weight:500;
     transition:background .2s ease, color .2s ease;
   }
   .drawer nav a svg{width:22px; height:22px; flex:none; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
@@ -501,7 +503,7 @@
   .drawer nav a.has-new .dot{display:block}
   .drawer-foot{
     margin-top:auto; padding-top:var(--s3); display:flex; align-items:center; gap:var(--s1);
-    font-size:.74rem; color:rgba(255,255,255,.5);
+    font-size:var(--fs-xs); color:rgba(255,255,255,.5);
   }
   html.drawer-open{overflow:hidden}
 
@@ -513,11 +515,11 @@
   .f-sel{position:relative; display:block; min-width:0}
   .f-label{
     position:absolute; top:6px; right:12px; pointer-events:none;
-    font-size:.68rem; font-weight:600; color:var(--muted); line-height:1;
+    font-size:var(--fs-xs); font-weight:600; color:var(--muted); line-height:1;
   }
   .f-sel select{
     width:100%; -webkit-appearance:none; appearance:none; cursor:pointer;
-    font-family:inherit; font-size:.92rem; font-weight:600; color:var(--text);
+    font-family:inherit; font-size:var(--fs-sm); font-weight:600; color:var(--text);
     background:var(--card); border:1px solid var(--line); border-radius:var(--r-sm);
     padding:20px 12px 6px 32px; line-height:1.3; box-shadow:var(--shadow);
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b6a80' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
@@ -525,10 +527,10 @@
   }
   .f-sel select:focus-visible{outline:2px solid var(--accent, var(--sea)); outline-offset:1px}
   .f-sel.active select{border-color:var(--accent, var(--sea)); box-shadow:0 0 0 1px var(--accent, var(--sea))}
-  .f-count{grid-column:1 / -1; font-size:.76rem; color:var(--muted); padding:0 4px}
+  .f-count{grid-column:1 / -1; font-size:var(--fs-xs); color:var(--muted); padding:0 4px}
   .p-tags{display:flex !important; flex-wrap:wrap; gap:6px; margin-top:var(--s1)}
   .p-tag{
-    font-size:.72rem !important; font-weight:600; line-height:1; color:var(--accent, var(--sea)) !important;
+    font-size:var(--fs-xs) !important; font-weight:600; line-height:1; color:var(--accent, var(--sea)) !important;
     background:var(--foam); padding:5px 9px; border-radius:99px; display:inline-flex !important; align-items:center; gap:4px;
   }
   .p-tag.pop{color:var(--muted) !important; background:transparent; border:1px solid var(--line)}
@@ -538,8 +540,8 @@
   }
   .f-empty[hidden]{display:none}
   .f-empty svg{width:32px; height:32px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; margin-bottom:var(--s1)}
-  .f-empty strong{color:var(--text); font-size:.95rem}
-  .f-empty span{font-size:.85rem}
+  .f-empty strong{color:var(--text); font-size:var(--fs-md)}
+  .f-empty span{font-size:var(--fs-sm)}
 
   /* ===== כרטיסיות נפתחות (תוכניות שירות) ===== */
   .acc-list{display:flex; flex-direction:column; gap:12px}
@@ -554,7 +556,7 @@
     background:var(--foam); color:var(--accent, var(--sea));
   }
   details.acc .acc-ic svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
-  details.acc summary h3{margin:0; flex:1; font-size:1.06rem}
+  details.acc summary h3{margin:0; flex:1; font-size:var(--fs-md)}
   details.acc .chev{
     width:32px; height:32px; flex:none; border-radius:50%; display:grid; place-items:center;
     background:var(--foam); color:var(--accent, var(--sea)); transition:transform .25s ease;
@@ -565,20 +567,20 @@
   .is-dark details.acc[open] .acc-ic{color:#061a33}
   details.acc .acc-body{padding:var(--s2); border-top:1px solid var(--line); animation:rise .25s ease both}
   .acc-empty{
-    text-align:center; font-size:.88rem; color:var(--muted);
+    text-align:center; font-size:var(--fs-sm); color:var(--muted);
     border:1.5px dashed var(--line); border-radius:var(--r-sm); padding:var(--s2);
   }
 
   /* ===== דף הבית: כותרות אזור, הודעה מובילה, גישה מהירה ===== */
   .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
   .sec-head{display:flex; align-items:baseline; justify-content:space-between; gap:var(--s1); margin:0 4px 12px}
-  .sec-head h2{margin:0; font-family:var(--font-head); font-size:1.25rem; font-weight:700; line-height:1.3}
-  .sec-count{font-size:.8rem; color:var(--muted); font-weight:500}
+  .sec-head h2{margin:0; font-family:var(--font-head); font-size:var(--fs-lg); font-weight:700; line-height:1.3}
+  .sec-count{font-size:var(--fs-xs); color:var(--muted); font-weight:500}
   details.msg + .sec-head{margin-top:var(--s4)}
   /* ההודעה החדשה ביותר: מודגשת, עם תקציר */
-  details.msg.lead summary h3{font-size:1.2rem; line-height:1.4}
+  details.msg.lead summary h3{font-size:var(--fs-lg); line-height:1.4}
   .msg-excerpt{
-    margin:6px 0 0; font-size:.92rem; line-height:1.6; color:var(--muted);
+    margin:6px 0 0; font-size:var(--fs-sm); line-height:1.6; color:var(--muted);
     display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
   }
   details.msg[open] .msg-excerpt{display:none}
@@ -598,8 +600,8 @@
   }
   .is-dark a.tile .t-ic{color:var(--c-news)}
   a.tile .t-ic svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
-  a.tile .t-name{font-family:var(--font-head); font-size:1rem; font-weight:700; line-height:1.3}
-  a.tile .t-sub{font-size:.8rem; color:var(--muted); line-height:1.4}
+  a.tile .t-name{font-family:var(--font-head); font-size:var(--fs-md); font-weight:700; line-height:1.3}
+  a.tile .t-sub{font-size:var(--fs-xs); color:var(--muted); line-height:1.4}
   a.tile{position:relative}
   a.tile .dot{position:absolute; top:12px; left:12px; width:9px; height:9px; border-radius:50%; background:#ff5a4e; display:none}
   a.tile.has-new .dot{display:block}
@@ -617,21 +619,21 @@
   .contact .c-ic svg{width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round}
   .contact .c-row{display:flex; align-items:center; gap:var(--s2); width:100%}
   .contact .c-txt{flex:1; min-width:0}
-  .contact h3{margin:0; font-size:.98rem; font-weight:700; line-height:1.4}
-  .contact p{margin:2px 0 0; font-size:.84rem; color:var(--muted); line-height:1.5}
+  .contact h3{margin:0; font-size:var(--fs-md); font-weight:700; line-height:1.4}
+  .contact p{margin:2px 0 0; font-size:var(--fs-sm); color:var(--muted); line-height:1.5}
   .contact-btn{
     display:inline-flex; align-items:center; gap:var(--s1); flex:none;
     padding:10px var(--s2); border-radius:var(--r-sm); text-decoration:none;
-    font-size:.9rem; font-weight:700; color:var(--accent, var(--sea));
+    font-size:var(--fs-sm); font-weight:700; color:var(--accent, var(--sea));
     background:transparent; border:1.5px solid currentColor; transition:background .2s ease, transform .15s ease;
   }
   .contact-btn:active{transform:scale(.96); background:var(--foam)}
   .contact-btn svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
 
-  footer{text-align:center; color:var(--muted); font-size:.78rem; font-weight:500; padding:var(--s3) var(--s2) var(--s4); line-height:1.6}
+  footer{text-align:center; color:var(--muted); font-size:var(--fs-xs); font-weight:500; padding:var(--s3) var(--s2) var(--s4); line-height:1.6}
   .footer-emblem{display:block; width:56px; height:56px; margin:0 auto var(--s1); opacity:.9}
-  .footer-sub{font-size:.72rem; opacity:.75}
-  .sheet-foot{display:flex; align-items:center; justify-content:center; gap:var(--s1); margin-top:var(--s3); color:var(--muted); font-size:.8rem; font-weight:500}
+  .footer-sub{font-size:var(--fs-xs); opacity:.75}
+  .sheet-foot{display:flex; align-items:center; justify-content:center; gap:var(--s1); margin-top:var(--s3); color:var(--muted); font-size:var(--fs-xs); font-weight:500}
   .sheet-foot img{width:40px; height:40px}
   /* ===== ליטוש מצב לילה ===== */
   .is-dark .page-head .ic{background:var(--foam); color:var(--accent)}
@@ -647,6 +649,13 @@
   .is-dark .os-tabs button.on{color:var(--c-news); box-shadow:0 0 0 1px var(--line)}
   .is-dark .steps li::before{background:var(--foam); color:var(--c-news); box-shadow:inset 0 0 0 1px var(--line)}
   .is-dark .sheet{box-shadow:0 -1px 0 var(--line), 0 -10px 40px rgba(0,0,0,.5)}
+
+  /* ===== אזורי לחיצה: לפחות 44×44 פיקסלים לכל רכיב לחיץ ===== */
+  .share-btn, a.back, .contact-btn, .os-tabs button, .install-now, .d-action{min-height:44px}
+  a.back, .share-btn{align-items:center}
+  .np-maplink{display:inline-flex; align-items:center; min-height:44px; padding:0 14px}
+  .info-table a.ext{display:inline-flex; align-items:center; min-height:44px; padding:0 14px}
+  .sheet-close, .drawer-close{width:44px; height:44px}
 
   @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important} }
 </style>
