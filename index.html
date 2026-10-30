@@ -532,6 +532,41 @@
     border:1.5px dashed var(--line); border-radius:var(--r-sm); padding:var(--s2);
   }
 
+  /* ===== דף הבית: כותרות אזור, הודעה מובילה, גישה מהירה ===== */
+  .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+  .sec-head{display:flex; align-items:baseline; justify-content:space-between; gap:var(--s1); margin:0 4px 12px}
+  .sec-head h2{margin:0; font-family:var(--font-head); font-size:1.25rem; font-weight:700; line-height:1.3}
+  .sec-count{font-size:.8rem; color:var(--muted); font-weight:500}
+  details.msg + .sec-head{margin-top:var(--s4)}
+  /* ההודעה החדשה ביותר: מודגשת, עם תקציר */
+  details.msg.lead summary h3{font-size:1.2rem; line-height:1.4}
+  .msg-excerpt{
+    margin:6px 0 0; font-size:.92rem; line-height:1.6; color:var(--muted);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  details.msg[open] .msg-excerpt{display:none}
+  details.msg.lead{border-color:color-mix(in srgb, var(--brass) 45%, var(--line))}
+  /* אריחי גישה מהירה */
+  .tiles{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  a.tile{
+    display:flex; flex-direction:column; gap:4px; min-height:112px;
+    padding:var(--s2); border-radius:var(--r-md); text-decoration:none; color:var(--text);
+    background:var(--card); border:1px solid var(--line); box-shadow:var(--shadow);
+    transition:transform .15s ease, border-color .2s ease;
+  }
+  a.tile:active{transform:scale(.97)}
+  a.tile .t-ic{
+    width:40px; height:40px; border-radius:var(--r-sm); display:grid; place-items:center; margin-bottom:var(--s1);
+    background:var(--foam); color:var(--sea);
+  }
+  .is-dark a.tile .t-ic{color:var(--c-news)}
+  a.tile .t-ic svg{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+  a.tile .t-name{font-family:var(--font-head); font-size:1rem; font-weight:700; line-height:1.3}
+  a.tile .t-sub{font-size:.8rem; color:var(--muted); line-height:1.4}
+  a.tile{position:relative}
+  a.tile .dot{position:absolute; top:12px; left:12px; width:9px; height:9px; border-radius:50%; background:#ff5a4e; display:none}
+  a.tile.has-new .dot{display:block}
+
   /* כרטיס פניות: עדין, באותה שפה של שאר הכרטיסים */
   .contact{
     display:flex; flex-direction:column; align-items:center; gap:var(--s2);
@@ -613,7 +648,12 @@
 <main>
 
   <!-- ===== הודעות ===== -->
-  <section class="page" id="news" data-updated="2026-10-27" data-title="דף הבית">
+  <section class="page" id="news" data-updated="2026-10-30" data-title="דף הבית">
+    <h1 class="sr-only">מחלקת סגל, חיל הים – דף הבית</h1>
+    <div class="sec-head">
+      <h2>עדכונים אחרונים</h2>
+      <span class="sec-count" id="newsCount"></span>
+    </div>
     <details class="card msg" id="msg-new-site" data-date="2026-10-23">
       <summary>
         <div class="meta"><span class="tag new">חדש</span><span class="date">23.10.2026</span></div>
@@ -651,6 +691,32 @@
       </button>
       </div>
     </details>
+
+    <div class="sec-head">
+      <h2>גישה מהירה</h2>
+    </div>
+    <div class="tiles">
+      <a class="tile" href="#plans" data-goto="plans">
+        <span class="t-ic"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg></span>
+        <span class="t-name">תוכניות שירות</span>
+        <span class="t-sub">מסלולים לפי קטגוריה</span>
+      </a>
+      <a class="tile" href="#orders" data-goto="orders">
+        <span class="t-ic"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></span>
+        <span class="t-name">פקודות ונהלים</span>
+        <span class="t-sub">הנהלים הרלוונטיים</span>
+      </a>
+      <a class="tile" href="#edu" data-goto="edu">
+        <span class="t-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></span>
+        <span class="t-name">השכלה והעשרה</span>
+        <span class="t-sub">לימודים ותוכניות</span>
+      </a>
+      <a class="tile" href="#perks" data-goto="perks">
+        <span class="t-ic"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6-.5 6-1.5S14 4 12 8z"/></svg></span>
+        <span class="t-name">תמריצים</span>
+        <span class="t-sub">הטבות למשרתים</span>
+      </a>
+    </div>
   </section>
 
   <!-- ===== תוכניות שירות ===== -->
@@ -1049,6 +1115,22 @@
     if(daysAgo(it.dataset.date) > NEW_DAYS){ var t = it.querySelector('.tag.new'); if(t) t.remove(); }
   });
 
+  // ===== דף הבית: מספר הודעות, הודעה מובילה ותקציר =====
+  (function(){
+    var msgs = document.querySelectorAll('#news details.msg');
+    var c = document.getElementById('newsCount');
+    if(c) c.textContent = msgs.length + ' הודעות';
+    if(msgs[0]){
+      msgs[0].classList.add('lead');
+      var firstP = msgs[0].querySelector('.msg-body p'), h3 = msgs[0].querySelector('summary h3');
+      if(firstP && h3){
+        var ex = document.createElement('p'); ex.className = 'msg-excerpt'; ex.textContent = firstP.textContent;
+        h3.insertAdjacentElement('afterend', ex);
+      }
+    }
+    document.querySelectorAll('a.tile').forEach(function(t){ var d = document.createElement('span'); d.className = 'dot'; d.setAttribute('aria-hidden','true'); t.appendChild(d); });
+  })();
+
   // ===== נקודת "חדש" בתפריט =====
   function navUpdated(navId){                          // כולל עמודי משנה
     return pages.filter(function(p){ return p.id === navId || p.dataset.parent === navId; })
@@ -1065,6 +1147,10 @@
       a.classList.toggle('has-new', !!isNew && id !== activeNav);
     });
     var anyNew = !!document.querySelector('nav a.has-new');
+    document.querySelectorAll('a.tile').forEach(function(t){
+      var link = document.querySelector('nav a[data-page="' + t.dataset.goto + '"]');
+      t.classList.toggle('has-new', !!(link && link.classList.contains('has-new')));
+    });
     document.querySelectorAll('.menu-btn').forEach(function(mb){ mb.classList.toggle('has-new', anyNew); });
   }
   function markSeen(navId){
