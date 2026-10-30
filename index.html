@@ -94,6 +94,19 @@
   }
   .d-action:active{background:rgba(255,255,255,.12)}
   .d-action svg{width:22px; height:22px; flex:none; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+  /* קישורים חיצוניים בתפריט הצד */
+  .drawer-links{margin-top:var(--s2); padding-top:var(--s2); border-top:1px solid rgba(255,255,255,.1)}
+  .d-label{font-size:var(--fs-xs); font-weight:600; color:rgba(255,255,255,.5); padding:0 14px var(--s1)}
+  .d-ext{
+    display:flex; align-items:center; gap:14px; min-height:48px; padding:10px 14px;
+    border-radius:var(--r-sm); text-decoration:none; color:rgba(255,255,255,.82);
+  }
+  .d-ext:active{background:rgba(255,255,255,.06)}
+  .d-ext svg{width:22px; height:22px; flex:none; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+  .d-ext .d-ext-go{width:18px; height:18px; margin-inline-start:auto; opacity:.6}
+  .d-ext-txt{display:flex; flex-direction:column; line-height:1.3}
+  .d-ext-txt span{font-size:var(--fs-md); font-weight:500}
+  .d-ext-txt small{font-size:var(--fs-xs); color:rgba(255,255,255,.5); text-align:right}
   /* הודעה חד-פעמית: הוספה למסך הבית */
   .a2hs{
     position:fixed; left:var(--s2); right:var(--s2); bottom:calc(var(--s2) + env(safe-area-inset-bottom)); z-index:44;
@@ -1064,6 +1077,14 @@
       <span>תמריצים</span>
     </a>
   </nav>
+  <div class="drawer-links">
+    <div class="d-label">קישורים שימושיים</div>
+    <a class="d-ext" href="https://keva.digital.idf.il" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 13h5M7 16h8"/></svg>
+      <span class="d-ext-txt"><span>קבע דיגיטלי</span><small dir="ltr">keva.digital.idf.il</small></span>
+      <svg class="d-ext-go" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg>
+    </a>
+  </div>
   <div class="drawer-actions">
     <button class="d-action" id="installBtn" type="button" aria-haspopup="dialog">
       <svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 8v6M9 11h6"/></svg>
