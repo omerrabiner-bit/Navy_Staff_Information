@@ -297,7 +297,8 @@
   /* ===== תוכן ===== */
   main{max-width:640px; margin:calc(-1 * var(--s2)) auto 0; padding:0 var(--s2); position:relative; z-index:3}
   .page{display:none}
-  .page.active{display:block; animation:rise .35s ease both}
+  .page.active{display:block; animation:fadein .25s ease both}
+  @keyframes fadein{from{opacity:0}to{opacity:1}}
   @keyframes rise{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
 
   .page-head{
@@ -685,6 +686,27 @@
   .np-maplink{display:inline-flex; align-items:center; min-height:44px; padding:0 14px}
   .info-table a.ext{display:inline-flex; align-items:center; min-height:44px; padding:0 14px}
   .sheet-close, .drawer-close{width:44px; height:44px}
+
+  /* ===== כניסה מדורגת: הרכיבים בעמוד עולים בזה אחר זה, פעם אחת בכל מעבר עמוד ===== */
+  /* fill-mode backwards: אחרי הכניסה הרכיב חוזר לעיצוב הרגיל, כך שאפקט הלחיצה ממשיך לעבוד */
+  .page.active > *, .page.active .tiles > *, .page.active .perk-list > *{
+    animation:rise .45s cubic-bezier(.2,.8,.2,1) backwards;
+  }
+  .page.active > :nth-child(2), .page.active .tiles > :nth-child(1), .page.active .perk-list > :nth-child(1){animation-delay:.04s}
+  .page.active > :nth-child(3), .page.active .tiles > :nth-child(2), .page.active .perk-list > :nth-child(2){animation-delay:.09s}
+  .page.active > :nth-child(4), .page.active .tiles > :nth-child(3), .page.active .perk-list > :nth-child(3){animation-delay:.14s}
+  .page.active > :nth-child(5), .page.active .tiles > :nth-child(4), .page.active .perk-list > :nth-child(4){animation-delay:.19s}
+  .page.active > :nth-child(6), .page.active .tiles > :nth-child(5), .page.active .perk-list > :nth-child(5){animation-delay:.24s}
+  .page.active > :nth-child(n+7), .page.active .tiles > :nth-child(n+6), .page.active .perk-list > :nth-child(n+6){animation-delay:.28s}
+
+  /* ===== טקסטורת גלים סטטית ברקע (בלי תנועה) ===== */
+  body{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='48' viewBox='0 0 160 48'%3E%3Cg fill='none' stroke='%231559a8' stroke-opacity='.07' stroke-width='1.2'%3E%3Cpath d='M0 12q20-8 40 0t40 0 40 0 40 0'/%3E%3Cpath d='M-20 36q20-8 40 0t40 0 40 0 40 0 40 0'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:160px 48px;
+  }
+  .is-dark body{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='48' viewBox='0 0 160 48'%3E%3Cg fill='none' stroke='%236cb4f5' stroke-opacity='.06' stroke-width='1.2'%3E%3Cpath d='M0 12q20-8 40 0t40 0 40 0 40 0'/%3E%3Cpath d='M-20 36q20-8 40 0t40 0 40 0 40 0 40 0'/%3E%3C/g%3E%3C/svg%3E");
+  }
 
   @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important} }
 </style>
