@@ -699,14 +699,15 @@
   .page.active > :nth-child(6), .page.active .tiles > :nth-child(5), .page.active .perk-list > :nth-child(5){animation-delay:.24s}
   .page.active > :nth-child(n+7), .page.active .tiles > :nth-child(n+6), .page.active .perk-list > :nth-child(n+6){animation-delay:.28s}
 
-  /* ===== טקסטורת גלים סטטית ברקע (בלי תנועה) ===== */
-  body{
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='48' viewBox='0 0 160 48'%3E%3Cg fill='none' stroke='%231559a8' stroke-opacity='.07' stroke-width='1.2'%3E%3Cpath d='M0 12q20-8 40 0t40 0 40 0 40 0'/%3E%3Cpath d='M-20 36q20-8 40 0t40 0 40 0 40 0 40 0'/%3E%3C/g%3E%3C/svg%3E");
-    background-size:160px 48px;
+  /* ===== רקע גלים סטטי: שכבות ים רכות רק בתחתית העמוד, נמוגות כלפי מעלה ===== */
+  body{position:relative; min-height:100vh}
+  body::before{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:280px; z-index:-1; pointer-events:none;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='280' viewBox='0 0 400 280'%3E%3Cg fill='%231559a8'%3E%3Cpath fill-opacity='.02' d='M0 60q100 -10 200 0t200 0t200 0V280H0z'/%3E%3Cpath fill-opacity='.025' d='M-130 120q100 -12 200 0t200 0t200 0V280H-130z'/%3E%3Cpath fill-opacity='.025' d='M-60 180q100 -14 200 0t200 0t200 0V280H-60z'/%3E%3C/g%3E%3C/svg%3E") repeat-x center bottom / 400px 280px;
+    -webkit-mask-image:linear-gradient(to top, #000 40%, transparent 100%);
+            mask-image:linear-gradient(to top, #000 40%, transparent 100%);
   }
-  .is-dark body{
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='48' viewBox='0 0 160 48'%3E%3Cg fill='none' stroke='%236cb4f5' stroke-opacity='.06' stroke-width='1.2'%3E%3Cpath d='M0 12q20-8 40 0t40 0 40 0 40 0'/%3E%3Cpath d='M-20 36q20-8 40 0t40 0 40 0 40 0 40 0'/%3E%3C/g%3E%3C/svg%3E");
-  }
+  .is-dark body::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='280' viewBox='0 0 400 280'%3E%3Cg fill='%236cb4f5'%3E%3Cpath fill-opacity='.03' d='M0 60q100 -10 200 0t200 0t200 0V280H0z'/%3E%3Cpath fill-opacity='.035' d='M-130 120q100 -12 200 0t200 0t200 0V280H-130z'/%3E%3Cpath fill-opacity='.04' d='M-60 180q100 -14 200 0t200 0t200 0V280H-60z'/%3E%3C/g%3E%3C/svg%3E")}
 
   @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important} }
 </style>
