@@ -703,10 +703,13 @@
   body{position:relative; min-height:100vh}
   body::before{
     content:""; position:absolute; left:0; right:0; bottom:0; height:280px; z-index:-1; pointer-events:none;
-    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='280' viewBox='0 0 400 280'%3E%3Cg fill='%231559a8'%3E%3Cpath fill-opacity='.02' d='M0 60q100 -10 200 0t200 0t200 0V280H0z'/%3E%3Cpath fill-opacity='.025' d='M-130 120q100 -12 200 0t200 0t200 0V280H-130z'/%3E%3Cpath fill-opacity='.025' d='M-60 180q100 -14 200 0t200 0t200 0V280H-60z'/%3E%3C/g%3E%3C/svg%3E") repeat-x center bottom / 400px 280px;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='280' viewBox='0 0 400 280'%3E%3Cg fill='%231559a8'%3E%3Cpath fill-opacity='.05' d='M0 60q100 -10 200 0t200 0t200 0V280H0z'/%3E%3Cpath fill-opacity='.06' d='M-130 120q100 -12 200 0t200 0t200 0V280H-130z'/%3E%3Cpath fill-opacity='.07' d='M-60 180q100 -14 200 0t200 0t200 0V280H-60z'/%3E%3C/g%3E%3C/svg%3E") repeat-x center bottom / 400px 280px;
     -webkit-mask-image:linear-gradient(to top, #000 40%, transparent 100%);
             mask-image:linear-gradient(to top, #000 40%, transparent 100%);
   }
+  /* מצב יום: טקסט התחתית כהה מעט יותר, כדי לשמור על ניגודיות מעל הגלים */
+  :root:not(.is-dark) footer{color:#3f4d63}
+  :root:not(.is-dark) .footer-sub{opacity:.9}
   .is-dark body::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='280' viewBox='0 0 400 280'%3E%3Cg fill='%236cb4f5'%3E%3Cpath fill-opacity='.03' d='M0 60q100 -10 200 0t200 0t200 0V280H0z'/%3E%3Cpath fill-opacity='.035' d='M-130 120q100 -12 200 0t200 0t200 0V280H-130z'/%3E%3Cpath fill-opacity='.04' d='M-60 180q100 -14 200 0t200 0t200 0V280H-60z'/%3E%3C/g%3E%3C/svg%3E")}
 
   @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important} }
