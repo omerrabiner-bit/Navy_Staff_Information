@@ -585,8 +585,8 @@
   }
   details.acc .chev svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
   details.acc[open] .chev{transform:rotate(180deg)}
-  details.acc[open] .acc-ic{background:var(--accent, var(--sea)); color:#fff}
-  .is-dark details.acc[open] .acc-ic{color:#061a33}
+  details.acc[open]:not(.closing) .acc-ic{background:var(--accent, var(--sea)); color:#fff}
+  .is-dark details.acc[open]:not(.closing) .acc-ic{color:#061a33}
   details.acc .acc-body{padding:var(--s2); border-top:1px solid var(--line)}
   details.acc.closing .chev{transform:none}
   details.acc[open]:not(.closing) .plan-list li,
