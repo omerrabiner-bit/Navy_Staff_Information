@@ -587,6 +587,10 @@
   details.acc[open] .acc-ic{background:var(--accent, var(--sea)); color:#fff}
   .is-dark details.acc[open] .acc-ic{color:#061a33}
   details.acc .acc-body{padding:var(--s2); border-top:1px solid var(--line); animation:rise .25s ease both}
+  .plan-list{list-style:none; margin:0; padding:0}
+  .plan-list li{display:flex; align-items:center; gap:var(--s1); min-height:44px; font-size:var(--fs-md); border-bottom:1px solid var(--line)}
+  .plan-list li:last-child{border-bottom:0}
+  .plan-list li::before{content:""; flex:none; width:8px; height:8px; border-radius:50%; background:var(--c-action)}
   .acc-empty{
     text-align:center; font-size:var(--fs-sm); color:var(--muted);
     border:1.5px dashed var(--line); border-radius:var(--r-sm); padding:var(--s2);
@@ -779,7 +783,7 @@
   </section>
 
   <!-- ===== תוכניות שירות ===== -->
-  <section class="page" id="plans" data-updated="2026-10-28">
+  <section class="page" id="plans" data-updated="2026-11-01">
     <div class="page-head">
       <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg></div>
       <div><h2>תוכניות שירות</h2><p>בחרו קטגוריה לפירוט התוכניות</p></div>
@@ -792,7 +796,7 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <div class="acc-empty">פירוט תוכניות השירות יתווסף בקרוב</div>
+          <ul class="plan-list"><li>אופק סטי״לים</li><li>אופק צוללות</li></ul>
         </div>
       </details>
       <details class="card acc" id="plan-ziv-yam">
@@ -802,7 +806,7 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <div class="acc-empty">פירוט תוכניות השירות יתווסף בקרוב</div>
+          <ul class="plan-list"><li>זיו ים סטי״לים</li><li>זיו ים צוללות</li></ul>
         </div>
       </details>
       <details class="card acc" id="plan-shayetet13">
@@ -812,7 +816,7 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <div class="acc-empty">פירוט תוכניות השירות יתווסף בקרוב</div>
+          <div class="acc-empty">תוכניות בהליך אישור מול האוצר</div>
         </div>
       </details>
       <details class="card acc" id="plan-kashlat">
@@ -822,7 +826,7 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <div class="acc-empty">פירוט תוכניות השירות יתווסף בקרוב</div>
+          <ul class="plan-list"><li>קשל״טים 1</li><li>קשל״טים 2</li><li>קשל״טים מפקדי מוצב</li><li>קשל״טים קמ״נים</li></ul>
         </div>
       </details>
       <details class="card acc" id="plan-kaman">
@@ -832,7 +836,7 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <div class="acc-empty">פירוט תוכניות השירות יתווסף בקרוב</div>
+          <ul class="plan-list"><li>קמ״נים 1</li><li>קשל״טים קמ״נים</li></ul>
         </div>
       </details>
       <details class="card acc" id="plan-nagadim-lohamim">
@@ -842,7 +846,7 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <div class="acc-empty">פירוט תוכניות השירות יתווסף בקרוב</div>
+          <ul class="plan-list"><li>נחשול – נגד לוחם ימי</li><li>אלמוג – רש״צ בצוללות</li><li>רש״צ להנדסה</li></ul>
         </div>
       </details>
       <details class="card acc" id="plan-nagadim-tomchal">
@@ -852,7 +856,27 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <div class="acc-empty">פירוט תוכניות השירות יתווסף בקרוב</div>
+          <ul class="plan-list"><li>עולים לגובה (מנופאים)</li></ul>
+        </div>
+      </details>
+      <details class="card acc" id="plan-unique">
+        <summary>
+          <span class="acc-ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8-4.3-4.1 5.9-.9z"/></svg></span>
+          <h3>מסלולים ייחודיים</h3>
+          <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="acc-body">
+          <ul class="plan-list"><li>משל״ב צוללן</li></ul>
+        </div>
+      </details>
+      <details class="card acc" id="plan-mate">
+        <summary>
+          <span class="acc-ic"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/><path d="M9 11h.01M15 11h.01"/></svg></span>
+          <h3>מטה</h3>
+          <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="acc-body">
+          <ul class="plan-list"><li>מטה מבצעי</li><li>מטה מוסדי</li></ul>
         </div>
       </details>
     </div>
