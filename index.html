@@ -565,7 +565,7 @@
 
   /* ===== כרטיסיות נפתחות (תוכניות שירות) ===== */
   .acc-list{display:flex; flex-direction:column; gap:12px}
-  details.acc{padding:0; margin:0}
+  details.acc{padding:0; margin:0; scroll-margin-top:80px}
   details.acc summary{
     list-style:none; cursor:pointer; user-select:none;
     display:flex; align-items:center; gap:14px; padding:14px var(--s2);
@@ -596,6 +596,18 @@
   .plan-list{list-style:none; margin:0; padding:0}
   .plan-list li{display:flex; align-items:center; gap:var(--s1); min-height:44px; font-size:var(--fs-md); border-bottom:1px solid var(--line)}
   .plan-list li:last-child{border-bottom:0}
+  .plan-list a{display:flex; flex:1; align-items:center; justify-content:space-between; gap:var(--s1); min-height:48px; color:inherit; text-decoration:none; font-weight:600}
+  .plan-list a:active{color:var(--c-action)}
+  .plan-list a .go{width:20px; height:20px; flex:none; stroke:var(--c-action); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+  /* עמוד תוכנית שירות */
+  .tp{--accent:var(--c-plans)}
+  .tp-sec{margin:0 0 var(--s2)}
+  .tp-sec h3{display:flex; align-items:center; gap:var(--s1); margin:0 0 var(--s1); font-size:var(--fs-md)}
+  .tp-sec h3 svg{width:24px; height:24px; flex:none; stroke:var(--c-action); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+  .tp-list{margin:0; padding:0 var(--s3) 0 0; font-size:var(--fs-md); line-height:1.6}
+  .tp-list li{margin:0 0 var(--s1)}
+  .tp-list li:last-child{margin:0}
+  .tp-list li::marker{color:var(--c-action)}
   .plan-list li::before{content:""; flex:none; width:8px; height:8px; border-radius:50%; background:var(--c-action)}
   .acc-empty{
     text-align:center; font-size:var(--fs-sm); color:var(--muted);
@@ -831,7 +843,7 @@
   </section>
 
   <!-- ===== תוכניות שירות ===== -->
-  <section class="page" id="plans" data-updated="2026-11-01">
+  <section class="page" id="plans" data-updated="2026-11-11">
     <div class="page-head">
       <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg></div>
       <div><h2>תוכניות שירות</h2><p>בחרו קטגוריה לפירוט התוכניות</p></div>
@@ -844,7 +856,7 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <ul class="plan-list"><li>אופק סטי״לים</li><li>אופק צוללות</li></ul>
+          <ul class="plan-list"><li><a href="#tp-ofek-stil" data-goto="tp-ofek-stil"><span>אופק סטי״לים</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li><li><a href="#tp-ofek-tzol" data-goto="tp-ofek-tzol"><span>אופק צוללות</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li></ul>
         </div>
       </details>
       <details class="card acc" id="plan-ziv-yam">
@@ -854,7 +866,7 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <ul class="plan-list"><li>זיו ים סטי״לים</li><li>זיו ים צוללות</li></ul>
+          <ul class="plan-list"><li><a href="#tp-ziv-stil" data-goto="tp-ziv-stil"><span>זיו ים סטי״לים</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li><li><a href="#tp-ziv-tzol" data-goto="tp-ziv-tzol"><span>זיו ים צוללות</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li></ul>
         </div>
       </details>
       <details class="card acc" id="plan-shayetet13">
@@ -874,7 +886,7 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <ul class="plan-list"><li>קשל״טים 1</li><li>קשל״טים 2</li><li>קשל״טים מפקדי מוצב</li><li>קשל״טים קמ״נים</li></ul>
+          <ul class="plan-list"><li><a href="#tp-kashlat-1" data-goto="tp-kashlat-1"><span>קשל״טים 1</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li><li><a href="#tp-kashlat-2" data-goto="tp-kashlat-2"><span>קשל״טים 2</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li><li><a href="#tp-kashlat-mutzav" data-goto="tp-kashlat-mutzav"><span>קשל״טים מפקדי מוצב</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li><li><a href="#tp-kashlat-kaman" data-goto="tp-kashlat-kaman"><span>קשל״טים קמ״נים</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li></ul>
         </div>
       </details>
       <details class="card acc" id="plan-kaman">
@@ -884,7 +896,7 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <ul class="plan-list"><li>קמ״נים 1</li><li>קשל״טים קמ״נים</li></ul>
+          <ul class="plan-list"><li><a href="#tp-kaman-1" data-goto="tp-kaman-1"><span>קמ״נים 1</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li><li><a href="#tp-kaman-kashlat" data-goto="tp-kaman-kashlat"><span>קשל״טים קמ״נים</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li></ul>
         </div>
       </details>
       <details class="card acc" id="plan-nagadim-lohamim">
@@ -894,7 +906,7 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <ul class="plan-list"><li>נחשול – נגד לוחם ימי</li><li>אלמוג – רש״צ בצוללות</li><li>רש״צ להנדסה</li></ul>
+          <ul class="plan-list"><li><a href="#tp-nachshol" data-goto="tp-nachshol"><span>נחשול – נגד לוחם ימי</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li><li><a href="#tp-almog" data-goto="tp-almog"><span>אלמוג – רש״צ בצוללות</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li><li><a href="#tp-rashatz-handasa" data-goto="tp-rashatz-handasa"><span>רש״צ להנדסה</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li></ul>
         </div>
       </details>
       <details class="card acc" id="plan-nagadim-tomchal">
@@ -904,7 +916,7 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <ul class="plan-list"><li>עולים לגובה (מנופאים)</li></ul>
+          <ul class="plan-list"><li><a href="#tp-manofim" data-goto="tp-manofim"><span>עולים לגובה (מנופאים)</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li></ul>
         </div>
       </details>
       <details class="card acc" id="plan-unique">
@@ -914,7 +926,7 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <ul class="plan-list"><li>משל״ב צוללן</li></ul>
+          <ul class="plan-list"><li><a href="#tp-mashlab" data-goto="tp-mashlab"><span>משל״ב צוללן</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li></ul>
         </div>
       </details>
       <details class="card acc" id="plan-mate">
@@ -924,10 +936,437 @@
           <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
         </summary>
         <div class="acc-body">
-          <ul class="plan-list"><li>מטה מבצעי</li><li>מטה מוסדי</li></ul>
+          <ul class="plan-list"><li><a href="#tp-mate-mivtzai" data-goto="tp-mate-mivtzai"><span>מטה מבצעי</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li><li><a href="#tp-mate-mosadi" data-goto="tp-mate-mosadi"><span>מטה מוסדי</span><svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></a></li></ul>
         </div>
       </details>
     </div>
+  </section>
+
+  <!-- ===== עמוד משנה: אופק סטי״לים ===== -->
+  <section class="page tp" id="tp-ofek-stil" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-ofek" data-goto="plan-ofek">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.3"/><circle cx="12" cy="12" r="2"/><path d="M14.00 12.00L21.50 12.00M13.41 13.41L18.72 18.72M12.00 14.00L12.00 21.50M10.59 13.41L5.28 18.72M10.00 12.00L2.50 12.00M10.59 10.59L5.28 5.28M12.00 10.00L12.00 2.50M13.41 10.59L18.72 5.28"/></svg></div>
+      <div><h2>אופק סטי״לים</h2><p>אופק</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>מסלול הליבה לפיקוד על סטי״ל, ופיתוח לפיקוד הבכיר בזרוע.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>מענק כספי</li><li>שנתיים לימודים מלאים</li><li>דרגת רס״ן בסיום ההתחייבות הקשיחה בגין קורס חובלים</li><li>שימור רמת פעילות א׳ (למעט ביחידות המזכות בא+)</li><li>רכב בדרג הסרן, עוד לפני הזכאות בדרגת רס״ן, למי שאין לו מינוי שמזכה ברכב מ״פ</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-ofek-stil" data-title="אופק סטי״לים – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: אופק צוללות ===== -->
+  <section class="page tp" id="tp-ofek-tzol" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-ofek" data-goto="plan-ofek">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.3"/><circle cx="12" cy="12" r="2"/><path d="M14.00 12.00L21.50 12.00M13.41 13.41L18.72 18.72M12.00 14.00L12.00 21.50M10.59 13.41L5.28 18.72M10.00 12.00L2.50 12.00M10.59 10.59L5.28 5.28M12.00 10.00L12.00 2.50M13.41 10.59L18.72 5.28"/></svg></div>
+      <div><h2>אופק צוללות</h2><p>אופק</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>מסלול הליבה לפיקוד על צוללת, ופיתוח לפיקוד הבכיר בזרוע.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>מענק כספי</li><li>שנתיים לימודים מלאים</li><li>דרגת רס״ן בסיום ההתחייבות הקשיחה בגין קורס חובלים</li><li>שימור רמת פעילות א׳ (למעט ביחידות המזכות בא+)</li><li>רכב בדרג הסרן, עוד לפני הזכאות בדרגת רס״ן, למי שאין לו מינוי שמזכה ברכב מ״פ</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-ofek-tzol" data-title="אופק צוללות – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: זיו ים סטי״לים ===== -->
+  <section class="page tp" id="tp-ziv-stil" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-ziv-yam" data-goto="plan-ziv-yam">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5"/><rect x="10" y="10" width="4" height="4" rx=".5"/><path d="M10 4v3M14 4v3M10 17v3M14 17v3M4 10h3M4 14h3M17 10h3M17 14h3"/></svg></div>
+      <div><h2>זיו ים סטי״לים</h2><p>זיו ים</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>פיתוח קציני ים מהנדסים, ופיתוח לפיקוד הבכיר במספן ציוד.</li><li>שירות אפקטיבי כקצין מהנדס.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>ארבע שנות לימודים מלאים בהנדסה</li><li>מענק כספי</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-ziv-stil" data-title="זיו ים סטי״לים – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: זיו ים צוללות ===== -->
+  <section class="page tp" id="tp-ziv-tzol" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-ziv-yam" data-goto="plan-ziv-yam">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5"/><rect x="10" y="10" width="4" height="4" rx=".5"/><path d="M10 4v3M14 4v3M10 17v3M14 17v3M4 10h3M4 14h3M17 10h3M17 14h3"/></svg></div>
+      <div><h2>זיו ים צוללות</h2><p>זיו ים</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>פיתוח קציני ים מהנדסים, ופיתוח לפיקוד הבכיר במספן ציוד.</li><li>שירות אפקטיבי כקצין מהנדס.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>ארבע שנות לימודים מלאים בהנדסה</li><li>מענק כספי</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v12l-4 4H5z"/><path d="M15 20v-4h4"/><path d="M9 9h6M9 13h4"/></svg>הערה</h3>
+      <ul class="tp-list"><li>ההחזר בגין הלימודים קצר יותר מבזיו ים סטי״לים, כי ההתחייבות בגין קורס חובלים ארוכה יותר.</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-ziv-tzol" data-title="זיו ים צוללות – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: קשל״טים 1 ===== -->
+  <section class="page tp" id="tp-kashlat-1" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-kashlat" data-goto="plan-kashlat">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.2"/><circle cx="5" cy="5.5" r="1.8"/><circle cx="19" cy="5.5" r="1.8"/><circle cx="5" cy="18.5" r="1.8"/><circle cx="19" cy="18.5" r="1.8"/><path d="M6.4 6.8l4 3.6M17.6 6.8l-4 3.6M6.4 17.2l4-3.6M17.6 17.2l-4-3.6"/></svg></div>
+      <div><h2>קשל״טים 1</h2><p>קשל״טים</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>פיתוח קציני שליטה לתפקידי רס״ן במערך השליטה ובמבצעים.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>תנאי סף</h3>
+      <ul class="tp-list"><li>קצין שליטה ימי</li><li>מצטיין במסלול הליבה</li><li>חסר תואר ראשון</li><li>אחרי תפקיד שני במערך</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>שלוש שנות לימודים לתואר ראשון בכלכלה</li><li>מענק כספי</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-kashlat-1" data-title="קשל״טים 1 – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: קשל״טים 2 ===== -->
+  <section class="page tp" id="tp-kashlat-2" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-kashlat" data-goto="plan-kashlat">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.2"/><circle cx="5" cy="5.5" r="1.8"/><circle cx="19" cy="5.5" r="1.8"/><circle cx="5" cy="18.5" r="1.8"/><circle cx="19" cy="18.5" r="1.8"/><path d="M6.4 6.8l4 3.6M17.6 6.8l-4 3.6M6.4 17.2l4-3.6M17.6 17.2l-4-3.6"/></svg></div>
+      <div><h2>קשל״טים 2</h2><p>קשל״טים</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>פיתוח קציני שליטה לתפקידי רס״ן במערך השליטה ובמבצעים.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>תנאי סף</h3>
+      <ul class="tp-list"><li>קצין שליטה ימי</li><li>מצטיין במסלול הליבה</li><li>חסר תואר ראשון</li><li>אחרי תפקיד שני במערך</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>שנתיים לימודים מלאים לתואר ראשון</li><li>מענק כספי</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-kashlat-2" data-title="קשל״טים 2 – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: קשל״טים מפקדי מוצב ===== -->
+  <section class="page tp" id="tp-kashlat-mutzav" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-kashlat" data-goto="plan-kashlat">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.2"/><circle cx="5" cy="5.5" r="1.8"/><circle cx="19" cy="5.5" r="1.8"/><circle cx="5" cy="18.5" r="1.8"/><circle cx="19" cy="18.5" r="1.8"/><path d="M6.4 6.8l4 3.6M17.6 6.8l-4 3.6M6.4 17.2l4-3.6M17.6 17.2l-4-3.6"/></svg></div>
+      <div><h2>קשל״טים מפקדי מוצב</h2><p>קשל״טים</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>פיתוח קציני שליטה לתפקידי רס״ן במערך השליטה ובמבצעים.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>תנאי סף</h3>
+      <ul class="tp-list"><li>קצין שליטה ימי</li><li>מצטיין במסלול הליבה</li><li>חסר תואר ראשון</li><li>אחרי תפקיד שני במערך</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>שנתיים לימודים מלאים לתואר ראשון</li><li>מענק כספי מוגדל</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-kashlat-mutzav" data-title="קשל״טים מפקדי מוצב – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: קשל״טים קמ״נים ===== -->
+  <section class="page tp" id="tp-kashlat-kaman" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-kashlat" data-goto="plan-kashlat">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.2"/><circle cx="5" cy="5.5" r="1.8"/><circle cx="19" cy="5.5" r="1.8"/><circle cx="5" cy="18.5" r="1.8"/><circle cx="19" cy="18.5" r="1.8"/><path d="M6.4 6.8l4 3.6M17.6 6.8l-4 3.6M6.4 17.2l4-3.6M17.6 17.2l-4-3.6"/></svg></div>
+      <div><h2>קשל״טים קמ״נים</h2><p>קשל״טים</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>פיתוח קציני שליטה לתפקידי רס״ן במערך השליטה ובמבצעים.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>תנאי סף</h3>
+      <ul class="tp-list"><li>קצין שליטה ימי</li><li>מצטיין במסלול הליבה</li><li>חסר תואר ראשון</li><li>אחרי תפקיד שני במערך</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>שנתיים לימודים מלאים לתואר ראשון, בלי מענק</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-kashlat-kaman" data-title="קשל״טים קמ״נים – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: קמ״נים 1 ===== -->
+  <section class="page tp" id="tp-kaman-1" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-kaman" data-goto="plan-kaman">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div>
+      <div><h2>קמ״נים 1</h2><p>קמ״נים</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>פיתוח קציני מודיעין לתפקידי רס״ן במערך המודיעין.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>תנאי סף</h3>
+      <ul class="tp-list"><li>קצין מודיעין ימי</li><li>מצטיין במסלול הליבה</li><li>חסר תואר ראשון</li><li>אחרי תפקיד שני במערך</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>שנתיים לימודים מלאים לתואר ראשון</li><li>מענק כספי</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-kaman-1" data-title="קמ״נים 1 – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: קשל״טים קמ״נים ===== -->
+  <section class="page tp" id="tp-kaman-kashlat" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-kaman" data-goto="plan-kaman">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div>
+      <div><h2>קשל״טים קמ״נים</h2><p>קמ״נים</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>פיתוח קציני מודיעין לתפקידי רס״ן במערך המודיעין.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>תנאי סף</h3>
+      <ul class="tp-list"><li>קצין מודיעין ימי</li><li>מצטיין במסלול הליבה</li><li>חסר תואר ראשון</li><li>אחרי תפקיד שני במערך</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>שנתיים לימודים מלאים לתואר ראשון, בלי מענק</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-kaman-kashlat" data-title="קשל״טים קמ״נים – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: נחשול – נגד לוחם ימי ===== -->
+  <section class="page tp" id="tp-nachshol" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-nagadim-lohamim" data-goto="plan-nagadim-lohamim">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div><h2>נחשול – נגד לוחם ימי</h2><p>נגדים לוחמים</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="6" r="2.4"/><path d="M8.4 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.6"/></svg>מסלולים</h3>
+      <ul class="tp-list"><li>מסלול א׳ – 4+1</li><li>מסלול ב׳ – 5+2</li><li>מסלול ג׳ – 7+2</li><li>מסלול ד׳ – 10+2</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>מענק כספי (במסלולים ג׳–ד׳ יש מענקים נוספים)</li><li>לימודים מלאים: שנה במסלול א׳, שנתיים בשאר המסלולים</li><li>קידום למובהק (במסלול א׳ הקידום אינו הכרחי)</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-nachshol" data-title="נחשול – נגד לוחם ימי – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: אלמוג – רש״צ בצוללות ===== -->
+  <section class="page tp" id="tp-almog" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-nagadim-lohamim" data-goto="plan-nagadim-lohamim">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div><h2>אלמוג – רש״צ בצוללות</h2><p>נגדים לוחמים</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>מיועד ללוחמים מצטיינים בשייטת 7 שמתאימים למסלול פיקודי ביחידה.</li><li>כולל תפקיד רש״צ בצוות צוללת.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>שנתיים לימודים מלאים</li><li>מענק כספי</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-almog" data-title="אלמוג – רש״צ בצוללות – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: רש״צ להנדסה ===== -->
+  <section class="page tp" id="tp-rashatz-handasa" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-nagadim-lohamim" data-goto="plan-nagadim-lohamim">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div><h2>רש״צ להנדסה</h2><p>נגדים לוחמים</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>תפקיד רש״צ בצוות צוללת, ואחר כך השתלבות במטה כקצין מהנדס.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>שנתיים לימודים מלאים במסגרת תוכנית הרש״צ</li><li>תוספת של שנתיים לימודים מלאים במסגרת רש״צ להנדסה (סה״כ ארבע שנים)</li><li>מענק כספי</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-rashatz-handasa" data-title="רש״צ להנדסה – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: עולים לגובה (מנופאים) ===== -->
+  <section class="page tp" id="tp-manofim" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-nagadim-tomchal" data-goto="plan-nagadim-tomchal">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></div>
+      <div><h2>עולים לגובה (מנופאים)</h2><p>נגדים תומכ״ל</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>מיועדת לנגדים ראשונים במקצוע מנופאי אחרי סיום ההכשרה.</li><li>כוללת תקופת החזר בגין התמריץ, ושירות קבע ארוך בזכות ההכשרה הייחודית.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>תמריץ כספי</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-manofim" data-title="עולים לגובה (מנופאים) – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: משל״ב צוללן ===== -->
+  <section class="page tp" id="tp-mashlab" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-unique" data-goto="plan-unique">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8-4.3-4.1 5.9-.9z"/></svg></div>
+      <div><h2>משל״ב צוללן</h2><p>מסלולים ייחודיים</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg>מאפיינים</h3>
+      <ul class="tp-list"><li>פיתוח מפקדי שלבים בקורס צוללן.</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>שנת לימודים מלאים בתום הקדנציה</li><li>מענק כספי</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-mashlab" data-title="משל״ב צוללן – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: מטה מבצעי ===== -->
+  <section class="page tp" id="tp-mate-mivtzai" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-mate" data-goto="plan-mate">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/><path d="M9 11h.01M15 11h.01"/></svg></div>
+      <div><h2>מטה מבצעי</h2><p>מטה</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14.2c2.9.3 5.5 2.6 5.5 5.8"/></svg>אוכלוסיות יעד והלימודים של כל אחת</h3>
+      <ul class="tp-list"><li>קציני שייט/צוללות בגמר ההתחייבות, שאינם ממשיכים באחד ממסלולי הליבה: שנת לימודים לתואר שני</li><li>קציני תקיפה בגמר ההתחייבות הקשיחה: שנתיים לימודים לתואר ראשון</li><li>קציני לו״ז במסלול קצין מומחה, בגמר ההתחייבות הקשיחה: שנת לימודים לתואר שני</li><li>קציני יח״ש בקדנציה שלישית ובגמר ההתחייבות הקשיחה: שנתיים לימודים לתואר ראשון</li><li>קציני שליטה שאינם במסלול הליבה, לתפקיד מפקד מש״א (מעבר לתאום): שנתיים לימודים לתואר ראשון</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>תמריץ כספי לכל האוכלוסיות. מדרגת התמריץ תלויה בסיווג המערך (טכנולוג או תומכ״ל).</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v12l-4 4H5z"/><path d="M15 20v-4h4"/><path d="M9 9h6M9 13h4"/></svg>הערה</h3>
+      <ul class="tp-list"><li>לקצין טכנולוג, משך ההחזר בגין הלימודים נקבע לפי מדיניות הלומדים הצה״לית.</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-mate-mivtzai" data-title="מטה מבצעי – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
+  </section>
+
+  <!-- ===== עמוד משנה: מטה מוסדי ===== -->
+  <section class="page tp" id="tp-mate-mosadi" data-parent="plans" data-updated="2026-11-11">
+    <a class="back" href="#plan-mate" data-goto="plan-mate">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לתוכניות שירות
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/><path d="M9 11h.01M15 11h.01"/></svg></div>
+      <div><h2>מטה מוסדי</h2><p>מטה</p></div>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14.2c2.9.3 5.5 2.6 5.5 5.8"/></svg>אוכלוסיות יעד והלימודים של כל אחת</h3>
+      <ul class="tp-list"><li>קציני שייט/צוללות בגמר ההתחייבות, שאינם ממשיכים באחד ממסלולי הליבה: שנת לימודים לתואר שני</li><li>קציני לו״ז בגמר ההתחייבות הקשיחה בגין עמ״ט הלוחם וקצונה, שאינם ממשיכים לתוכנית אופק: שנת לימודים לתואר ראשון, כתוספת לתוכנית קיימת</li><li>מש״קי אמל״ח בגמר ההתחייבות הקשיחה בגין קק״צ קבע: שנתיים לימודים לתואר ראשון</li><li>קציני ילת״מ בגמר ההתחייבות הקשיחה: שנתיים לימודים לתואר ראשון</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-3.5-6-3.5-6-1s4 1 6 1c2 0 6 1.5 6-1s-4-2.5-6 1z"/></svg>הטבות</h3>
+      <ul class="tp-list"><li>תמריץ כספי לכל האוכלוסיות. מדרגת התמריץ תלויה בסיווג המערך (טכנולוג או תומכ״ל).</li></ul>
+    </div>
+    <div class="card tp-sec">
+      <h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v12l-4 4H5z"/><path d="M15 20v-4h4"/><path d="M9 9h6M9 13h4"/></svg>הערה</h3>
+      <ul class="tp-list"><li>לקצין טכנולוג, משך ההחזר בגין הלימודים נקבע לפי מדיניות הלומדים הצה״לית.</li></ul>
+    </div>
+    <button class="share-btn wide" type="button" data-share="tp-mate-mosadi" data-title="מטה מוסדי – תוכנית שירות">
+      <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+      שיתוף התוכנית
+    </button>
   </section>
 
   <!-- ===== פקודות ונהלים ===== -->
