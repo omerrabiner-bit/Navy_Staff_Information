@@ -236,6 +236,7 @@
     box.innerHTML =
       '<div class="c-txt"><h3>יש לך שאלה?</h3>' +
         '<span class="c-mail" dir="ltr">' + CONTACT_EMAIL + '</span></div>' +
+      '<p class="c-warn">נא לשלוח הודעות ללא פרטים מסווגים</p>' +
       '<div class="c-actions">' +
         '<a class="contact-btn" href="#" role="button">' +
           '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>' +

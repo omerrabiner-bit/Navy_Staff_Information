@@ -42,7 +42,7 @@
     --r-sm:12px; --r-md:16px; --r-lg:20px;
     /* צבעי עמודים */
     /* צבע לפי תפקיד: כחול = פעולה/קישור/אייקון, זהב = 'חדש' ומיתוג בלבד, שאר הרכיבים ניטרליים */
-    --c-action:#1559a8; --c-new:#d4a84b;
+    --c-action:#1559a8; --c-new:#d4a84b; --c-warn:#d92626;
     --c-news:var(--c-action); --c-plans:var(--c-action); --c-orders:var(--c-action); --c-edu:var(--c-action); --c-perks:var(--c-action);
   }
   /* מצב לילה: לפי הגדרת הטלפון, אלא אם המשתמש בחר ידנית */
@@ -51,7 +51,7 @@
       --bg:#06101d; --card:#0f1f35; --text:#e8eff8; --muted:#a2b2c7; --line:#223854;
       --foam:#15304f; --shadow:0 0 0 1px rgba(255,255,255,.02), 0 8px 24px rgba(0,0,0,.45);
       --nav-active:#d6ebff;
-      --c-action:#6cb4f5; --c-new:#e3b866;
+      --c-action:#6cb4f5; --c-new:#e3b866; --c-warn:#ff7b7b;
       --c-news:var(--c-action); --c-plans:var(--c-action); --c-orders:var(--c-action); --c-edu:var(--c-action); --c-perks:var(--c-action);
     }
   }
@@ -59,7 +59,7 @@
     --bg:#06101d; --card:#0f1f35; --text:#e8eff8; --muted:#a2b2c7; --line:#223854;
     --foam:#15304f; --shadow:0 0 0 1px rgba(255,255,255,.02), 0 8px 24px rgba(0,0,0,.45);
     --nav-active:#d6ebff;
-    --c-action:#6cb4f5; --c-new:#e3b866;
+    --c-action:#6cb4f5; --c-new:#e3b866; --c-warn:#ff7b7b;
     --c-news:var(--c-action); --c-plans:var(--c-action); --c-orders:var(--c-action); --c-edu:var(--c-action); --c-perks:var(--c-action);
   }
   body{transition:background-color .3s ease, color .3s ease}
@@ -646,6 +646,7 @@
   .contact .c-txt{display:flex; align-items:baseline; justify-content:space-between; gap:var(--s1); flex-wrap:wrap; margin-bottom:12px}
   .contact h3{margin:0; font-size:var(--fs-md); font-weight:700; line-height:1.4}
   .contact .c-mail{font-size:var(--fs-sm); font-weight:500; color:var(--muted); unicode-bidi:isolate; -webkit-user-select:all; user-select:all}
+  .contact .c-warn{margin:0 0 12px; font-size:var(--fs-sm); font-weight:600; line-height:1.5; color:var(--c-warn)}
   .contact .c-actions{display:grid; grid-template-columns:1fr auto; gap:var(--s1)}
   .contact-btn, .copy-btn{
     display:inline-flex; align-items:center; justify-content:center; gap:var(--s1); min-height:44px;
@@ -1675,6 +1676,6 @@
 </div>
 
 <!-- כל הקוד של האתר נמצא ב-app.js (נדרש בגלל מדיניות האבטחה שבראש הדף) -->
-<script src="app.js?v=2"></script>
+<script src="app.js?v=3"></script>
 </body>
 </html>
