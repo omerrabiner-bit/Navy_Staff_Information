@@ -170,11 +170,16 @@
       var empty = list.parentNode.querySelector('.f-empty');
       var count = box.querySelector('.f-count');
       var state = {corps:'', pop:''};
+      var corpsSel = box.querySelector('select[data-key="corps"]');
+      var ALL_CORPS = corpsSel ? corpsSel.querySelectorAll('option').length - 1 : 99;
       function split(v){ return (v || '').split(',').map(function(x){ return x.trim(); }).filter(Boolean); }
       // תוויות על כל תוכנית לפי הנתונים שלה
       items.forEach(function(it){
         var tags = it.querySelector('.p-tags'); if(!tags) return;
-        tags.innerHTML = split(it.dataset.corps).map(function(c){ return '<span class="p-tag">מערך ' + c + '</span>'; }).join('') +
+        var corps = split(it.dataset.corps);
+        // תוכנית שמתאימה לכל המערכים מקבלת תווית אחת במקום שש
+        tags.innerHTML = (corps.length >= ALL_CORPS ? '<span class="p-tag">כל המערכים</span>'
+                           : corps.map(function(c){ return '<span class="p-tag">מערך ' + c + '</span>'; }).join('')) +
                          split(it.dataset.pop).map(function(c){ return '<span class="p-tag pop">' + c + '</span>'; }).join('');
       });
       function apply(){
