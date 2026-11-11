@@ -258,25 +258,36 @@
     p.appendChild(box);
   });
 
-  // ===== שעון ניו פורט (שעון החוף המזרחי בארה״ב, כולל שעון קיץ/חורף) =====
+  // ===== שעון מקומי בעמודי תוכניות הלימוד (לפי data-tz, כולל שעון קיץ/חורף) =====
   (function(){
-    var tEl = document.getElementById('npTime'), dEl = document.getElementById('npDate'), fEl = document.getElementById('npDiff');
-    if(!tEl) return;
-    var NY = 'America/New_York', IL = 'Asia/Jerusalem';
-    var fTime = new Intl.DateTimeFormat('en-GB', {timeZone:NY, hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false});
-    var fDate = new Intl.DateTimeFormat('he-IL', {timeZone:NY, weekday:'long', day:'numeric', month:'long'});
+    var IL = 'Asia/Jerusalem';
     function offsetMin(tz, d){
       var p = new Intl.DateTimeFormat('en-US', {timeZone:tz, hour12:false, year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'}).formatToParts(d);
       var o = {}; p.forEach(function(x){ o[x.type] = x.value; });
       var asUTC = Date.UTC(+o.year, +o.month - 1, +o.day, +o.hour % 24, +o.minute);
       return Math.round((asUTC - d.getTime()) / 60000);
     }
+    var clocks = [];
+    document.querySelectorAll('.np-clock[data-tz]').forEach(function(box){
+      var tz = box.dataset.tz;
+      clocks.push({
+        tz: tz, city: box.dataset.city || '',
+        tEl: box.querySelector('.np-time'), dEl: box.querySelector('.np-date'), fEl: box.querySelector('.np-diff'),
+        fTime: new Intl.DateTimeFormat('en-GB', {timeZone:tz, hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false}),
+        fDate: new Intl.DateTimeFormat('he-IL', {timeZone:tz, weekday:'long', day:'numeric', month:'long'})
+      });
+    });
+    if(!clocks.length) return;
+    function hours(n){ return n === 1 ? 'בשעה אחת' : 'ב־' + n + ' שעות'; }
     function tick(){
-      var now = new Date();
-      tEl.textContent = fTime.format(now);
-      dEl.textContent = fDate.format(now);
-      var diff = (offsetMin(IL, now) - offsetMin(NY, now)) / 60;
-      fEl.textContent = 'ניו פורט מאחורי ישראל ב־' + diff + ' שעות';
+      var now = new Date(), il = offsetMin(IL, now);
+      clocks.forEach(function(c){
+        c.tEl.textContent = c.fTime.format(now);
+        c.dEl.textContent = c.fDate.format(now);
+        var diff = (il - offsetMin(c.tz, now)) / 60;
+        c.fEl.textContent = diff === 0 ? 'אותה שעה כמו בישראל'
+          : c.city + (diff > 0 ? ' מאחורי ישראל ' : ' לפני ישראל ') + hours(Math.abs(diff));
+      });
     }
     tick();
     setInterval(tick, 1000);
