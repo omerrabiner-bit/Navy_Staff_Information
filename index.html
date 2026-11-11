@@ -617,8 +617,10 @@
   details.msg[open] .msg-excerpt{display:none}
   details.msg.lead{border-color:color-mix(in srgb, var(--c-new) 55%, var(--line))}
   /* אריחי גישה מהירה */
-  .tiles{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-  .tiles > :last-child:nth-child(odd){grid-column:1 / -1}
+  .tiles{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--s1)}
+  /* שלושה אריחים שווים בשורה אחת: תוכן ממורכז */
+  .tiles a.tile{align-items:center; text-align:center; padding:var(--s2) var(--s1); min-height:128px}
+  .tiles a.tile .t-ic{margin-bottom:var(--s1)}
   a.tile{
     display:flex; flex-direction:column; gap:4px; min-height:112px;
     padding:var(--s2); border-radius:var(--r-md); text-decoration:none; color:var(--text);
