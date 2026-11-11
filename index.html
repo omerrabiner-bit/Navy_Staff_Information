@@ -43,7 +43,7 @@
     /* צבעי עמודים */
     /* צבע לפי תפקיד: כחול = פעולה/קישור/אייקון, זהב = 'חדש' ומיתוג בלבד, שאר הרכיבים ניטרליים */
     --c-action:#1559a8; --c-new:#d4a84b; --c-warn:#d92626;
-    --c-news:var(--c-action); --c-plans:var(--c-action); --c-orders:var(--c-action); --c-edu:var(--c-action); --c-perks:var(--c-action);
+    --c-news:var(--c-action); --c-plans:var(--c-action); --c-orders:var(--c-action); --c-edu:var(--c-action);
   }
   /* מצב לילה: לפי הגדרת הטלפון, אלא אם המשתמש בחר ידנית */
   @media (prefers-color-scheme: dark){
@@ -52,7 +52,7 @@
       --foam:#15304f; --shadow:0 0 0 1px rgba(255,255,255,.02), 0 8px 24px rgba(0,0,0,.45);
       --nav-active:#d6ebff;
       --c-action:#6cb4f5; --c-new:#e3b866; --c-warn:#ff7b7b;
-      --c-news:var(--c-action); --c-plans:var(--c-action); --c-orders:var(--c-action); --c-edu:var(--c-action); --c-perks:var(--c-action);
+      --c-news:var(--c-action); --c-plans:var(--c-action); --c-orders:var(--c-action); --c-edu:var(--c-action);
     }
   }
   :root[data-theme="dark"]{
@@ -60,7 +60,7 @@
     --foam:#15304f; --shadow:0 0 0 1px rgba(255,255,255,.02), 0 8px 24px rgba(0,0,0,.45);
     --nav-active:#d6ebff;
     --c-action:#6cb4f5; --c-new:#e3b866; --c-warn:#ff7b7b;
-    --c-news:var(--c-action); --c-plans:var(--c-action); --c-orders:var(--c-action); --c-edu:var(--c-action); --c-perks:var(--c-action);
+    --c-news:var(--c-action); --c-plans:var(--c-action); --c-orders:var(--c-action); --c-edu:var(--c-action);
   }
   body{transition:background-color .3s ease, color .3s ease}
 
@@ -317,7 +317,6 @@
   #plans{--accent:var(--c-plans)}
   #orders{--accent:var(--c-orders)}
   #edu{--accent:var(--c-edu)}
-  #perks{--accent:var(--c-perks)}
   #newport{--accent:var(--c-edu)}
 
   /* כפתור חזרה בעמוד משנה */
@@ -409,7 +408,7 @@
     display:inline-flex; align-items:center; gap:6px; margin-top:12px;
     font-size:var(--fs-sm); font-weight:700; text-decoration:none; color:#fff;
     background:var(--accent, var(--sea));
-    padding:8px 14px; border-radius:10px;
+    padding:8px 14px; border-radius:10px; min-height:44px;
   }
   /* הודעה מתקפלת: רק כותרת, לחיצה פותחת */
   details.msg{padding:0}
@@ -619,6 +618,7 @@
   details.msg.lead{border-color:color-mix(in srgb, var(--c-new) 55%, var(--line))}
   /* אריחי גישה מהירה */
   .tiles{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+  .tiles > :last-child:nth-child(odd){grid-column:1 / -1}
   a.tile{
     display:flex; flex-direction:column; gap:4px; min-height:112px;
     padding:var(--s2); border-radius:var(--r-md); text-decoration:none; color:var(--text);
@@ -744,12 +744,30 @@
 <main>
 
   <!-- ===== הודעות ===== -->
-  <section class="page" id="news" data-updated="2026-10-30" data-title="דף הבית">
+  <section class="page" id="news" data-updated="2026-11-11" data-title="דף הבית">
     <h1 class="sr-only">מחלקת סגל, חיל הים – דף הבית</h1>
     <div class="sec-head">
       <h2>עדכונים אחרונים</h2>
       <span class="sec-count" id="newsCount"></span>
     </div>
+    <details class="card msg" id="msg-housing-bat-galim" data-date="2026-11-11">
+      <summary>
+        <div class="meta"><span class="tag new">חדש</span><span class="date">11.11.2026</span></div>
+        <h3>פרויקט מגורים חדש בבת גלים</h3>
+        <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+      </summary>
+      <div class="msg-body">
+      <p>מנהלת המגורים של צה״ל, בשיתוף עם KTV, מקדמת פרויקט מגורים חדש בבת גלים.</p>
+      <p style="margin-top:12px">כל הפרטים על הפרויקט נמצאים בקישור המצורף.</p>
+      <p><a class="btn" href="https://share.google/uFcHBv2jcFx3aASZv" target="_blank" rel="noopener">לפרטים על הפרויקט</a></p>
+      <p style="margin-top:var(--s2); font-weight:700">מחלקת הסגל,<br>זרוע הים</p>
+      <button class="share-btn" type="button" data-share="msg-housing-bat-galim" data-title="פרויקט מגורים חדש בבת גלים">
+        <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+        שיתוף ההודעה
+      </button>
+      </div>
+    </details>
+
     <details class="card msg" id="msg-new-site" data-date="2026-10-23">
       <summary>
         <div class="meta"><span class="tag new">חדש</span><span class="date">23.10.2026</span></div>
@@ -806,11 +824,6 @@
         <span class="t-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></span>
         <span class="t-name">השכלה והעשרה</span>
         <span class="t-sub">לימודים ותוכניות</span>
-      </a>
-      <a class="tile" href="#perks" data-goto="perks">
-        <span class="t-ic"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6-.5 6-1.5S14 4 12 8z"/></svg></span>
-        <span class="t-name">תמריצים</span>
-        <span class="t-sub">הטבות למשרתים</span>
       </a>
     </div>
   </section>
@@ -1520,25 +1533,6 @@
     </button>
   </section>
 
-  <!-- ===== תמריצים ===== -->
-  <section class="page" id="perks" data-updated="2026-10-25">
-    <div class="page-head">
-      <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6-.5 6-1.5S14 4 12 8z"/></svg></div>
-      <div><h2>תמריצים</h2><p>הטבות ותמריצים למשרתים</p></div>
-    </div>
-
-    <div class="perk-list">
-      <a class="perk" href="https://share.google/uFcHBv2jcFx3aASZv" target="_blank" rel="noopener">
-        <span class="p-ic"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></span>
-        <span class="p-txt">
-          <strong>פרויקט מגורים בת גלים</strong>
-          <span>מנהלת המגורים של צה״ל בשת״פ עם KTV</span>
-        </span>
-        <span class="p-go"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
-      </a>
-    </div>
-  </section>
-
 </main>
 
 <footer>
@@ -1591,10 +1585,6 @@
     <a href="#edu" data-page="edu">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg>
       <span>השכלה והעשרה</span>
-    </a>
-    <a href="#perks" data-page="perks">
-      <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18"/><path d="M12 8c-2-4-6-4-6-1.5S9 8 12 8c3 0 6-.5 6-1.5S14 4 12 8z"/></svg>
-      <span>תמריצים</span>
     </a>
   </nav>
   <div class="drawer-links">
