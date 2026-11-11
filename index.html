@@ -222,6 +222,21 @@
   .share-btn svg{width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
   .share-btn.wide{display:flex; justify-content:center; width:100%; margin-top:var(--s3); padding:12px var(--s2); background:var(--card); box-shadow:var(--shadow)}
 
+  /* לוחות מתחלפים בתוך כרטיס (כפתורי המשך וחזרה) */
+  .steps .step{animation:fadein .25s ease}
+  .steps-nav{display:flex; align-items:center; gap:var(--s1); margin-top:var(--s3); padding-top:var(--s2); border-top:1px solid var(--line)}
+  .steps-count{flex:1; text-align:center; font-size:var(--fs-xs); color:var(--muted); font-weight:500}
+  .steps-btn{
+    display:inline-flex; align-items:center; gap:4px; min-height:44px; min-width:44px; padding:0 var(--s2); cursor:pointer;
+    font-family:inherit; font-size:var(--fs-sm); font-weight:700; border-radius:var(--r-sm);
+    color:var(--c-action); background:var(--card); border:1px solid var(--line);
+  }
+  .steps-btn.next{color:#fff; background:var(--c-action); border-color:var(--c-action); margin-inline-start:auto}
+  .is-dark .steps-btn.next{color:#06101d}
+  .steps-btn[hidden]{display:none}
+  .steps-btn svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+  .steps-btn:active{transform:scale(.96)}
+
   /* הדגשת הודעה שנפתחה מקישור ישיר */
   details.msg.flash{animation:flash 1.6s ease}
   @keyframes flash{0%,60%{box-shadow:0 0 0 3px var(--c-action), var(--shadow)}100%{box-shadow:var(--shadow)}}
@@ -1995,11 +2010,19 @@
       <div><h2>לימודים מלאים בישראל</h2><p>זכאות לדצ״י (קצינים) או להשכלה ישימה (נגדים)</p></div>
     </div>
 
-    <div class="card">
-      <p>40 אחוז מהסילבוס (נקודות הזכות) צריכות להיות בהתאם למינוי שלך כקצין ← על מנת להיות זכאי להשכלה ישימה או דצ״י. תהליך הבחינה נעשה מול מופ״ת</p>
-      <p style="margin-top:var(--s2)">השכלה ישימה לנגדים</p>
-      <p style="margin-top:var(--s1)">דצ״י - דירוג צבאי ייחודי (יש דירוגים שונים)</p>
-      <p style="margin-top:var(--s2)">לוחם – אם חוזר לרמת פעילות א׳ פלוס אחרי הלימודים, יהיה זכאי לדצ״י אוטו׳ רק לאחר 3 חודשים ביחידה המזכה (לא ברטרו)</p>
+    <div class="card steps" data-steps>
+      <div class="step" data-step="1">
+        <p>על מנת להיות זכאי לדצ״י (דירוג צבאי ייחודי, קצינים) או להשכלה ישימה (נגדים) נדרש לוודא טרם היציאה ללימודים כי 40 אחוז מסילבוס הלימודים (נקודות זכות) הינו בהתאם למינוי של איש הקבע.</p>
+        <p style="margin-top:var(--s2)">תהליך הבחינה נעשה מול מופ״ת</p>
+      </div>
+      <div class="step" data-step="2" hidden>
+        <p>לוחמים - אם איש הקבע חוזר אחרי הלימודים לתפקיד ברמת פעילות א׳ פלוס, הוא יהיה זכאי לדצ״י באופן אוטומטי (ללא קשר לתוכן לימודיו). זכאות זו תיכנס לתוקף 3 חודשים לאחר שירותו ביחידה ולא באופן רטרואקטיבי.</p>
+      </div>
+      <div class="steps-nav">
+        <button class="steps-btn prev" type="button" data-dir="-1" hidden><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה</button>
+        <span class="steps-count" aria-live="polite">1 מתוך 2</span>
+        <button class="steps-btn next" type="button" data-dir="1">המשך<svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+      </div>
     </div>
     <button class="share-btn wide" type="button" data-share="israel" data-title="לימודים מלאים בישראל – תוכנית לימודים">
       <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
@@ -2140,6 +2163,6 @@
 </div>
 
 <!-- כל הקוד של האתר נמצא ב-app.js (נדרש בגלל מדיניות האבטחה שבראש הדף) -->
-<script src="app.js?v=4"></script>
+<script src="app.js?v=5"></script>
 </body>
 </html>

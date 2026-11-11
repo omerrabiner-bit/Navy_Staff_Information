@@ -299,6 +299,25 @@
     setInterval(tick, 1000);
   })();
 
+  // ===== לוחות מתחלפים (data-steps): לוח אחד בכל פעם, כפתורי המשך וחזרה =====
+  document.querySelectorAll('[data-steps]').forEach(function(box){
+    var steps = box.querySelectorAll('.step');
+    var prev = box.querySelector('.steps-btn.prev'), next = box.querySelector('.steps-btn.next');
+    var count = box.querySelector('.steps-count');
+    var cur = 0;
+    function show(i){
+      cur = Math.max(0, Math.min(steps.length - 1, i));
+      steps.forEach(function(s, k){ s.hidden = k !== cur; });
+      prev.hidden = cur === 0;
+      next.hidden = cur === steps.length - 1;
+      count.textContent = (cur + 1) + ' מתוך ' + steps.length;
+      (cur === 0 ? next : prev).focus({preventScroll:true});
+    }
+    [prev, next].forEach(function(b){
+      b.addEventListener('click', function(){ show(cur + Number(b.dataset.dir)); });
+    });
+  });
+
   // ===== הוספה למסך הבית =====
   (function(){
     var root = document.documentElement;
