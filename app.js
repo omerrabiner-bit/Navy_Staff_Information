@@ -75,6 +75,18 @@
     store('seenPages', seen);
   }
 
+  // ===== תמונת השער: אחת משש, באקראי, בכל כניסה לדף הבית =====
+  var heroBg = document.querySelector('.hero-bg'), HERO_COUNT = 6, lastNav = null;
+  function pickHero(){
+    if(!heroBg) return;
+    var prev = 0;
+    try{ prev = parseInt(sessionStorage.getItem('hero'), 10) || 0; }catch(err){}
+    var n;
+    do { n = 1 + Math.floor(Math.random() * HERO_COUNT); } while(n === prev);  // לא אותה תמונה פעמיים ברצף
+    heroBg.dataset.hero = n;
+    try{ sessionStorage.setItem('hero', n); }catch(err){}
+  }
+
   // ===== מעבר בין עמודים =====
   function show(id){
     var target = id ? document.getElementById(id) : null;
@@ -85,7 +97,9 @@
     if(!target || !target.classList.contains('page')) target = document.getElementById('news');
     pages.forEach(function(p){ p.classList.toggle('active', p === target); });
     var navId = target.dataset.parent || target.id;    // עמוד משנה מדגיש את עמוד האב בתפריט
-    document.documentElement.dataset.nav = navId;      // מאפשר עיצוב לפי עמוד (תמונת הספינה בעמוד ההודעות)
+    if(navId === 'news' && lastNav !== 'news') pickHero();  // נכנסו לדף הבית: תמונת שער חדשה
+    lastNav = navId;
+    document.documentElement.dataset.nav = navId;      // מאפשר עיצוב לפי עמוד (תמונת השער בעמוד ההודעות)
     var h2 = target.querySelector('.page-head h2');
     var pageTitle = target.dataset.title || (h2 ? h2.textContent : '');
     var tbText = document.getElementById('tbText');

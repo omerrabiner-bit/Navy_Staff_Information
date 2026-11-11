@@ -276,14 +276,21 @@
     background:radial-gradient(120% 90% at 85% 0%, #1b4f8f 0%, var(--navy) 45%, var(--deep) 100%);
     padding:calc(var(--s3) + env(safe-area-inset-top)) var(--s2) 64px;
   }
-  /* תמונת ספינה בכותרת: רק בעמוד ההודעות */
+  /* תמונת שער בכותרת: רק בעמוד ההודעות */
   .hero-bg{
     position:absolute; inset:0; z-index:0; opacity:0; transition:opacity .5s ease;
     background:
       linear-gradient(180deg, rgba(6,26,51,.92) 0%, rgba(6,26,51,.7) 30%, rgba(6,26,51,.05) 52%, rgba(6,26,51,0) 80%, rgba(6,26,51,.35) 100%),
-      url("hero-ship.jpg?v=2") 45% calc(-104px + env(safe-area-inset-top)) / auto 456px no-repeat,
+      var(--hero) 45% calc(-104px + env(safe-area-inset-top)) / auto 456px no-repeat,
       #0a2a52;
   }
+  /* תמונות השער מתחלפות באקראי בכל כניסה לדף הבית (app.js) */
+  .hero-bg, .hero-bg[data-hero="1"]{--hero:url("hero-1.jpg?v=1")}
+  .hero-bg[data-hero="2"]{--hero:url("hero-2.jpg?v=1")}
+  .hero-bg[data-hero="3"]{--hero:url("hero-3.jpg?v=1")}
+  .hero-bg[data-hero="4"]{--hero:url("hero-4.jpg?v=1")}
+  .hero-bg[data-hero="5"]{--hero:url("hero-5.jpg?v=1")}
+  .hero-bg[data-hero="6"]{--hero:url("hero-6.jpg?v=1")}
   html[data-nav="news"] .hero-bg{opacity:1}
   html[data-nav="news"] header{padding-bottom:168px; transition:padding .4s ease}
   /* דף הבית: ההודעה הראשונה מתחילה מתחת לגלים, בלי חפיפה */
@@ -2391,6 +2398,6 @@
 </div>
 
 <!-- כל הקוד של האתר נמצא ב-app.js (נדרש בגלל מדיניות האבטחה שבראש הדף) -->
-<script src="app.js?v=6"></script>
+<script src="app.js?v=7"></script>
 </body>
 </html>
