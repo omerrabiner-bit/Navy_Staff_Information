@@ -318,6 +318,40 @@
     });
   });
 
+  // ===== עמוד מדיניות השיבוצים: רשימת נושאים בצד + חיצים קדימה/אחורה =====
+  document.querySelectorAll('[data-pol]').forEach(function(box){
+    var cards = box.querySelectorAll('.pol-card');
+    var list = box.querySelector('.pol-toc ol');
+    var prev = box.querySelector('.steps-btn.prev'), next = box.querySelector('.steps-btn.next');
+    var count = box.querySelector('.steps-count');
+    var cur = 0, btns = [];
+    cards.forEach(function(c, i){
+      var k = document.createElement('div'); k.className = 'pol-kicker';
+      k.textContent = 'נושא ' + (i + 1) + ' מתוך ' + cards.length;
+      c.insertBefore(k, c.firstChild);
+      var li = document.createElement('li'), b = document.createElement('button');
+      b.type = 'button'; b.textContent = c.dataset.title;
+      b.addEventListener('click', function(){ show(i, true); });
+      li.appendChild(b); list.appendChild(li); btns.push(b);
+    });
+    function show(i, scroll){
+      cur = Math.max(0, Math.min(cards.length - 1, i));
+      cards.forEach(function(c, k){ c.hidden = k !== cur; });
+      btns.forEach(function(b, k){ b.setAttribute('aria-current', k === cur ? 'true' : 'false'); });
+      prev.hidden = cur === 0;
+      next.hidden = cur === cards.length - 1;
+      count.textContent = (cur + 1) + ' מתוך ' + cards.length;
+      if(scroll){                                    // חוזרים לראש הכרטיס אם הוא מעל המסך
+        var top = box.getBoundingClientRect().top + window.pageYOffset - 76;
+        if(window.pageYOffset > top) window.scrollTo({top: top, behavior: 'smooth'});
+      }
+    }
+    [prev, next].forEach(function(b){
+      b.addEventListener('click', function(){ show(cur + Number(b.dataset.dir), true); });
+    });
+    show(0, false);
+  });
+
   // ===== הוספה למסך הבית =====
   (function(){
     var root = document.documentElement;

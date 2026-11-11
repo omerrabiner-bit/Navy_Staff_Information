@@ -744,6 +744,41 @@
   .is-dark body::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='280' viewBox='0 0 400 280'%3E%3Cg fill='%236cb4f5'%3E%3Cpath fill-opacity='.03' d='M0 60q100 -10 200 0t200 0t200 0V280H0z'/%3E%3Cpath fill-opacity='.035' d='M-130 120q100 -12 200 0t200 0t200 0V280H-130z'/%3E%3Cpath fill-opacity='.04' d='M-60 180q100 -14 200 0t200 0t200 0V280H-60z'/%3E%3C/g%3E%3C/svg%3E")}
 
   @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important} }
+
+  /* ===== עמוד מדיניות השיבוצים: רשימת נושאים בצד ימין + כרטיס נושא ===== */
+  #assign-policy{--accent:var(--c-orders)}
+  .pol{display:grid; grid-template-columns:96px 1fr; gap:var(--s1); align-items:start}
+  .pol-toc{position:sticky; top:calc(68px + env(safe-area-inset-top))}
+  .pol-toc ol{list-style:none; margin:0; padding:4px; display:flex; flex-direction:column; gap:2px;
+    background:var(--card); border:1px solid var(--line); border-radius:var(--r-md); box-shadow:var(--shadow)}
+  .pol-toc button{
+    display:flex; align-items:center; width:100%; min-height:44px; padding:4px 8px; cursor:pointer; text-align:right;
+    font-family:inherit; font-size:var(--fs-xs); font-weight:600; line-height:1.3; color:var(--muted);
+    background:transparent; border:0; border-radius:10px; border-inline-start:3px solid transparent;
+  }
+  .pol-toc button[aria-current="true"]{color:var(--c-action); background:var(--foam); border-inline-start-color:var(--c-action); font-weight:700}
+  .pol-main{min-width:0; background:var(--card); border:1px solid var(--line); border-radius:var(--r-md); box-shadow:var(--shadow); padding:var(--s2)}
+  .pol-card{animation:fadein .25s ease; font-size:var(--fs-sm); line-height:1.7}
+  .pol-card .pol-kicker{font-size:var(--fs-xs); font-weight:600; color:var(--muted)}
+  .pol-card h3{margin:0 0 var(--s2); font-size:var(--fs-lg); font-weight:700; line-height:1.35}
+  .pol-card h4{margin:var(--s3) 0 var(--s1); font-size:var(--fs-md); font-weight:700; color:var(--c-action)}
+  .pol-card h3 + h4{margin-top:0}
+  .pol-card h5{margin:var(--s2) 0 4px; font-size:var(--fs-sm); font-weight:700}
+  .pol-card p{margin:0 0 var(--s1)}
+  .pol-list{margin:0; padding:0 20px 0 0; list-style-type:hebrew}
+  .pol-list.num{list-style-type:decimal}
+  .pol-list li{margin:0 0 var(--s1)}
+  .pol-list li::marker{color:var(--c-action); font-weight:700}
+  .pol-table{box-shadow:none; border-radius:var(--r-sm)}
+  .pol-table .row{grid-template-columns:52% 1fr}
+  .pol-table .cat, .pol-table .val{padding:10px; font-size:var(--fs-sm); line-height:1.45}
+  .pol-table .cat{color:var(--text)}
+  .pol-table .row.head .cat, .pol-table .row.head .val{font-weight:700; color:var(--c-action); background:var(--foam)}
+  .pol-nav{display:flex; align-items:center; gap:4px; margin-top:var(--s3); padding-top:var(--s2); border-top:1px solid var(--line)}
+  .pol-nav .steps-btn{padding:0 10px}
+  .pol-nav .steps-count{white-space:nowrap}
+  .pol-nav .steps-btn[hidden]{display:inline-flex; visibility:hidden}
+  .is-dark .pol-table .cat{background:rgba(255,255,255,.03)}
 </style>
 </head>
 <body>
@@ -1387,11 +1422,22 @@
   </section>
 
   <!-- ===== פקודות ונהלים ===== -->
-  <section class="page" id="orders" data-updated="2026-10-13">
+  <section class="page" id="orders" data-updated="2026-11-11">
     <div class="page-head">
       <div class="ic"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></div>
       <div><h2>פקודות ונהלים</h2><p>הנהלים הרלוונטיים, בשפה פשוטה</p></div>
     </div>
+    <div class="perk-list" style="margin-bottom:var(--s3)">
+      <a class="perk" href="#assign-policy" data-goto="assign-policy">
+        <span class="p-ic"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></span>
+        <span class="p-txt">
+          <strong>מדיניות השיבוצים לקצינים</strong>
+          <span>עקרונות, שלבי האיוש, דיונים וסבבים</span>
+        </span>
+        <span class="p-go"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
+      </a>
+    </div>
+
     <div class="placeholder">תוכן לדוגמה בלבד</div>
 
     <article class="card">
@@ -1399,6 +1445,149 @@
       <h3>שם נוהל לדוגמה</h3>
       <p>תקציר: למי הנוהל רלוונטי ומה עיקריו.</p>
     </article>
+  </section>
+
+  <!-- ===== עמוד משנה: מדיניות השיבוצים לקצינים ===== -->
+  <section class="page" id="assign-policy" data-parent="orders" data-updated="2026-11-11">
+    <a class="back" href="#orders" data-goto="orders">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לפקודות ונהלים
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg></div>
+      <div><h2>מדיניות השיבוצים לקצינים</h2><p>עיקרי המדיניות לפי נושא</p></div>
+    </div>
+
+    <!-- לכל נושא: <article class="pol-card" data-title="שם קצר לרשימה">. הרשימה בצד ימין והחיצים נבנים אוטומטית ב-app.js -->
+    <div class="pol" data-pol>
+      <div class="pol-toc" role="navigation" aria-label="נושאי המדיניות"><ol></ol></div>
+      <div class="pol-main">
+
+        <article class="pol-card" data-title="עקרונות מנחים">
+          <h3>עקרונות מנחים לתהליך האיוש</h3>
+          <h4>עקרונות על</h4>
+          <ol class="pol-list num">
+            <li>תהליך האיוש נועד להביא לשיבוץ המתאים ביותר. התהליך יבוצע מתוך ראייה מערכתית המשלבת את צרכי <b>זרוע הים</b>, עמדות <b>המפקדים</b> ואת צרכי <b>הפרט</b>.</li>
+            <li>האיוש לתפקיד יבוצע מתוך ראייה <b>רב שנתית למסלול והתפתחות המשרת</b>.</li>
+            <li>תהליכי הדש״ב בזרוע יהיו מסונכרנים לתהליכי הדש״ב המטכ״ליים, וזאת כדי שנוכל לאייש את ״הנבחרים״ במטה הכללי, ומנגד, ל״ייבא״ את המתאימים לזרוע לתפקידים מסומנים.</li>
+            <li>כחלק מניהול מסלול השירות, פרסום המצע (האשכול) בשאיפה יבוצע בזמנים הבאים (לכל המאוחר): אל״מ כשנה לפני איוש, סא״ל כ־8 חודשים, רס״ן כחצי שנה.</li>
+          </ol>
+          <h4>הובלת השיח עם הפרט</h4>
+          <p>השיח לגבי תהליכי האיוש מבוצע בין מחלקת הסגל לבין המפקדים. המפקדים הם אלו אשר מנהלים את השיח הראשוני עם המתמודדים, מתוך תפיסה פיקודית שכך נכון שיקרה. מחלקת הסגל תתמוך בשיח זה, תסייע ותשלים בכל הנדרש לצרכי המפקדים בנושא, <u>תוך שמירה על ממשקים מוגדרים</u>.</p>
+          <h5>מפקד</h5>
+          <ol class="pol-list">
+            <li>נושא באחריות המלאה לפיקוד וטיפוח אנשיו.</li>
+            <li>אחראי על רתימת המתאימים לשירות קבע נוסף.</li>
+            <li>היעד והכתובת של מרבית השיח בין מחלקת הסגל לשדה.</li>
+            <li>ממשב, מעריך ומדרג את פקודיו, ומייצג את עמדתם ורצונם בפני סמכות הדש״ב.</li>
+          </ol>
+          <h5>מחלקת הסגל</h5>
+          <ol class="pol-list">
+            <li>גוף המטה האחראי על הובלת כלל תהליכי הטיפול באנשי הסגל ותקינותם, תוך מתן כלים למפקדים, הגדרת מדיניות, תכנון ומימוש תהליכי איוש (בשיתוף המפקדים) ועמ״טים סגליים, עם תהליכי הפקת לקחים והשתפרות בראייה ארגונית כוללת.</li>
+            <li>אחראית ומרכזת את תמונת המצב הכוללת על כלל אנשי הקבע בזרוע הים.</li>
+            <li>אחראית להנגשת המידע למפקדים ולמתמודדים באופן מותאם.</li>
+            <li>מגדירה את התפקידים הרלוונטיים לאיוש לאחר סיכום דיון איוש.</li>
+            <li>אחראית למיצוי זרועי וחוץ זרועי של המועמדים.</li>
+          </ol>
+          <h5>איש הקבע</h5>
+          <ol class="pol-list">
+            <li>מטופל ומיוצג ע״י מפקדו.</li>
+            <li>בעל יכולת השפעה על עתידו ואיושו, תחת הבנת האיזון בין צרכי הארגון לרצונו.</li>
+          </ol>
+          <h5>מנחה מקצועי (״רפרנט מקצועי״)</h5>
+          <ol class="pol-list">
+            <li>נושא באחריות כלפי המערך עליו הוא אמון כרפרנט.</li>
+            <li>אחראי על פיתוח מקצועי במערך, שיפור תהליכי הכשרה ורמה מקצועית.</li>
+            <li>מייעץ למחלקת הסגל ולמפקדים בהיבטי פיתוח כ״א, איוש וכדומה.</li>
+          </ol>
+        </article>
+
+        <article class="pol-card" data-title="איוש רב סקטוריאלי" hidden>
+          <h3>איוש רב סקטוריאלי (רב״ס)</h3>
+          <p>איוש רב״ס ישולב <b>במהלך עונת האיוש כולה</b> בכלל המערכים. מטרתו <b>פיתוח הפרט וחיזוק הזרוע</b>, והוא מכיל:</p>
+          <ol class="pol-list">
+            <li>איוש קצינים.</li>
+            <li>איוש קצינים מתוך הזרוע ממגוון המערכים השונים – מקצונת חובה ועד לדרגות הספ״כ.</li>
+            <li>איוש קצינים ונגדים מחוץ לזרוע (״רב זרועי״).</li>
+          </ol>
+        </article>
+
+        <article class="pol-card" data-title="מדיניות המעבריות" hidden>
+          <h3>מדיניות המעבריות</h3>
+          <ol class="pol-list">
+            <li>קצינים בחתימה קשיחה – ככלל, יתמודדו לתפקידים בתוך הסקטור בלבד.</li>
+            <li>כל יתר הקצינים (לרבות קצינים שלא סוכמו בדיוני ליבה סקטוריאליים, קצינים שעתידים להשתחרר, ו/או קצינים במסגרת חתימה שנייה של תכנית שירות) – רשאים להתמודד רב״ס. רצוי שקצינים אלו יעברו דרך המרכז לפסיכולוגיה תעסוקתית, על מנת לתת סיוע בניתוב נכון של הדרך עבורם.</li>
+            <li>הדש״ב מחולק לדש״ב ליבה ולדש״ב מטה במערכים השונים, כאשר האיוש הוא ליבה תחילה.</li>
+          </ol>
+        </article>
+
+        <article class="pol-card" data-title="דיון תנועות" hidden>
+          <h3>דיון תנועות</h3>
+          <ol class="pol-list">
+            <li>בסיס השיח בדבר תנועות האיוש, נותן מקום לפרט ולמפקדים להביע את עמדתם בתחילת התהליך. דיון התנועות בו יסוכם אילו ממשיכים בשנה נוספת, ואילו ממשיכים רוחב לאיוש אחר, ומי לפרישה – הן מבוססות עקרונות המופיעות בהגדרת ״משכי הקדנציה״ בנייר זה.</li>
+            <li>דיון התנועות יחל מהדרגה הבכירה, ויהווה את הצוהר ליתר אנשי הקבע.</li>
+          </ol>
+        </article>
+
+        <article class="pol-card" data-title="קול קורא" hidden>
+          <h3>קול קורא</h3>
+          <ol class="pol-list">
+            <li>יכלול את רשימת כלל התפקידים הנפתחים לאיוש בדיון הרלוונטי.</li>
+            <li>בגיליון נפרד, יכלול את כלל המתמודדים הרלוונטיים והאפשריים לאיוש בדיון.</li>
+            <li>מהווה הזמנת מפקדים להציע מועמדים לדיון הרלוונטי.</li>
+            <li>מפקדים יראיינו את אנשיהם, שומעים את מבוקשם, וממליצים לו מה נכון עבורו מבחינת התפתחות אישית.</li>
+            <li>״יום פתוח״ – ראשי הענפים, סגני מפקדי היחידות יציגו את התפקידים לפורום המועמד.</li>
+          </ol>
+        </article>
+
+        <article class="pol-card" data-title="אשכולות" hidden>
+          <h3>אשכולות</h3>
+          <ol class="pol-list">
+            <li>רשימה של התפקידים בשידוך למועמדים (מועמדים מסודרים לפי דרגה, ואז לפי א־ב של שם משפחה) לאחר שעברו את הסף הסגלי.</li>
+            <li>בשלב זה, טרם הדיון עצמו, על המפקד הקולט לראיין את כלל הקצינים המופיעים במסמך האשכולות, וזאת על מנת לאפשר לכולם הזדמנות שווה להתמודד.</li>
+            <li>סיכום הריאיון ינוסח כהמלצה ויהיה כתוב ״טעון אישור מכ״א״. סיכומים אלו עד דרגת רס״ן כולל יופצו לרע״ן סגל. סכמ״ר סרן/רס״ן נדרשים להיות מופצים לרמ״ד סגל. סיכומי ראיון סא״ל – אל״מ יופצו לרע״ן סגל, לרמ״ח הסגל ולרמכ״א.</li>
+            <li>פ״א עם ראש הדיון יתקיים על פי הצורך (של הפרט/ראש הדיון), ויתבצעו לפני אשכולות, כדי שהאשכול ייבנה גם למול העדפות הפרט.</li>
+          </ol>
+        </article>
+
+        <article class="pol-card" data-title="דיון איוש" hidden>
+          <h3>דיון איוש</h3>
+          <ol class="pol-list">
+            <li><b>ראש הדיון</b> – עפ״י הטבלה בהמשך.</li>
+            <li><b>הצגת כלל המועמדים:</b> נתונים אישיים (מקום מגורים, מצב משפחתי), אנליטיקה אנושית – מידת ההתאמה לתפקיד, מסלול שירות ורצף ההכשרה, חוו״דים, סוציומטריה, השכלה, הצטיינויות (אותות, צל״שים), מבחנים וביקורות מודל קבע. עבור סא״ל/אל״מ יוצגו גם ציון פו״מ/מב״ל ונתוני מרכז הערכה.<br>״אחרי״ – רישום לזכות של הקצין אשר השפיע להחתמה לשירות נוסף (יתקבל במעמד החתימה של הקצין), נזיפות פיקודיות.</li>
+            <li><b>הצגת שקף אישי:</b> השקף יוקרא כלשונו. השקף יועבר למילוי ע״י אנשי הקבע המופיעים באשכול.</li>
+          </ol>
+          <h4>סוגי דיוני האיוש</h4>
+          <div class="info-table pol-table" role="table" aria-label="סוגי דיוני האיוש">
+            <div class="row head" role="row"><div class="cat" role="columnheader">סוג הדיון</div><div class="val" role="columnheader">ראש הדיון</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">תפקידי אל״ם</div><div class="val" role="cell">מח״י</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">סא״ל</div><div class="val" role="cell">מח״י</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">סא״ל אישי</div><div class="val" role="cell">מח״י</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">סא״ל ייצוג</div><div class="val" role="cell">מח״י</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">רס״ן</div><div class="val" role="cell">רמכ״א</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">רס״ן מוקד ידע</div><div class="val" role="cell">רמכ״א</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">סרן לוחמים</div><div class="val" role="cell">רמ״ח תוה״ד</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">סרן ביתר המערכים</div><div class="val" role="cell">רפרנטים בדרג הרמ״ח</div></div>
+          </div>
+        </article>
+
+        <article class="pol-card" data-title="סבבים ועיתויים" hidden>
+          <h3>סבבים ועיתויים</h3>
+          <ol class="pol-list num">
+            <li>מדי עונת איוש יפורסם מסמך ״מדיניות סבבים ועיתויים״ ע״י ענף תכנון במח׳ הסגל.</li>
+            <li>כל סבב בנוי מתקופת חופשה, מתקופת חפיפה וממסלול הכנה לתפקיד, בהתאם למדיניות זו, כאשר מלאכת התכנון מובלת ע״י הסקטורים השונים, בראשות רע״ן תכנון מכ״א.</li>
+            <li>מדיניות חופשים בין תפקידים – שבוע חופשה. למעט יחידות ומסגרות מבצעיות – שבועיים חופשה, בראי עומסים ושחיקה.</li>
+            <li>הכשרות מפקדים מהוות מרכיב משמעותי בכשירות הקצין לתפקידו וחלק בלתי נפרד ממסלול שדרת הפיקוד של צה״ל. לפיכך, במעבר תפקידים בין השטח למטה, ובין תפקידים של קמ״ד לרמ״ד, יעבור המפקד הכשרה ייעודית שמובנית בתהליך הכניסה לתפקיד ותימשך עד שבוע ימים, ע״פ תוכנית סדורה באחריות מד״ה ותוה״ד.</li>
+            <li>מחלוקות לא פתורות יעלו לדיון ייעודי בראשות רמ״ח הסגל/רמכ״א (תלוי דרגה).</li>
+          </ol>
+        </article>
+
+        <div class="pol-nav">
+          <button class="steps-btn prev" type="button" data-dir="-1"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>הקודם</button>
+          <span class="steps-count" aria-live="polite"></span>
+          <button class="steps-btn next" type="button" data-dir="1">הבא<svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ===== השכלה והעשרה ===== -->
@@ -2163,6 +2352,6 @@
 </div>
 
 <!-- כל הקוד של האתר נמצא ב-app.js (נדרש בגלל מדיניות האבטחה שבראש הדף) -->
-<script src="app.js?v=5"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>
