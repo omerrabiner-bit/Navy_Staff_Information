@@ -427,6 +427,12 @@
     }
     function reveal(d){
       var r = d.getBoundingClientRect(), vh = window.innerHeight;
+      var bar = document.querySelector('.topbar'), barH = bar ? bar.getBoundingClientRect().height : 64;
+      if(d.classList.contains('pol-acc') || r.top < barH){   // נושא שנפתח: ראש התיבה מתחת לפס העליון, כדי לקרוא מההתחלה
+        var to = r.top - barH - 8;
+        if(Math.abs(to) > 4) window.scrollBy({top:to, behavior: still() ? 'auto' : 'smooth'});
+        return;
+      }
       if(r.bottom <= vh - 16) return;
       var by = Math.min(r.bottom - vh + 16, r.top - 72);
       if(by > 0) window.scrollBy({top:by, behavior: still() ? 'auto' : 'smooth'});
