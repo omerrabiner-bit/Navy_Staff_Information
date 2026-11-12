@@ -792,6 +792,15 @@
   .pol-nav .steps-btn{padding:0 10px}
   .pol-nav .steps-count{white-space:nowrap}
   .pol-nav .steps-btn[hidden]{display:inline-flex; visibility:hidden}
+  .pol-table.cols3 .row{grid-template-columns:28% 1fr 1fr}
+  .pol-table.cols3 .cat, .pol-table.cols3 .val{display:block; align-self:center; text-align:center; padding:8px 4px; min-width:0}
+  .pol-table.cols3 .row.head > div{align-self:stretch}
+  .pol-table.cols3 .row.head .cat, .pol-table.cols3 .row.head .val{font-size:var(--fs-xs); line-height:1.35}
+  .pol-dur .row{grid-template-columns:1fr 32%}
+  .pol-dur .cat, .pol-dur .val{display:block; min-width:0; padding:8px 6px}
+  .pol-dur .cat{text-align:right; font-weight:500}
+  .pol-dur .row.head .cat, .pol-dur .row.head .val{display:flex; font-size:var(--fs-xs); line-height:1.35}
+  .pol-dur .val{align-self:center}
   .is-dark .pol-table .cat{background:rgba(255,255,255,.03)}
 </style>
 </head>
@@ -2189,27 +2198,83 @@
   </section>
 
   <!-- ===== עמוד משנה: לימודים מלאים בישראל ===== -->
-  <section class="page" id="israel" data-parent="edu" data-updated="2026-11-11">
+  <section class="page" id="israel" data-parent="edu" data-updated="2026-11-12">
     <a class="back" href="#edu" data-goto="edu">
       <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה להשכלה והעשרה
     </a>
     <div class="page-head">
       <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></div>
-      <div><h2>לימודים מלאים בישראל</h2><p>זכאות לדצ״י (קצינים) או להשכלה ישימה (נגדים)</p></div>
+      <div><h2>לימודים מלאים בישראל</h2><p>משך חתימה, זכאות, משכי לימודים ושינוי מסלול</p></div>
     </div>
 
-    <div class="card steps" data-steps>
-      <div class="step" data-step="1">
-        <p>על מנת להיות זכאי לדצ״י (דירוג צבאי ייחודי, קצינים) או להשכלה ישימה (נגדים) נדרש לוודא טרם היציאה ללימודים כי 40 אחוז מסילבוס הלימודים (נקודות זכות) הינו בהתאם למינוי של איש הקבע.</p>
-        <p style="margin-top:var(--s2)">תהליך הבחינה נעשה מול מופ״ת</p>
-      </div>
-      <div class="step" data-step="2" hidden>
-        <p>לוחמים - אם איש הקבע חוזר אחרי הלימודים לתפקיד ברמת פעילות א׳ פלוס, הוא יהיה זכאי לדצ״י באופן אוטומטי (ללא קשר לתוכן לימודיו). זכאות זו תיכנס לתוקף 3 חודשים לאחר שירותו ביחידה ולא באופן רטרואקטיבי.</p>
-      </div>
-      <div class="steps-nav">
-        <button class="steps-btn prev" type="button" data-dir="-1" hidden><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה</button>
-        <span class="steps-count" aria-live="polite">1 מתוך 2</span>
-        <button class="steps-btn next" type="button" data-dir="1">המשך<svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <!-- לכל נושא: <article class="pol-card" data-title="שם קצר לרשימה">. הרשימה בצד ימין והחיצים נבנים אוטומטית ב-app.js -->
+    <div class="pol" data-pol>
+      <div class="pol-toc" role="navigation" aria-label="נושאי התוכנית"><ol></ol></div>
+      <div class="pol-main">
+
+        <article class="pol-card" data-title="משך חתימה">
+          <h3>משך החתימה בגין לימודים מלאים</h3>
+          <p>משך ההחזר יחושב על פי היחס הבא:</p>
+          <div class="info-table pol-table cols3" role="table" aria-label="משך החתימה בגין לימודים מלאים">
+            <div class="row head" role="row"><div class="cat" role="columnheader">מערך</div><div class="val" role="columnheader">החזר בגין <b>שנת</b> לימודים אקדמית בלימודים מלאים</div><div class="val" role="columnheader">יחס ההחזר הקלנדרי בגין שנה אקדמית</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">לוחם</div><div class="val" role="cell">שנה</div><div class="val" role="cell"><span dir="ltr">1:1</span></div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">טכנולוג וקרבי</div><div class="val" role="cell">שנה וחצי</div><div class="val" role="cell"><span dir="ltr">1:1.5</span></div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">תומכ״ל</div><div class="val" role="cell">שנתיים</div><div class="val" role="cell"><span dir="ltr">1:2</span></div></div>
+          </div>
+        </article>
+
+        <article class="pol-card" data-title="זכאות לדצ״י או השכלה ישימה" hidden>
+          <h3>זכאות לדירוג צבאי או השכלה ישימה</h3>
+          <p>על מנת להיות זכאי לדצ״י (דירוג צבאי ייחודי, קצינים) או להשכלה ישימה (נגדים) נדרש לוודא טרם היציאה ללימודים כי 40 אחוז מסילבוס הלימודים (נקודות זכות) הינו בהתאם למינוי של איש הקבע.</p>
+          <p>תהליך הבחינה נעשה מול מופ״ת</p>
+          <h4>לוחמים</h4>
+          <p>לוחמים - אם איש הקבע חוזר אחרי הלימודים לתפקיד ברמת פעילות א׳ פלוס, הוא יהיה זכאי לדצ״י באופן אוטומטי (ללא קשר לתוכן לימודיו). זכאות זו תיכנס לתוקף 3 חודשים לאחר שירותו ביחידה ולא באופן רטרואקטיבי.</p>
+        </article>
+
+        <article class="pol-card" data-title="משכי הלימודים" hidden>
+          <h3>משכי הלימודים על פי סוג הלימודים</h3>
+          <h4>הנדסאי / טכנאי</h4>
+          <div class="info-table pol-table pol-dur" role="table" aria-label="הנדסאי / טכנאי">
+            <div class="row head" role="row"><div class="cat" role="columnheader">פקולטה / יחידה אקדמית</div><div class="val" role="columnheader">משך לימודים מקסימלי</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">טכנאי</div><div class="val" role="cell">שנה</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">הנדסאי</div><div class="val" role="cell">שנתיים</div></div>
+          </div>
+          <h4>תואר ראשון</h4>
+          <div class="info-table pol-table pol-dur" role="table" aria-label="תואר ראשון">
+            <div class="row head" role="row"><div class="cat" role="columnheader">פקולטה / יחידה אקדמית</div><div class="val" role="columnheader">משך לימודים מקסימלי</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader"><u>מדעי החברה</u>: לוגיסטיקה, אנתרופולוגיה, מדעי המדינה, קרימינולוגיה, גיאוגרפיה, משא״ן, פוליטיקה וממשל, לימודי ארץ ישראל, ממשל וחברה, מנהל עסקים, ניהול, תואר כללי/רב תחומי, סוציולוגיה.</div><div class="val" role="cell">שנתיים</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader"><u>מדעי הרוח</u>: היסטוריה, לימודי מזרח תיכון, לשון, מחשבת ישראל, פילוסופיה, ספרות עברית, ספרויות זרות ובלשנות.</div><div class="val" role="cell">שנתיים</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">פסיכולוגיה, עבודה סוציאלית, מדעי ההתנהגות, חשבונאות, חינוך (לא ניתן לשלב עם תעודת הוראה), מדעי החיים, בקרה תעשייתית, ניהול מערכות מידע, כלכלה, תקשורת, סיעוד. כלל תוכניות הלימוד הדו חוגיות</div><div class="val" role="cell">שלוש שנים</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader"><u>מדעים מדויקים</u>: כימיה, סטטיסטיקה, פיזיקה, מדמ״ח, מתמטיקה, גיאולוגיה, הנדסת מערכות מידע, ביולוגיה, רפואת חירום, הנדסת תו״ן</div><div class="val" role="cell">שלוש שנים</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">משפטים (משפטים בקריית אונו מאושר למשך 3 שנים בלבד)</div><div class="val" role="cell">שלוש וחצי שנים</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">לימודי הנדסה (למעט הנדסת תו״ן)</div><div class="val" role="cell">ארבע שנים</div></div>
+          </div>
+          <h4>תואר שני</h4>
+          <div class="info-table pol-table pol-dur" role="table" aria-label="תואר שני">
+            <div class="row head" role="row"><div class="cat" role="columnheader">פקולטה / יחידה אקדמית</div><div class="val" role="columnheader">משך לימודים מקסימלי</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">כלל מקצועות הלימוד</div><div class="val" role="cell">שנה אקדמית</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">מקצועות ההנדסה בלבד</div><div class="val" role="cell">עד שנתיים ע״ת עמידה ב־18 ש״ש<br><b>מינימום שנה קלנדרית</b></div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">חובלים אשר השלימו את התואר הראשון כחלק מקורס חובלים</div><div class="val" role="cell">עד שנתיים</div></div>
+          </div>
+          <h4>תואר שלישי</h4>
+          <p>שנה אקדמית.</p>
+        </article>
+
+        <article class="pol-card" data-title="שינוי מסלול לימודים" hidden>
+          <h3>שינוי מסלול/מוסד לימודים</h3>
+          <ol class="pol-list num">
+            <li>מעת לעת עולה בקשה מאת הפרט, לאחר תחילת הלימודים, לשינוי תחום לימוד/ מסלול לימודים/ מוסד לימודים.</li>
+            <li>שינוי שכזה, הינו בעל השלכות על משך הלימודים, סיכויי הפרט לסיום לימודיו ועוד.</li>
+            <li><b>כל שינוי מסלול או מוסד לימודים יתבצע רק לאחר בחינת הנושא וקבלת אישור מרמנה״ק/ רמנה״ן בחטה״ס.</b> השינוי יתבצע תוך התאמת מסלול הלימודים למשך חטיבת הזמן שאושרה.</li>
+            <li><b>על כל סמכות לעדכן את לומדיה, טרם תחילת הלימודים, באשר לאיסור שינוי/מעבר מוסד/מגמה ללא אישור חטה״ס.</b></li>
+          </ol>
+        </article>
+
+        <div class="pol-nav">
+          <button class="steps-btn prev" type="button" data-dir="-1"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>הקודם</button>
+          <span class="steps-count" aria-live="polite"></span>
+          <button class="steps-btn next" type="button" data-dir="1">הבא<svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+        </div>
       </div>
     </div>
     <button class="share-btn wide" type="button" data-share="israel" data-title="לימודים מלאים בישראל – תוכנית לימודים">
