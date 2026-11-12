@@ -79,12 +79,10 @@
   var heroBg = document.querySelector('.hero-bg'), HERO_COUNT = 6, lastNav = null;
   function pickHero(){
     if(!heroBg) return;
-    var prev = 0;
-    try{ prev = parseInt(sessionStorage.getItem('hero'), 10) || 0; }catch(err){}
-    var n;
-    do { n = 1 + Math.floor(Math.random() * HERO_COUNT); } while(n === prev);  // לא אותה תמונה פעמיים ברצף
+    var prev = parseInt(heroBg.dataset.hero, 10) || 0, n;
+    if(!prev){ n = 1; }  // פתיחת האתר: תמונת הצי תמיד ראשונה
+    else { do { n = 1 + Math.floor(Math.random() * HERO_COUNT); } while(n === prev); }  // אחר כך באקראי, לא אותה תמונה פעמיים ברצף
     heroBg.dataset.hero = n;
-    try{ sessionStorage.setItem('hero', n); }catch(err){}
   }
 
   // ===== מעבר בין עמודים =====
