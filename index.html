@@ -801,6 +801,10 @@
   .pol-dur .cat{text-align:right; font-weight:500}
   .pol-dur .row.head .cat, .pol-dur .row.head .val{display:flex; font-size:var(--fs-xs); line-height:1.35}
   .pol-dur .val{align-self:center}
+  .pol-pop{margin:var(--s3) 0 var(--s1) !important; line-height:1.5}
+  .pol-pop:first-of-type{margin-top:var(--s2) !important}
+  .pol-table .val.no{color:var(--muted)}
+  .pol-list .pol-list{margin-top:4px; padding-inline-start:18px}
   .is-dark .pol-table .cat{background:rgba(255,255,255,.03)}
 </style>
 </head>
@@ -1677,6 +1681,15 @@
         </span>
         <span class="p-go"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
       </a>
+      <a class="perk" href="#tochas" data-goto="tochas" data-corps="ים,שליטה,מודיעין,תומכ״ל,טכנולוגים,משא״ן" data-pop="קצינים,נגדים">
+        <span class="p-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></span>
+        <span class="p-txt">
+          <strong>לימודים תוכ״ש בישראל</strong>
+          <span>לימודים תוך כדי שירות · זכאות, מתכונת וערוצי לימוד</span>
+          <span class="p-tags"></span>
+        </span>
+        <span class="p-go"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></span>
+      </a>
       <a class="perk" href="#electronics" data-goto="electronics" data-corps="טכנולוגים,תומכ״ל" data-pop="נגדים">
         <span class="p-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></span>
         <span class="p-txt">
@@ -2281,6 +2294,136 @@
       <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
       שיתוף התוכנית
     </button>
+  </section>
+
+  <!-- ===== עמוד משנה: לימודים תוכ״ש בישראל ===== -->
+  <section class="page" id="tochas" data-parent="edu" data-updated="2026-11-12">
+    <a class="back" href="#edu" data-goto="edu">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה להשכלה והעשרה
+    </a>
+    <div class="page-head">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></div>
+      <div><h2>לימודים תוכ״ש בישראל</h2><p>לימודים תוך כדי שירות</p></div>
+    </div>
+
+    <!-- לכל נושא: <article class="pol-card" data-title="שם קצר לרשימה">. הרשימה בצד ימין והחיצים נבנים אוטומטית ב-app.js -->
+    <div class="pol" data-pol>
+      <div class="pol-toc" role="navigation" aria-label="נושאי התוכנית"><ol></ol></div>
+      <div class="pol-main">
+
+        <article class="pol-card" data-title="קריטריונים לאישור">
+          <h3>קריטריונים לאישור מועמדים ללימודים תוכ״ש</h3>
+          <p>להלן פירוט הזכאויות השונות בחתך לאוכלוסיית היעד וסוג ההטבה:</p>
+          <p class="pol-pop"><b>חיילים בחובה</b></p>
+          <div class="info-table pol-table" role="table" aria-label="סוג ההטבה">
+            <div class="row head" role="row"><div class="cat" role="columnheader">סוג ההטבה</div><div class="val" role="columnheader">זכאות</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">ללא מלגה ולאחר שעות הפעילות</div><div class="val" role="cell">זכאי ללימודים מעבר לשעות הפעילות בלבד.</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">תוכ״ש ע״ח שעות הפעילות עד יום מלא</div><div class="val no" role="cell">לא זכאי</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">מלגה</div><div class="val no" role="cell">לא זכאי</div></div>
+          </div>
+          <p class="pol-pop"><b>עתודאים אקדמאים, אקדמיזטורים, תלפיות, תכניתנים, בוגרי מצו״ב, בוגרי אר״ם ותוקף סייבר, מפתח מערכות סייבר, 1870 – דבאופס ומגן סייבר, פעמי עתידים שהשלימו 50% ומעלה מהתואר.<br>משנת שרות שנייה בחובה</b></p>
+          <div class="info-table pol-table" role="table" aria-label="סוג ההטבה">
+            <div class="row head" role="row"><div class="cat" role="columnheader">סוג ההטבה</div><div class="val" role="columnheader">זכאות</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">ללא מלגה ולאחר שעות הפעילות</div><div class="val" role="cell">זכאי</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">תוכ״ש ע״ח שעות הפעילות עד יום מלא</div><div class="val" role="cell">זכאי</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">מלגה</div><div class="val" role="cell">לא זכאי בחובה, זכאי עבור לימודים בשנת קבע ראשונה</div></div>
+          </div>
+          <p class="pol-pop"><b>אנשי קבע משנת קבע ראשונה ואילך, קצינים בחובה עד 3 חודשים טרם כניסתם לקבע, וכן החוזרים לשירות קבע לאחר השחרור</b></p>
+          <div class="info-table pol-table" role="table" aria-label="סוג ההטבה">
+            <div class="row head" role="row"><div class="cat" role="columnheader">סוג ההטבה</div><div class="val" role="columnheader">זכאות</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">ללא מלגה ולאחר שעות הפעילות</div><div class="val" role="cell">זכאי</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">תוכ״ש ע״ח שעות הפעילות עד יום מלא</div><div class="val" role="cell">זכאי</div></div>
+            <div class="row" role="row"><div class="cat" role="rowheader">מלגה</div><div class="val" role="cell">זכאי</div></div>
+          </div>
+        </article>
+
+        <article class="pol-card" data-title="סוגי לימודים מאושרים" hidden>
+          <h3>סוגי הלימודים המאושרים ללימודים תוכ״ש</h3>
+          <ol class="pol-list num">
+            <li>״לימודי טכנאי/הנדסאי״</li>
+            <li>לימודים לתארים השונים (עד שני כולל לימודי תיזה).</li>
+            <li>״מכינות קדם אקדמיות״ לקראת לימודים (מלאים ותוכ״ש)</li>
+            <li>״לימודי דוקטורט״- באישור מפקד פיקוד/זרוע, לאל״ם ומעלה באישור רמטכ״ל.</li>
+            <li>״לימודי אנגלית״- לטובת השגת הפטור באנגלית יאושרו במוסדות אשר מוכרים ע״י המל״ג. לימודים אלו יאושרו במקביל ללימודי התואר בהתאם לחטיבות ההיעדרות המוגדרות ולא מעבר לכך (כולל היעדרות לטובת הלימודים).</li>
+          </ol>
+        </article>
+
+        <article class="pol-card" data-title="לימודי דוקטורט" hidden>
+          <h3>לימודי דוקטורט</h3>
+          <ol class="pol-list num">
+            <li>אוכלוסיית היעד:
+              <ol class="pol-list">
+                <li><b>גיל</b>: 25 לפחות בתחילת הלימודים.</li>
+                <li>קצינים <b>במינוי סרן קבע ומעלה</b>, נגדים <b>בדרגת רס״ר</b> ומעלה.</li>
+              </ol>
+            </li>
+            <li>על המחקר להיות בזיקה ישירה למקצוע הצבאי.</li>
+            <li>אישור לימודי דוקטורט תוך כדי שירות הינו בכפוף לכלל ההתניות של מדיניות הלימודים תוכ״ש.</li>
+            <li>בכל אחת ממתכונות הלימודים, תוכ״ש ומלאים, יידרש אישור מחודש בעת החלפתן. (לדוגמא: קצין שאושר לדוקטורט במתכונת תוכ״ש ומבקש לבצע שנה בלימודים מלאים יבחן מחדש, על אף שתוקף אישור התוכ״ש עודנו עומד).</li>
+            <li><u>מודגש, כי לימודי פוסט דוקטורט אינם חלק מלימודי הדוקטורט</u>. באם קיים משרת קבע המבקש ללמוד סוג לימודים זה נדרש להגיש בקשה לחטה״ס – המדור הסקטוריאלי.</li>
+          </ol>
+        </article>
+
+        <article class="pol-card" data-title="לימודי אנגלית" hidden>
+          <h3>לימודי אנגלית</h3>
+          <ol class="pol-list num">
+            <li>לימודי האנגלית הם תנאי הכרחי להשלמת הזכאות לתואר הראשון.</li>
+            <li>את הפטור באנגלית ניתן להשיג באחת מהדרכים הבאות:
+              <ol class="pol-list">
+                <li>למידה לא פרונטאלית במסגרת האוניברסיטה הפתוחה.</li>
+                <li>מעבר בחינת פסיכומטרי/אמירנ״ט בציון המזכה בפטור (134/234 בהתאמה).</li>
+                <li>למידה פרונטאלית במוסדות השונים, מוכרי מל״ג הנלמדים לרוב במתכונת של פעמיים בשבוע. יאושר במתכונת זו פיצול אחד בלבד, למטרת לימודי האנגלית וללא חריגה מחטיבת הזמן שאושרה להיעדרות.</li>
+              </ol>
+            </li>
+            <li>על המשרת לעמוד בכלל התנאים ללימודי תוכ״ש המפורטים באוגדן זה.</li>
+          </ol>
+        </article>
+
+        <article class="pol-card" data-title="תואר שני במקביל לראשון" hidden>
+          <h3>לימודי תואר שני במקביל לתואר ראשון</h3>
+          <ol class="pol-list num">
+            <li>משרת קבע רשאי לשלב לימודי תואר שני במקביל לתואר ראשון ובפרט כי שילובם אינו עולה על מדיניות לימודים תוכ״ש (יום מלא בשבוע).</li>
+            <li>יש לפנות למדור הסקטוריאלי ולעדכן נגררת לימודים בהתאם ולהזין בסוג תעודה תואר ראשון + שני.</li>
+          </ol>
+        </article>
+
+        <article class="pol-card" data-title="מתכונת תוכ״ש" hidden>
+          <h3>מתכונת לימודים תוכ״ש</h3>
+          <ol class="pol-list num">
+            <li>משרת שאושר ללימודים תוך כדי שירות, יוכל לשלב לימודיו במקביל לשירותו הצבאי ולרכוש השכלה על תיכונית. לשם כך הוגדרו חטיבות היעדרות לטובת לימודים על חשבון שעות פעילות.</li>
+            <li>חטיבת ההיעדרות תחושב כולל <b>זמני נסיעות</b> אל המוסד/מהמוסד.</li>
+            <li>חטיבת ההיעדרות תחושב ע״פ מערכת שעות בלבד כולל שיעורים מקוונים.</li>
+            <li>הגדרת שעות הפעילות ביחידה הינה בכפוף לפ״מ 33.0201 – ״שעות הפעילות במפקדות צה״ל ומתקניו״.</li>
+            <li>בנוסף לחטיבת ההיעדרות המאושרת ניתן ללמוד לאחר שעות הפעילות וביום ו׳ ללא הגבלת שעות ו/או פיצולים, באישור מפקד היחידה (לדוגמה: משרת קבע היוצא מהיחידה החל מהשעה 17:30 ולימודיו במוסד מתחילים בשעה 18:00).</li>
+            <li>משרתי הקבע הלומדים במתכונת תוכ״ש <b>אינם זכאים לחופשה ע״ח המערכת לקראת בחינות ועבור בחינות, עבודות וכו׳</b>. היערכות להשלמת החובות האקדמיים תעשה על חשבון חופשתו השנתית של הלומד או מעבר לשעות הפעילות.
+              <ol class="pol-list">
+                <li>לומד הנעדר ביום הבחינה עד 4 שעות ולאחריה חוזר ליחידה ועובד במשך 5 שעות, לא תחשב לו היעדרות זו כיום חופשה (הרחבה לדגשים אלו מפורטת בפ.מ 36.0401: ״חופשות חיילים בשירות קבע״).</li>
+              </ol>
+            </li>
+          </ol>
+        </article>
+
+        <article class="pol-card" data-title="ערוצי הלימוד" hidden>
+          <h3>ערוצי הלימוד</h3>
+          <ol class="pol-list num">
+            <li><u>לימודים תוכ״ש עד חטיבת היעדרות 5</u> – חטיבה זו ניתנת <b>לפיצול אחד</b>, כאשר <b>שעות ההיעדרות במצטבר הן 5 שעות</b>.</li>
+            <li><u>יום לימודים מלא</u> – <b>כל היעדרות של מעל ל־5 שעות שבועיות</b>, ועד 9 לכל היותר.
+              <ol class="pol-list">
+                <li>בסמכות אלוף פיקוד/זרוע לאשר לימודים תוכ״ש יום מלא לסא״ל.</li>
+                <li>ככלל, חטיבה זו ניתנת לעד <b>שני פיצולים</b>. ככל ששעת תחילת הלימודים 16:00 ואילך, מאושר פיצול נוסף ולכל היותר <b>שלושה פיצולים</b> באישור מפקד היחידה.</li>
+                <li>קיזוז ימי חופשה יתקיימו בגין לימודים בחטיבת היעדרות יום מלא בשבוע בלבד, כמפורט בסעיף 7.</li>
+              </ol>
+            </li>
+          </ol>
+        </article>
+
+        <div class="pol-nav">
+          <button class="steps-btn prev" type="button" data-dir="-1"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>הקודם</button>
+          <span class="steps-count" aria-live="polite"></span>
+          <button class="steps-btn next" type="button" data-dir="1">הבא<svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ===== עמוד משנה: כיתת הנדסאי אלקטרוניקה ===== -->
