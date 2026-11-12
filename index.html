@@ -768,12 +768,9 @@
   }
   .pol-all:active{background:var(--foam)}
   .pol-acc-list{overflow-anchor:none}
-  details.pol-acc summary{align-items:flex-start; gap:12px; padding:12px var(--s2)}
-  details.pol-acc .pol-n{width:32px; height:32px; margin-top:2px; font-family:var(--font-head); font-size:var(--fs-md); font-weight:700}
-  .pol-head{flex:1; min-width:0; display:flex; flex-direction:column; gap:2px}
-  details.pol-acc summary h3{line-height:1.35}
-  .pol-sub{font-size:var(--fs-sm); line-height:1.5; color:var(--muted)}
-  details.pol-acc .chev{margin-top:2px}
+  details.pol-acc summary{gap:12px; padding:14px var(--s2); min-height:72px}
+  details.pol-acc summary h3{font-family:var(--font-head); font-size:var(--fs-lg); font-weight:700; line-height:1.3}
+  details.pol-acc .pol-n{width:36px; height:36px; font-family:var(--font-head); font-size:var(--fs-md); font-weight:700}
   .pol-body{font-size:var(--fs-sm); line-height:1.7}
   .pol-body h4{margin:var(--s3) 0 var(--s1); font-size:var(--fs-md); font-weight:700; color:var(--c-action)}
   .pol-body > h4:first-child{margin-top:0}
@@ -1475,14 +1472,14 @@
       <div><h2>מדיניות השיבוצים לקצינים</h2><p>עיקרי המדיניות לפי נושא</p></div>
     </div>
 
-    <!-- לכל נושא: <details class="card acc pol-acc"> עם מספר, כותרת ושורת תקציר (pol-sub). התוכן נכנס ל-.pol-body. אפשר לפתוח כמה נושאים יחד -->
+    <!-- לכל נושא: <details class="card acc pol-acc"> עם מספר וכותרת. התוכן נכנס ל-.pol-body. אפשר לפתוח כמה נושאים יחד -->
     <div class="pol-bar"><button class="pol-all" type="button" data-acc-all aria-expanded="false">פתיחת כל הנושאים</button></div>
     <div class="acc-list pol-acc-list" data-multi>
 
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">1</span>
-            <span class="pol-head"><h3>עקרונות מנחים לתהליך האיוש</h3><span class="pol-sub">שיבוץ שמאזן בין צרכי הזרוע, המפקדים והפרט, בראייה רב שנתית</span></span>
+            <h3>עקרונות מנחים לתהליך האיוש</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -1501,7 +1498,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">2</span>
-            <span class="pol-head"><h3>איוש רב סקטוריאלי (רב״ס)</h3><span class="pol-sub">משולב לאורך כל עונת האיוש, לפיתוח הפרט וחיזוק הזרוע</span></span>
+            <h3>איוש רב סקטוריאלי (רב״ס)</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -1517,7 +1514,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">3</span>
-            <span class="pol-head"><h3>מדיניות המעבריות</h3><span class="pol-sub">מי רשאי להתמודד על תפקידים מחוץ לסקטור שלו</span></span>
+            <h3>מדיניות המעבריות</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -1532,7 +1529,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">4</span>
-            <span class="pol-head"><h3>דיון תנועות</h3><span class="pol-sub">מי ממשיך בתפקיד, מי עובר לתפקיד אחר ומי פורש</span></span>
+            <h3>דיון תנועות</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -1546,7 +1543,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">5</span>
-            <span class="pol-head"><h3>קול קורא</h3><span class="pol-sub">התפקידים הנפתחים, המתמודדים והזמנת המפקדים להציע מועמדים</span></span>
+            <h3>קול קורא</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -1563,7 +1560,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">6</span>
-            <span class="pol-head"><h3>אשכולות</h3><span class="pol-sub">שידוך מועמדים לתפקידים, והמפקד הקולט מראיין את כולם</span></span>
+            <h3>אשכולות</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -1579,7 +1576,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">7</span>
-            <span class="pol-head"><h3>דיון איוש</h3><span class="pol-sub">מה מוצג על כל מועמד, ומי עומד בראש כל דיון</span></span>
+            <h3>דיון איוש</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -1606,7 +1603,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">8</span>
-            <span class="pol-head"><h3>סבבים ועיתויים</h3><span class="pol-sub">חופשה, חפיפה והכשרה במעבר בין תפקידים</span></span>
+            <h3>סבבים ועיתויים</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -2081,14 +2078,14 @@
       <div><h2>לימודים מלאים בישראל</h2><p>משך חתימה, זכאות, משכי לימודים ושינוי מסלול</p></div>
     </div>
 
-    <!-- לכל נושא: <details class="card acc pol-acc"> עם מספר, כותרת ושורת תקציר (pol-sub). התוכן נכנס ל-.pol-body. אפשר לפתוח כמה נושאים יחד -->
+    <!-- לכל נושא: <details class="card acc pol-acc"> עם מספר וכותרת. התוכן נכנס ל-.pol-body. אפשר לפתוח כמה נושאים יחד -->
     <div class="pol-bar"><button class="pol-all" type="button" data-acc-all aria-expanded="false">פתיחת כל הנושאים</button></div>
     <div class="acc-list pol-acc-list" data-multi>
 
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">1</span>
-            <span class="pol-head"><h3>משך החתימה בגין לימודים מלאים</h3><span class="pol-sub">שנה עד שנתיים חתימה על כל שנת לימודים, לפי המערך</span></span>
+            <h3>משך החתימה בגין לימודים מלאים</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -2105,7 +2102,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">2</span>
-            <span class="pol-head"><h3>זכאות לדירוג צבאי או השכלה ישימה</h3><span class="pol-sub">40% מהסילבוס צריכים להתאים למינוי</span></span>
+            <h3>זכאות לדירוג צבאי או השכלה ישימה</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -2119,7 +2116,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">3</span>
-            <span class="pol-head"><h3>משכי הלימודים על פי סוג הלימודים</h3><span class="pol-sub">משך הלימודים המקסימלי לפי סוג התואר והתחום</span></span>
+            <h3>משכי הלימודים על פי סוג הלימודים</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -2154,7 +2151,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">4</span>
-            <span class="pol-head"><h3>שינוי מסלול/מוסד לימודים</h3><span class="pol-sub">שינוי מסלול או מוסד לימודים רק לאחר אישור</span></span>
+            <h3>שינוי מסלול/מוסד לימודים</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -2184,14 +2181,14 @@
       <div><h2>לימודים תוכ״ש בישראל</h2><p>לימודים תוך כדי שירות</p></div>
     </div>
 
-    <!-- לכל נושא: <details class="card acc pol-acc"> עם מספר, כותרת ושורת תקציר (pol-sub). התוכן נכנס ל-.pol-body. אפשר לפתוח כמה נושאים יחד -->
+    <!-- לכל נושא: <details class="card acc pol-acc"> עם מספר וכותרת. התוכן נכנס ל-.pol-body. אפשר לפתוח כמה נושאים יחד -->
     <div class="pol-bar"><button class="pol-all" type="button" data-acc-all aria-expanded="false">פתיחת כל הנושאים</button></div>
     <div class="acc-list pol-acc-list" data-multi>
 
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">1</span>
-            <span class="pol-head"><h3>קריטריונים לאישור מועמדים ללימודים תוכ״ש</h3><span class="pol-sub">מי זכאי ללימודים, להיעדרות ולמלגה, לפי סוג השירות</span></span>
+            <h3>קריטריונים לאישור מועמדים ללימודים תוכ״ש</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -2223,7 +2220,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">2</span>
-            <span class="pol-head"><h3>סוגי הלימודים המאושרים ללימודים תוכ״ש</h3><span class="pol-sub">טכנאי והנדסאי, תארים, מכינות, דוקטורט ואנגלית</span></span>
+            <h3>סוגי הלימודים המאושרים ללימודים תוכ״ש</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -2240,7 +2237,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">3</span>
-            <span class="pol-head"><h3>לימודי דוקטורט</h3><span class="pol-sub">מסרן קבע או רס״ר ומעלה, במחקר הקשור למקצוע הצבאי</span></span>
+            <h3>לימודי דוקטורט</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -2262,7 +2259,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">4</span>
-            <span class="pol-head"><h3>לימודי אנגלית</h3><span class="pol-sub">שלוש דרכים להשגת הפטור באנגלית</span></span>
+            <h3>לימודי אנגלית</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -2283,7 +2280,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">5</span>
-            <span class="pol-head"><h3>לימודי תואר שני במקביל לתואר ראשון</h3><span class="pol-sub">אפשרי, כל עוד ההיעדרות לא עולה על יום מלא בשבוע</span></span>
+            <h3>לימודי תואר שני במקביל לתואר ראשון</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -2297,7 +2294,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">6</span>
-            <span class="pol-head"><h3>מתכונת לימודים תוכ״ש</h3><span class="pol-sub">איך מחושבת ההיעדרות, ומה לגבי חופשה לבחינות</span></span>
+            <h3>מתכונת לימודים תוכ״ש</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
@@ -2314,7 +2311,7 @@
         <details class="card acc pol-acc">
           <summary>
             <span class="acc-ic pol-n" aria-hidden="true">7</span>
-            <span class="pol-head"><h3>ערוצי הלימוד</h3><span class="pol-sub">עד 5 שעות היעדרות בשבוע, או יום לימודים מלא</span></span>
+            <h3>ערוצי הלימוד</h3>
             <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
           </summary>
           <div class="acc-body pol-body">
