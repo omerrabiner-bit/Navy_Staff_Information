@@ -760,24 +760,25 @@
 
   /* ===== עמוד מדיניות השיבוצים: רשימת נושאים בצד ימין + כרטיס נושא ===== */
   #assign-policy{--accent:var(--c-orders)}
-  .pol{display:grid; grid-template-columns:96px 1fr; gap:var(--s1); align-items:start}
-  .pol-toc{position:sticky; top:calc(68px + env(safe-area-inset-top))}
-  .pol-toc ol{list-style:none; margin:0; padding:4px; display:flex; flex-direction:column; gap:2px;
-    background:var(--card); border:1px solid var(--line); border-radius:var(--r-md); box-shadow:var(--shadow)}
-  .pol-toc button{
-    display:flex; align-items:center; width:100%; min-height:44px; padding:4px 8px; cursor:pointer; text-align:right;
-    font-family:inherit; font-size:var(--fs-xs); font-weight:600; line-height:1.3; color:var(--muted);
-    background:transparent; border:0; border-radius:10px; border-inline-start:3px solid transparent;
+  /* רשימת נושאים נפתחת: מספר, כותרת ושורת תקציר. אפשר לפתוח כמה יחד */
+  .pol-bar{display:flex; justify-content:flex-end; margin:0 0 var(--s1)}
+  .pol-all{
+    min-height:44px; padding:0 var(--s2); cursor:pointer; font-family:inherit; font-size:var(--fs-sm); font-weight:600;
+    color:var(--c-action); background:transparent; border:0; border-radius:var(--r-sm);
   }
-  .pol-toc button[aria-current="true"]{color:var(--c-action); background:var(--foam); border-inline-start-color:var(--c-action); font-weight:700}
-  .pol-main{min-width:0; background:var(--card); border:1px solid var(--line); border-radius:var(--r-md); box-shadow:var(--shadow); padding:var(--s2)}
-  .pol-card{animation:fadein .25s ease; font-size:var(--fs-sm); line-height:1.7}
-  .pol-card .pol-kicker{font-size:var(--fs-xs); font-weight:600; color:var(--muted)}
-  .pol-card h3{margin:0 0 var(--s2); font-size:var(--fs-lg); font-weight:700; line-height:1.35}
-  .pol-card h4{margin:var(--s3) 0 var(--s1); font-size:var(--fs-md); font-weight:700; color:var(--c-action)}
-  .pol-card h3 + h4{margin-top:0}
-  .pol-card h5{margin:var(--s2) 0 4px; font-size:var(--fs-sm); font-weight:700}
-  .pol-card p{margin:0 0 var(--s1)}
+  .pol-all:active{background:var(--foam)}
+  details.pol-acc summary{align-items:flex-start; gap:12px; padding:12px var(--s2)}
+  details.pol-acc .pol-n{width:32px; height:32px; margin-top:2px; font-family:var(--font-head); font-size:var(--fs-md); font-weight:700}
+  .pol-head{flex:1; min-width:0; display:flex; flex-direction:column; gap:2px}
+  details.pol-acc summary h3{line-height:1.35}
+  .pol-sub{font-size:var(--fs-sm); line-height:1.5; color:var(--muted)}
+  details.pol-acc .chev{margin-top:2px}
+  .pol-body{font-size:var(--fs-sm); line-height:1.7}
+  .pol-body h4{margin:var(--s3) 0 var(--s1); font-size:var(--fs-md); font-weight:700; color:var(--c-action)}
+  .pol-body > h4:first-child{margin-top:0}
+  .pol-body h5{margin:var(--s2) 0 4px; font-size:var(--fs-sm); font-weight:700}
+  .pol-body p{margin:0 0 var(--s1)}
+  .pol-body > :last-child{margin-bottom:0}
   .pol-list{margin:0; padding:0 20px 0 0; list-style-type:hebrew}
   .pol-list.num{list-style-type:decimal}
   .pol-list li{margin:0 0 var(--s1)}
@@ -788,10 +789,6 @@
   .pol-table .cat{color:var(--text)}
   .pol-table .cat, .pol-table .val{justify-content:center; text-align:center}
   .pol-table .row.head .cat, .pol-table .row.head .val{font-weight:700; color:var(--c-action); background:var(--foam)}
-  .pol-nav{display:flex; align-items:center; gap:4px; margin-top:var(--s3); padding-top:var(--s2); border-top:1px solid var(--line)}
-  .pol-nav .steps-btn{padding:0 10px}
-  .pol-nav .steps-count{white-space:nowrap}
-  .pol-nav .steps-btn[hidden]{display:inline-flex; visibility:hidden}
   .pol-table.cols3 .row{grid-template-columns:28% 1fr 1fr}
   .pol-table.cols3 .cat, .pol-table.cols3 .val{display:block; align-self:center; text-align:center; padding:8px 4px; min-width:0}
   .pol-table.cols3 .row.head > div{align-self:stretch}
@@ -1468,7 +1465,7 @@
   </section>
 
   <!-- ===== עמוד משנה: מדיניות השיבוצים לקצינים ===== -->
-  <section class="page" id="assign-policy" data-parent="orders" data-updated="2026-11-11">
+  <section class="page" id="assign-policy" data-parent="orders" data-updated="2026-11-12">
     <a class="back" href="#orders" data-goto="orders">
       <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>חזרה לפקודות ונהלים
     </a>
@@ -1477,110 +1474,151 @@
       <div><h2>מדיניות השיבוצים לקצינים</h2><p>עיקרי המדיניות לפי נושא</p></div>
     </div>
 
-    <!-- לכל נושא: <article class="pol-card" data-title="שם קצר לרשימה">. הרשימה בצד ימין והחיצים נבנים אוטומטית ב-app.js -->
-    <div class="pol" data-pol>
-      <div class="pol-toc" role="navigation" aria-label="נושאי המדיניות"><ol></ol></div>
-      <div class="pol-main">
+    <!-- לכל נושא: <details class="card acc pol-acc"> עם מספר, כותרת ושורת תקציר (pol-sub). התוכן נכנס ל-.pol-body. אפשר לפתוח כמה נושאים יחד -->
+    <div class="pol-bar"><button class="pol-all" type="button" data-acc-all aria-expanded="false">פתיחת כל הנושאים</button></div>
+    <div class="acc-list pol-acc-list" data-multi>
 
-        <article class="pol-card" data-title="עקרונות מנחים">
-          <h3>עקרונות מנחים לתהליך האיוש</h3>
-          <h4>עקרונות על</h4>
-          <ol class="pol-list num">
-            <li>תהליך האיוש נועד להביא לשיבוץ המתאים ביותר. התהליך יבוצע מתוך ראייה מערכתית המשלבת את צרכי <b>זרוע הים</b>, עמדות <b>המפקדים</b> ואת צרכי <b>הפרט</b>.</li>
-            <li>האיוש לתפקיד יבוצע מתוך ראייה <b>רב שנתית למסלול והתפתחות המשרת</b>.</li>
-            <li>תהליכי הדש״ב בזרוע יהיו מסונכרנים לתהליכי הדש״ב המטכ״ליים, וזאת כדי שנוכל לאייש את ״הנבחרים״ במטה הכללי, ומנגד, ל״ייבא״ את המתאימים לזרוע לתפקידים מסומנים.</li>
-            <li>כחלק מניהול מסלול השירות, פרסום המצע (האשכול) בשאיפה יבוצע בזמנים הבאים (לכל המאוחר): אל״מ כשנה לפני איוש, סא״ל כ־8 חודשים, רס״ן כחצי שנה.</li>
-          </ol>
-          <h4>הובלת השיח עם הפרט</h4>
-          <p>השיח לגבי תהליכי האיוש מבוצע בין מחלקת הסגל לבין המפקדים. המפקדים הם אלו אשר מנהלים את השיח הראשוני עם המתמודדים, מתוך תפיסה פיקודית שכך נכון שיקרה. מחלקת הסגל תתמוך בשיח זה, תסייע ותשלים בכל הנדרש לצרכי המפקדים בנושא, <u>תוך שמירה על ממשקים מוגדרים</u>.</p>
-        </article>
-
-        <article class="pol-card" data-title="איוש רב סקטוריאלי" hidden>
-          <h3>איוש רב סקטוריאלי (רב״ס)</h3>
-          <p>איוש רב״ס ישולב <b>במהלך עונת האיוש כולה</b> בכלל המערכים. מטרתו <b>פיתוח הפרט וחיזוק הזרוע</b>, והוא מכיל:</p>
-          <ol class="pol-list">
-            <li>איוש קצינים.</li>
-            <li>איוש קצינים מתוך הזרוע ממגוון המערכים השונים – מקצונת חובה ועד לדרגות הספ״כ.</li>
-            <li>איוש קצינים ונגדים מחוץ לזרוע (״רב זרועי״).</li>
-          </ol>
-        </article>
-
-        <article class="pol-card" data-title="מדיניות המעבריות" hidden>
-          <h3>מדיניות המעבריות</h3>
-          <ol class="pol-list">
-            <li>קצינים בחתימה קשיחה – ככלל, יתמודדו לתפקידים בתוך הסקטור בלבד.</li>
-            <li>כל יתר הקצינים (לרבות קצינים שלא סוכמו בדיוני ליבה סקטוריאליים, קצינים שעתידים להשתחרר, ו/או קצינים במסגרת חתימה שנייה של תכנית שירות) – רשאים להתמודד רב״ס. רצוי שקצינים אלו יעברו דרך המרכז לפסיכולוגיה תעסוקתית, על מנת לתת סיוע בניתוב נכון של הדרך עבורם.</li>
-            <li>הדש״ב מחולק לדש״ב ליבה ולדש״ב מטה במערכים השונים, כאשר האיוש הוא ליבה תחילה.</li>
-          </ol>
-        </article>
-
-        <article class="pol-card" data-title="דיון תנועות" hidden>
-          <h3>דיון תנועות</h3>
-          <ol class="pol-list">
-            <li>בסיס השיח בדבר תנועות האיוש, נותן מקום לפרט ולמפקדים להביע את עמדתם בתחילת התהליך. דיון התנועות בו יסוכם אילו ממשיכים בשנה נוספת, ואילו ממשיכים רוחב לאיוש אחר, ומי לפרישה – הן מבוססות עקרונות המופיעות בהגדרת ״משכי הקדנציה״ בנייר זה.</li>
-            <li>דיון התנועות יחל מהדרגה הבכירה, ויהווה את הצוהר ליתר אנשי הקבע.</li>
-          </ol>
-        </article>
-
-        <article class="pol-card" data-title="קול קורא" hidden>
-          <h3>קול קורא</h3>
-          <ol class="pol-list">
-            <li>יכלול את רשימת כלל התפקידים הנפתחים לאיוש בדיון הרלוונטי.</li>
-            <li>בגיליון נפרד, יכלול את כלל המתמודדים הרלוונטיים והאפשריים לאיוש בדיון.</li>
-            <li>מהווה הזמנת מפקדים להציע מועמדים לדיון הרלוונטי.</li>
-            <li>מפקדים יראיינו את אנשיהם, שומעים את מבוקשם, וממליצים לו מה נכון עבורו מבחינת התפתחות אישית.</li>
-            <li>״יום פתוח״ – ראשי הענפים, סגני מפקדי היחידות יציגו את התפקידים לפורום המועמד.</li>
-          </ol>
-        </article>
-
-        <article class="pol-card" data-title="אשכולות" hidden>
-          <h3>אשכולות</h3>
-          <ol class="pol-list">
-            <li>רשימה של התפקידים בשידוך למועמדים (מועמדים מסודרים לפי דרגה, ואז לפי א־ב של שם משפחה) לאחר שעברו את הסף הסגלי.</li>
-            <li>בשלב זה, טרם הדיון עצמו, על המפקד הקולט לראיין את כלל הקצינים המופיעים במסמך האשכולות, וזאת על מנת לאפשר לכולם הזדמנות שווה להתמודד.</li>
-            <li>סיכום הריאיון ינוסח כהמלצה ויהיה כתוב ״טעון אישור מכ״א״. סיכומים אלו עד דרגת רס״ן כולל יופצו לרע״ן סגל. סכמ״ר סרן/רס״ן נדרשים להיות מופצים לרמ״ד סגל. סיכומי ראיון סא״ל – אל״מ יופצו לרע״ן סגל, לרמ״ח הסגל ולרמכ״א.</li>
-            <li>פ״א עם ראש הדיון יתקיים על פי הצורך (של הפרט/ראש הדיון), ויתבצעו לפני אשכולות, כדי שהאשכול ייבנה גם למול העדפות הפרט.</li>
-          </ol>
-        </article>
-
-        <article class="pol-card" data-title="דיון איוש" hidden>
-          <h3>דיון איוש</h3>
-          <ol class="pol-list">
-            <li><b>ראש הדיון</b> – עפ״י הטבלה בהמשך.</li>
-            <li><b>הצגת כלל המועמדים:</b> נתונים אישיים (מקום מגורים, מצב משפחתי), אנליטיקה אנושית – מידת ההתאמה לתפקיד, מסלול שירות ורצף ההכשרה, חוו״דים, סוציומטריה, השכלה, הצטיינויות (אותות, צל״שים), מבחנים וביקורות מודל קבע. עבור סא״ל/אל״מ יוצגו גם ציון פו״מ/מב״ל ונתוני מרכז הערכה.<br>״אחרי״ – רישום לזכות של הקצין אשר השפיע להחתמה לשירות נוסף (יתקבל במעמד החתימה של הקצין), נזיפות פיקודיות.</li>
-            <li><b>הצגת שקף אישי:</b> השקף יוקרא כלשונו. השקף יועבר למילוי ע״י אנשי הקבע המופיעים באשכול.</li>
-          </ol>
-          <h4>סוגי דיוני האיוש</h4>
-          <div class="info-table pol-table" role="table" aria-label="סוגי דיוני האיוש">
-            <div class="row head" role="row"><div class="cat" role="columnheader">סוג הדיון</div><div class="val" role="columnheader">ראש הדיון</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">תפקידי אל״ם</div><div class="val" role="cell">מח״י</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">סא״ל</div><div class="val" role="cell">מח״י</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">סא״ל אישי</div><div class="val" role="cell">מח״י</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">סא״ל ייצוג</div><div class="val" role="cell">מח״י</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">רס״ן</div><div class="val" role="cell">רמכ״א</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">רס״ן מוקד ידע</div><div class="val" role="cell">רמכ״א</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">סרן לוחמים</div><div class="val" role="cell">רמ״ח תוה״ד</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">סרן ביתר המערכים</div><div class="val" role="cell">רפרנטים בדרג הרמ״ח</div></div>
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">1</span>
+            <span class="pol-head"><h3>עקרונות מנחים לתהליך האיוש</h3><span class="pol-sub">שיבוץ שמאזן בין צרכי הזרוע, המפקדים והפרט, בראייה רב שנתית</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <h4>עקרונות על</h4>
+            <ol class="pol-list num">
+              <li>תהליך האיוש נועד להביא לשיבוץ המתאים ביותר. התהליך יבוצע מתוך ראייה מערכתית המשלבת את צרכי <b>זרוע הים</b>, עמדות <b>המפקדים</b> ואת צרכי <b>הפרט</b>.</li>
+              <li>האיוש לתפקיד יבוצע מתוך ראייה <b>רב שנתית למסלול והתפתחות המשרת</b>.</li>
+              <li>תהליכי הדש״ב בזרוע יהיו מסונכרנים לתהליכי הדש״ב המטכ״ליים, וזאת כדי שנוכל לאייש את ״הנבחרים״ במטה הכללי, ומנגד, ל״ייבא״ את המתאימים לזרוע לתפקידים מסומנים.</li>
+              <li>כחלק מניהול מסלול השירות, פרסום המצע (האשכול) בשאיפה יבוצע בזמנים הבאים (לכל המאוחר): אל״מ כשנה לפני איוש, סא״ל כ־8 חודשים, רס״ן כחצי שנה.</li>
+            </ol>
+            <h4>הובלת השיח עם הפרט</h4>
+            <p>השיח לגבי תהליכי האיוש מבוצע בין מחלקת הסגל לבין המפקדים. המפקדים הם אלו אשר מנהלים את השיח הראשוני עם המתמודדים, מתוך תפיסה פיקודית שכך נכון שיקרה. מחלקת הסגל תתמוך בשיח זה, תסייע ותשלים בכל הנדרש לצרכי המפקדים בנושא, <u>תוך שמירה על ממשקים מוגדרים</u>.</p>
           </div>
-        </article>
+        </details>
 
-        <article class="pol-card" data-title="סבבים ועיתויים" hidden>
-          <h3>סבבים ועיתויים</h3>
-          <ol class="pol-list num">
-            <li>מדי עונת איוש יפורסם מסמך ״מדיניות סבבים ועיתויים״ ע״י ענף תכנון במח׳ הסגל.</li>
-            <li>כל סבב בנוי מתקופת חופשה, מתקופת חפיפה וממסלול הכנה לתפקיד, בהתאם למדיניות זו, כאשר מלאכת התכנון מובלת ע״י הסקטורים השונים, בראשות רע״ן תכנון מכ״א.</li>
-            <li>מדיניות חופשים בין תפקידים – שבוע חופשה. למעט יחידות ומסגרות מבצעיות – שבועיים חופשה, בראי עומסים ושחיקה.</li>
-            <li>הכשרות מפקדים מהוות מרכיב משמעותי בכשירות הקצין לתפקידו וחלק בלתי נפרד ממסלול שדרת הפיקוד של צה״ל. לפיכך, במעבר תפקידים בין השטח למטה, ובין תפקידים של קמ״ד לרמ״ד, יעבור המפקד הכשרה ייעודית שמובנית בתהליך הכניסה לתפקיד ותימשך עד שבוע ימים, ע״פ תוכנית סדורה באחריות מד״ה ותוה״ד.</li>
-            <li>מחלוקות לא פתורות יעלו לדיון ייעודי בראשות רמ״ח הסגל/רמכ״א (תלוי דרגה).</li>
-          </ol>
-        </article>
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">2</span>
+            <span class="pol-head"><h3>איוש רב סקטוריאלי (רב״ס)</h3><span class="pol-sub">משולב לאורך כל עונת האיוש, לפיתוח הפרט וחיזוק הזרוע</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <p>איוש רב״ס ישולב <b>במהלך עונת האיוש כולה</b> בכלל המערכים. מטרתו <b>פיתוח הפרט וחיזוק הזרוע</b>, והוא מכיל:</p>
+            <ol class="pol-list">
+              <li>איוש קצינים.</li>
+              <li>איוש קצינים מתוך הזרוע ממגוון המערכים השונים – מקצונת חובה ועד לדרגות הספ״כ.</li>
+              <li>איוש קצינים ונגדים מחוץ לזרוע (״רב זרועי״).</li>
+            </ol>
+          </div>
+        </details>
 
-        <div class="pol-nav">
-          <button class="steps-btn prev" type="button" data-dir="-1"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>הקודם</button>
-          <span class="steps-count" aria-live="polite"></span>
-          <button class="steps-btn next" type="button" data-dir="1">הבא<svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
-        </div>
-      </div>
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">3</span>
+            <span class="pol-head"><h3>מדיניות המעבריות</h3><span class="pol-sub">מי רשאי להתמודד על תפקידים מחוץ לסקטור שלו</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <ol class="pol-list">
+              <li>קצינים בחתימה קשיחה – ככלל, יתמודדו לתפקידים בתוך הסקטור בלבד.</li>
+              <li>כל יתר הקצינים (לרבות קצינים שלא סוכמו בדיוני ליבה סקטוריאליים, קצינים שעתידים להשתחרר, ו/או קצינים במסגרת חתימה שנייה של תכנית שירות) – רשאים להתמודד רב״ס. רצוי שקצינים אלו יעברו דרך המרכז לפסיכולוגיה תעסוקתית, על מנת לתת סיוע בניתוב נכון של הדרך עבורם.</li>
+              <li>הדש״ב מחולק לדש״ב ליבה ולדש״ב מטה במערכים השונים, כאשר האיוש הוא ליבה תחילה.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">4</span>
+            <span class="pol-head"><h3>דיון תנועות</h3><span class="pol-sub">מי ממשיך בתפקיד, מי עובר לתפקיד אחר ומי פורש</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <ol class="pol-list">
+              <li>בסיס השיח בדבר תנועות האיוש, נותן מקום לפרט ולמפקדים להביע את עמדתם בתחילת התהליך. דיון התנועות בו יסוכם אילו ממשיכים בשנה נוספת, ואילו ממשיכים רוחב לאיוש אחר, ומי לפרישה – הן מבוססות עקרונות המופיעות בהגדרת ״משכי הקדנציה״ בנייר זה.</li>
+              <li>דיון התנועות יחל מהדרגה הבכירה, ויהווה את הצוהר ליתר אנשי הקבע.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">5</span>
+            <span class="pol-head"><h3>קול קורא</h3><span class="pol-sub">התפקידים הנפתחים, המתמודדים והזמנת המפקדים להציע מועמדים</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <ol class="pol-list">
+              <li>יכלול את רשימת כלל התפקידים הנפתחים לאיוש בדיון הרלוונטי.</li>
+              <li>בגיליון נפרד, יכלול את כלל המתמודדים הרלוונטיים והאפשריים לאיוש בדיון.</li>
+              <li>מהווה הזמנת מפקדים להציע מועמדים לדיון הרלוונטי.</li>
+              <li>מפקדים יראיינו את אנשיהם, שומעים את מבוקשם, וממליצים לו מה נכון עבורו מבחינת התפתחות אישית.</li>
+              <li>״יום פתוח״ – ראשי הענפים, סגני מפקדי היחידות יציגו את התפקידים לפורום המועמד.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">6</span>
+            <span class="pol-head"><h3>אשכולות</h3><span class="pol-sub">שידוך מועמדים לתפקידים, והמפקד הקולט מראיין את כולם</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <ol class="pol-list">
+              <li>רשימה של התפקידים בשידוך למועמדים (מועמדים מסודרים לפי דרגה, ואז לפי א־ב של שם משפחה) לאחר שעברו את הסף הסגלי.</li>
+              <li>בשלב זה, טרם הדיון עצמו, על המפקד הקולט לראיין את כלל הקצינים המופיעים במסמך האשכולות, וזאת על מנת לאפשר לכולם הזדמנות שווה להתמודד.</li>
+              <li>סיכום הריאיון ינוסח כהמלצה ויהיה כתוב ״טעון אישור מכ״א״. סיכומים אלו עד דרגת רס״ן כולל יופצו לרע״ן סגל. סכמ״ר סרן/רס״ן נדרשים להיות מופצים לרמ״ד סגל. סיכומי ראיון סא״ל – אל״מ יופצו לרע״ן סגל, לרמ״ח הסגל ולרמכ״א.</li>
+              <li>פ״א עם ראש הדיון יתקיים על פי הצורך (של הפרט/ראש הדיון), ויתבצעו לפני אשכולות, כדי שהאשכול ייבנה גם למול העדפות הפרט.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">7</span>
+            <span class="pol-head"><h3>דיון איוש</h3><span class="pol-sub">מה מוצג על כל מועמד, ומי עומד בראש כל דיון</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <ol class="pol-list">
+              <li><b>ראש הדיון</b> – עפ״י הטבלה בהמשך.</li>
+              <li><b>הצגת כלל המועמדים:</b> נתונים אישיים (מקום מגורים, מצב משפחתי), אנליטיקה אנושית – מידת ההתאמה לתפקיד, מסלול שירות ורצף ההכשרה, חוו״דים, סוציומטריה, השכלה, הצטיינויות (אותות, צל״שים), מבחנים וביקורות מודל קבע. עבור סא״ל/אל״מ יוצגו גם ציון פו״מ/מב״ל ונתוני מרכז הערכה.<br>״אחרי״ – רישום לזכות של הקצין אשר השפיע להחתמה לשירות נוסף (יתקבל במעמד החתימה של הקצין), נזיפות פיקודיות.</li>
+              <li><b>הצגת שקף אישי:</b> השקף יוקרא כלשונו. השקף יועבר למילוי ע״י אנשי הקבע המופיעים באשכול.</li>
+            </ol>
+            <h4>סוגי דיוני האיוש</h4>
+            <div class="info-table pol-table" role="table" aria-label="סוגי דיוני האיוש">
+              <div class="row head" role="row"><div class="cat" role="columnheader">סוג הדיון</div><div class="val" role="columnheader">ראש הדיון</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">תפקידי אל״ם</div><div class="val" role="cell">מח״י</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">סא״ל</div><div class="val" role="cell">מח״י</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">סא״ל אישי</div><div class="val" role="cell">מח״י</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">סא״ל ייצוג</div><div class="val" role="cell">מח״י</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">רס״ן</div><div class="val" role="cell">רמכ״א</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">רס״ן מוקד ידע</div><div class="val" role="cell">רמכ״א</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">סרן לוחמים</div><div class="val" role="cell">רמ״ח תוה״ד</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">סרן ביתר המערכים</div><div class="val" role="cell">רפרנטים בדרג הרמ״ח</div></div>
+            </div>
+          </div>
+        </details>
+
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">8</span>
+            <span class="pol-head"><h3>סבבים ועיתויים</h3><span class="pol-sub">חופשה, חפיפה והכשרה במעבר בין תפקידים</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <ol class="pol-list num">
+              <li>מדי עונת איוש יפורסם מסמך ״מדיניות סבבים ועיתויים״ ע״י ענף תכנון במח׳ הסגל.</li>
+              <li>כל סבב בנוי מתקופת חופשה, מתקופת חפיפה וממסלול הכנה לתפקיד, בהתאם למדיניות זו, כאשר מלאכת התכנון מובלת ע״י הסקטורים השונים, בראשות רע״ן תכנון מכ״א.</li>
+              <li>מדיניות חופשים בין תפקידים – שבוע חופשה. למעט יחידות ומסגרות מבצעיות – שבועיים חופשה, בראי עומסים ושחיקה.</li>
+              <li>הכשרות מפקדים מהוות מרכיב משמעותי בכשירות הקצין לתפקידו וחלק בלתי נפרד ממסלול שדרת הפיקוד של צה״ל. לפיכך, במעבר תפקידים בין השטח למטה, ובין תפקידים של קמ״ד לרמ״ד, יעבור המפקד הכשרה ייעודית שמובנית בתהליך הכניסה לתפקיד ותימשך עד שבוע ימים, ע״פ תוכנית סדורה באחריות מד״ה ותוה״ד.</li>
+              <li>מחלוקות לא פתורות יעלו לדיון ייעודי בראשות רמ״ח הסגל/רמכ״א (תלוי דרגה).</li>
+            </ol>
+          </div>
+        </details>
+
     </div>
   </section>
 
@@ -2042,75 +2080,92 @@
       <div><h2>לימודים מלאים בישראל</h2><p>משך חתימה, זכאות, משכי לימודים ושינוי מסלול</p></div>
     </div>
 
-    <!-- לכל נושא: <article class="pol-card" data-title="שם קצר לרשימה">. הרשימה בצד ימין והחיצים נבנים אוטומטית ב-app.js -->
-    <div class="pol" data-pol>
-      <div class="pol-toc" role="navigation" aria-label="נושאי התוכנית"><ol></ol></div>
-      <div class="pol-main">
+    <!-- לכל נושא: <details class="card acc pol-acc"> עם מספר, כותרת ושורת תקציר (pol-sub). התוכן נכנס ל-.pol-body. אפשר לפתוח כמה נושאים יחד -->
+    <div class="pol-bar"><button class="pol-all" type="button" data-acc-all aria-expanded="false">פתיחת כל הנושאים</button></div>
+    <div class="acc-list pol-acc-list" data-multi>
 
-        <article class="pol-card" data-title="משך חתימה">
-          <h3>משך החתימה בגין לימודים מלאים</h3>
-          <p>משך ההחזר יחושב על פי היחס הבא:</p>
-          <div class="info-table pol-table cols3" role="table" aria-label="משך החתימה בגין לימודים מלאים">
-            <div class="row head" role="row"><div class="cat" role="columnheader">מערך</div><div class="val" role="columnheader">החזר בגין <b>שנת</b> לימודים אקדמית בלימודים מלאים</div><div class="val" role="columnheader">יחס ההחזר הקלנדרי בגין שנה אקדמית</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">לוחם</div><div class="val" role="cell">שנה</div><div class="val" role="cell"><span dir="ltr">1:1</span></div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">טכנולוג וקרבי</div><div class="val" role="cell">שנה וחצי</div><div class="val" role="cell"><span dir="ltr">1:1.5</span></div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">תומכ״ל</div><div class="val" role="cell">שנתיים</div><div class="val" role="cell"><span dir="ltr">1:2</span></div></div>
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">1</span>
+            <span class="pol-head"><h3>משך החתימה בגין לימודים מלאים</h3><span class="pol-sub">שנה עד שנתיים חתימה על כל שנת לימודים, לפי המערך</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <p>משך ההחזר יחושב על פי היחס הבא:</p>
+            <div class="info-table pol-table cols3" role="table" aria-label="משך החתימה בגין לימודים מלאים">
+              <div class="row head" role="row"><div class="cat" role="columnheader">מערך</div><div class="val" role="columnheader">החזר בגין <b>שנת</b> לימודים אקדמית בלימודים מלאים</div><div class="val" role="columnheader">יחס ההחזר הקלנדרי בגין שנה אקדמית</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">לוחם</div><div class="val" role="cell">שנה</div><div class="val" role="cell"><span dir="ltr">1:1</span></div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">טכנולוג וקרבי</div><div class="val" role="cell">שנה וחצי</div><div class="val" role="cell"><span dir="ltr">1:1.5</span></div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">תומכ״ל</div><div class="val" role="cell">שנתיים</div><div class="val" role="cell"><span dir="ltr">1:2</span></div></div>
+            </div>
           </div>
-        </article>
+        </details>
 
-        <article class="pol-card" data-title="זכאות לדצ״י או השכלה ישימה" hidden>
-          <h3>זכאות לדירוג צבאי או השכלה ישימה</h3>
-          <p>על מנת להיות זכאי לדצ״י (דירוג צבאי ייחודי, קצינים) או להשכלה ישימה (נגדים) נדרש לוודא טרם היציאה ללימודים כי 40 אחוז מסילבוס הלימודים (נקודות זכות) הינו בהתאם למינוי של איש הקבע.</p>
-          <p>תהליך הבחינה נעשה מול מופ״ת</p>
-          <h4>לוחמים</h4>
-          <p>לוחמים - אם איש הקבע חוזר אחרי הלימודים לתפקיד ברמת פעילות א׳ פלוס, הוא יהיה זכאי לדצ״י באופן אוטומטי (ללא קשר לתוכן לימודיו). זכאות זו תיכנס לתוקף 3 חודשים לאחר שירותו ביחידה ולא באופן רטרואקטיבי.</p>
-        </article>
-
-        <article class="pol-card" data-title="משכי הלימודים" hidden>
-          <h3>משכי הלימודים על פי סוג הלימודים</h3>
-          <h4>הנדסאי / טכנאי</h4>
-          <div class="info-table pol-table pol-dur" role="table" aria-label="הנדסאי / טכנאי">
-            <div class="row head" role="row"><div class="cat" role="columnheader">פקולטה / יחידה אקדמית</div><div class="val" role="columnheader">משך לימודים מקסימלי</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">טכנאי</div><div class="val" role="cell">שנה</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">הנדסאי</div><div class="val" role="cell">שנתיים</div></div>
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">2</span>
+            <span class="pol-head"><h3>זכאות לדירוג צבאי או השכלה ישימה</h3><span class="pol-sub">40% מהסילבוס צריכים להתאים למינוי</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <p>על מנת להיות זכאי לדצ״י (דירוג צבאי ייחודי, קצינים) או להשכלה ישימה (נגדים) נדרש לוודא טרם היציאה ללימודים כי 40 אחוז מסילבוס הלימודים (נקודות זכות) הינו בהתאם למינוי של איש הקבע.</p>
+            <p>תהליך הבחינה נעשה מול מופ״ת</p>
+            <h4>לוחמים</h4>
+            <p>לוחמים - אם איש הקבע חוזר אחרי הלימודים לתפקיד ברמת פעילות א׳ פלוס, הוא יהיה זכאי לדצ״י באופן אוטומטי (ללא קשר לתוכן לימודיו). זכאות זו תיכנס לתוקף 3 חודשים לאחר שירותו ביחידה ולא באופן רטרואקטיבי.</p>
           </div>
-          <h4>תואר ראשון</h4>
-          <div class="info-table pol-table pol-dur" role="table" aria-label="תואר ראשון">
-            <div class="row head" role="row"><div class="cat" role="columnheader">פקולטה / יחידה אקדמית</div><div class="val" role="columnheader">משך לימודים מקסימלי</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader"><u>מדעי החברה</u>: לוגיסטיקה, אנתרופולוגיה, מדעי המדינה, קרימינולוגיה, גיאוגרפיה, משא״ן, פוליטיקה וממשל, לימודי ארץ ישראל, ממשל וחברה, מנהל עסקים, ניהול, תואר כללי/רב תחומי, סוציולוגיה.</div><div class="val" role="cell">שנתיים</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader"><u>מדעי הרוח</u>: היסטוריה, לימודי מזרח תיכון, לשון, מחשבת ישראל, פילוסופיה, ספרות עברית, ספרויות זרות ובלשנות.</div><div class="val" role="cell">שנתיים</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">פסיכולוגיה, עבודה סוציאלית, מדעי ההתנהגות, חשבונאות, חינוך (לא ניתן לשלב עם תעודת הוראה), מדעי החיים, בקרה תעשייתית, ניהול מערכות מידע, כלכלה, תקשורת, סיעוד. כלל תוכניות הלימוד הדו חוגיות</div><div class="val" role="cell">שלוש שנים</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader"><u>מדעים מדויקים</u>: כימיה, סטטיסטיקה, פיזיקה, מדמ״ח, מתמטיקה, גיאולוגיה, הנדסת מערכות מידע, ביולוגיה, רפואת חירום, הנדסת תו״ן</div><div class="val" role="cell">שלוש שנים</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">משפטים (משפטים בקריית אונו מאושר למשך 3 שנים בלבד)</div><div class="val" role="cell">שלוש וחצי שנים</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">לימודי הנדסה (למעט הנדסת תו״ן)</div><div class="val" role="cell">ארבע שנים</div></div>
-          </div>
-          <h4>תואר שני</h4>
-          <div class="info-table pol-table pol-dur" role="table" aria-label="תואר שני">
-            <div class="row head" role="row"><div class="cat" role="columnheader">פקולטה / יחידה אקדמית</div><div class="val" role="columnheader">משך לימודים מקסימלי</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">כלל מקצועות הלימוד</div><div class="val" role="cell">שנה אקדמית</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">מקצועות ההנדסה בלבד</div><div class="val" role="cell">עד שנתיים ע״ת עמידה ב־18 ש״ש<br><b>מינימום שנה קלנדרית</b></div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">חובלים אשר השלימו את התואר הראשון כחלק מקורס חובלים</div><div class="val" role="cell">עד שנתיים</div></div>
-          </div>
-          <h4>תואר שלישי</h4>
-          <p>שנה אקדמית.</p>
-        </article>
+        </details>
 
-        <article class="pol-card" data-title="שינוי מסלול לימודים" hidden>
-          <h3>שינוי מסלול/מוסד לימודים</h3>
-          <ol class="pol-list num">
-            <li>מעת לעת עולה בקשה מאת הפרט, לאחר תחילת הלימודים, לשינוי תחום לימוד/ מסלול לימודים/ מוסד לימודים.</li>
-            <li>שינוי שכזה, הינו בעל השלכות על משך הלימודים, סיכויי הפרט לסיום לימודיו ועוד.</li>
-            <li><b>כל שינוי מסלול או מוסד לימודים יתבצע רק לאחר בחינת הנושא וקבלת אישור מרמנה״ק/ רמנה״ן בחטה״ס.</b> השינוי יתבצע תוך התאמת מסלול הלימודים למשך חטיבת הזמן שאושרה.</li>
-            <li><b>על כל סמכות לעדכן את לומדיה, טרם תחילת הלימודים, באשר לאיסור שינוי/מעבר מוסד/מגמה ללא אישור חטה״ס.</b></li>
-          </ol>
-        </article>
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">3</span>
+            <span class="pol-head"><h3>משכי הלימודים על פי סוג הלימודים</h3><span class="pol-sub">משך הלימודים המקסימלי לפי סוג התואר והתחום</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <h4>הנדסאי / טכנאי</h4>
+            <div class="info-table pol-table pol-dur" role="table" aria-label="הנדסאי / טכנאי">
+              <div class="row head" role="row"><div class="cat" role="columnheader">פקולטה / יחידה אקדמית</div><div class="val" role="columnheader">משך לימודים מקסימלי</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">טכנאי</div><div class="val" role="cell">שנה</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">הנדסאי</div><div class="val" role="cell">שנתיים</div></div>
+            </div>
+            <h4>תואר ראשון</h4>
+            <div class="info-table pol-table pol-dur" role="table" aria-label="תואר ראשון">
+              <div class="row head" role="row"><div class="cat" role="columnheader">פקולטה / יחידה אקדמית</div><div class="val" role="columnheader">משך לימודים מקסימלי</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader"><u>מדעי החברה</u>: לוגיסטיקה, אנתרופולוגיה, מדעי המדינה, קרימינולוגיה, גיאוגרפיה, משא״ן, פוליטיקה וממשל, לימודי ארץ ישראל, ממשל וחברה, מנהל עסקים, ניהול, תואר כללי/רב תחומי, סוציולוגיה.</div><div class="val" role="cell">שנתיים</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader"><u>מדעי הרוח</u>: היסטוריה, לימודי מזרח תיכון, לשון, מחשבת ישראל, פילוסופיה, ספרות עברית, ספרויות זרות ובלשנות.</div><div class="val" role="cell">שנתיים</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">פסיכולוגיה, עבודה סוציאלית, מדעי ההתנהגות, חשבונאות, חינוך (לא ניתן לשלב עם תעודת הוראה), מדעי החיים, בקרה תעשייתית, ניהול מערכות מידע, כלכלה, תקשורת, סיעוד. כלל תוכניות הלימוד הדו חוגיות</div><div class="val" role="cell">שלוש שנים</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader"><u>מדעים מדויקים</u>: כימיה, סטטיסטיקה, פיזיקה, מדמ״ח, מתמטיקה, גיאולוגיה, הנדסת מערכות מידע, ביולוגיה, רפואת חירום, הנדסת תו״ן</div><div class="val" role="cell">שלוש שנים</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">משפטים (משפטים בקריית אונו מאושר למשך 3 שנים בלבד)</div><div class="val" role="cell">שלוש וחצי שנים</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">לימודי הנדסה (למעט הנדסת תו״ן)</div><div class="val" role="cell">ארבע שנים</div></div>
+            </div>
+            <h4>תואר שני</h4>
+            <div class="info-table pol-table pol-dur" role="table" aria-label="תואר שני">
+              <div class="row head" role="row"><div class="cat" role="columnheader">פקולטה / יחידה אקדמית</div><div class="val" role="columnheader">משך לימודים מקסימלי</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">כלל מקצועות הלימוד</div><div class="val" role="cell">שנה אקדמית</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">מקצועות ההנדסה בלבד</div><div class="val" role="cell">עד שנתיים ע״ת עמידה ב־18 ש״ש<br><b>מינימום שנה קלנדרית</b></div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">חובלים אשר השלימו את התואר הראשון כחלק מקורס חובלים</div><div class="val" role="cell">עד שנתיים</div></div>
+            </div>
+            <h4>תואר שלישי</h4>
+            <p>שנה אקדמית.</p>
+          </div>
+        </details>
 
-        <div class="pol-nav">
-          <button class="steps-btn prev" type="button" data-dir="-1"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>הקודם</button>
-          <span class="steps-count" aria-live="polite"></span>
-          <button class="steps-btn next" type="button" data-dir="1">הבא<svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
-        </div>
-      </div>
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">4</span>
+            <span class="pol-head"><h3>שינוי מסלול/מוסד לימודים</h3><span class="pol-sub">שינוי מסלול או מוסד לימודים רק לאחר אישור</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <ol class="pol-list num">
+              <li>מעת לעת עולה בקשה מאת הפרט, לאחר תחילת הלימודים, לשינוי תחום לימוד/ מסלול לימודים/ מוסד לימודים.</li>
+              <li>שינוי שכזה, הינו בעל השלכות על משך הלימודים, סיכויי הפרט לסיום לימודיו ועוד.</li>
+              <li><b>כל שינוי מסלול או מוסד לימודים יתבצע רק לאחר בחינת הנושא וקבלת אישור מרמנה״ק/ רמנה״ן בחטה״ס.</b> השינוי יתבצע תוך התאמת מסלול הלימודים למשך חטיבת הזמן שאושרה.</li>
+              <li><b>על כל סמכות לעדכן את לומדיה, טרם תחילת הלימודים, באשר לאיסור שינוי/מעבר מוסד/מגמה ללא אישור חטה״ס.</b></li>
+            </ol>
+          </div>
+        </details>
+
     </div>
     <button class="share-btn wide" type="button" data-share="israel" data-title="לימודים מלאים בישראל – תוכנית לימודים">
       <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
@@ -2128,118 +2183,153 @@
       <div><h2>לימודים תוכ״ש בישראל</h2><p>לימודים תוך כדי שירות</p></div>
     </div>
 
-    <!-- לכל נושא: <article class="pol-card" data-title="שם קצר לרשימה">. הרשימה בצד ימין והחיצים נבנים אוטומטית ב-app.js -->
-    <div class="pol" data-pol>
-      <div class="pol-toc" role="navigation" aria-label="נושאי התוכנית"><ol></ol></div>
-      <div class="pol-main">
+    <!-- לכל נושא: <details class="card acc pol-acc"> עם מספר, כותרת ושורת תקציר (pol-sub). התוכן נכנס ל-.pol-body. אפשר לפתוח כמה נושאים יחד -->
+    <div class="pol-bar"><button class="pol-all" type="button" data-acc-all aria-expanded="false">פתיחת כל הנושאים</button></div>
+    <div class="acc-list pol-acc-list" data-multi>
 
-        <article class="pol-card" data-title="קריטריונים לאישור">
-          <h3>קריטריונים לאישור מועמדים ללימודים תוכ״ש</h3>
-          <p>להלן פירוט הזכאויות השונות בחתך לאוכלוסיית היעד וסוג ההטבה:</p>
-          <p class="pol-pop"><b>חיילים בחובה</b></p>
-          <div class="info-table pol-table" role="table" aria-label="סוג ההטבה">
-            <div class="row head" role="row"><div class="cat" role="columnheader">סוג ההטבה</div><div class="val" role="columnheader">זכאות</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">ללא מלגה ולאחר שעות הפעילות</div><div class="val" role="cell">זכאי ללימודים מעבר לשעות הפעילות בלבד.</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">תוכ״ש ע״ח שעות הפעילות עד יום מלא</div><div class="val no" role="cell">לא זכאי</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">מלגה</div><div class="val no" role="cell">לא זכאי</div></div>
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">1</span>
+            <span class="pol-head"><h3>קריטריונים לאישור מועמדים ללימודים תוכ״ש</h3><span class="pol-sub">מי זכאי ללימודים, להיעדרות ולמלגה, לפי סוג השירות</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <p>להלן פירוט הזכאויות השונות בחתך לאוכלוסיית היעד וסוג ההטבה:</p>
+            <p class="pol-pop"><b>חיילים בחובה</b></p>
+            <div class="info-table pol-table" role="table" aria-label="סוג ההטבה">
+              <div class="row head" role="row"><div class="cat" role="columnheader">סוג ההטבה</div><div class="val" role="columnheader">זכאות</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">ללא מלגה ולאחר שעות הפעילות</div><div class="val" role="cell">זכאי ללימודים מעבר לשעות הפעילות בלבד.</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">תוכ״ש ע״ח שעות הפעילות עד יום מלא</div><div class="val no" role="cell">לא זכאי</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">מלגה</div><div class="val no" role="cell">לא זכאי</div></div>
+            </div>
+            <p class="pol-pop"><b>עתודאים אקדמאים, אקדמיזטורים, תלפיות, תכניתנים, בוגרי מצו״ב, בוגרי אר״ם ותוקף סייבר, מפתח מערכות סייבר, 1870 – דבאופס ומגן סייבר, פעמי עתידים שהשלימו 50% ומעלה מהתואר.<br>משנת שרות שנייה בחובה</b></p>
+            <div class="info-table pol-table" role="table" aria-label="סוג ההטבה">
+              <div class="row head" role="row"><div class="cat" role="columnheader">סוג ההטבה</div><div class="val" role="columnheader">זכאות</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">ללא מלגה ולאחר שעות הפעילות</div><div class="val" role="cell">זכאי</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">תוכ״ש ע״ח שעות הפעילות עד יום מלא</div><div class="val" role="cell">זכאי</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">מלגה</div><div class="val" role="cell">לא זכאי בחובה, זכאי עבור לימודים בשנת קבע ראשונה</div></div>
+            </div>
+            <p class="pol-pop"><b>אנשי קבע משנת קבע ראשונה ואילך, קצינים בחובה עד 3 חודשים טרם כניסתם לקבע, וכן החוזרים לשירות קבע לאחר השחרור</b></p>
+            <div class="info-table pol-table" role="table" aria-label="סוג ההטבה">
+              <div class="row head" role="row"><div class="cat" role="columnheader">סוג ההטבה</div><div class="val" role="columnheader">זכאות</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">ללא מלגה ולאחר שעות הפעילות</div><div class="val" role="cell">זכאי</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">תוכ״ש ע״ח שעות הפעילות עד יום מלא</div><div class="val" role="cell">זכאי</div></div>
+              <div class="row" role="row"><div class="cat" role="rowheader">מלגה</div><div class="val" role="cell">זכאי</div></div>
+            </div>
           </div>
-          <p class="pol-pop"><b>עתודאים אקדמאים, אקדמיזטורים, תלפיות, תכניתנים, בוגרי מצו״ב, בוגרי אר״ם ותוקף סייבר, מפתח מערכות סייבר, 1870 – דבאופס ומגן סייבר, פעמי עתידים שהשלימו 50% ומעלה מהתואר.<br>משנת שרות שנייה בחובה</b></p>
-          <div class="info-table pol-table" role="table" aria-label="סוג ההטבה">
-            <div class="row head" role="row"><div class="cat" role="columnheader">סוג ההטבה</div><div class="val" role="columnheader">זכאות</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">ללא מלגה ולאחר שעות הפעילות</div><div class="val" role="cell">זכאי</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">תוכ״ש ע״ח שעות הפעילות עד יום מלא</div><div class="val" role="cell">זכאי</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">מלגה</div><div class="val" role="cell">לא זכאי בחובה, זכאי עבור לימודים בשנת קבע ראשונה</div></div>
+        </details>
+
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">2</span>
+            <span class="pol-head"><h3>סוגי הלימודים המאושרים ללימודים תוכ״ש</h3><span class="pol-sub">טכנאי והנדסאי, תארים, מכינות, דוקטורט ואנגלית</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <ol class="pol-list num">
+              <li>״לימודי טכנאי/הנדסאי״</li>
+              <li>לימודים לתארים השונים (עד שני כולל לימודי תיזה).</li>
+              <li>״מכינות קדם אקדמיות״ לקראת לימודים (מלאים ותוכ״ש)</li>
+              <li>״לימודי דוקטורט״- באישור מפקד פיקוד/זרוע, לאל״ם ומעלה באישור רמטכ״ל.</li>
+              <li>״לימודי אנגלית״- לטובת השגת הפטור באנגלית יאושרו במוסדות אשר מוכרים ע״י המל״ג. לימודים אלו יאושרו במקביל ללימודי התואר בהתאם לחטיבות ההיעדרות המוגדרות ולא מעבר לכך (כולל היעדרות לטובת הלימודים).</li>
+            </ol>
           </div>
-          <p class="pol-pop"><b>אנשי קבע משנת קבע ראשונה ואילך, קצינים בחובה עד 3 חודשים טרם כניסתם לקבע, וכן החוזרים לשירות קבע לאחר השחרור</b></p>
-          <div class="info-table pol-table" role="table" aria-label="סוג ההטבה">
-            <div class="row head" role="row"><div class="cat" role="columnheader">סוג ההטבה</div><div class="val" role="columnheader">זכאות</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">ללא מלגה ולאחר שעות הפעילות</div><div class="val" role="cell">זכאי</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">תוכ״ש ע״ח שעות הפעילות עד יום מלא</div><div class="val" role="cell">זכאי</div></div>
-            <div class="row" role="row"><div class="cat" role="rowheader">מלגה</div><div class="val" role="cell">זכאי</div></div>
+        </details>
+
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">3</span>
+            <span class="pol-head"><h3>לימודי דוקטורט</h3><span class="pol-sub">מסרן קבע או רס״ר ומעלה, במחקר הקשור למקצוע הצבאי</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <ol class="pol-list num">
+              <li>אוכלוסיית היעד:
+                <ol class="pol-list">
+                  <li><b>גיל</b>: 25 לפחות בתחילת הלימודים.</li>
+                  <li>קצינים <b>במינוי סרן קבע ומעלה</b>, נגדים <b>בדרגת רס״ר</b> ומעלה.</li>
+                </ol>
+              </li>
+              <li>על המחקר להיות בזיקה ישירה למקצוע הצבאי.</li>
+              <li>אישור לימודי דוקטורט תוך כדי שירות הינו בכפוף לכלל ההתניות של מדיניות הלימודים תוכ״ש.</li>
+              <li>בכל אחת ממתכונות הלימודים, תוכ״ש ומלאים, יידרש אישור מחודש בעת החלפתן. (לדוגמא: קצין שאושר לדוקטורט במתכונת תוכ״ש ומבקש לבצע שנה בלימודים מלאים יבחן מחדש, על אף שתוקף אישור התוכ״ש עודנו עומד).</li>
+              <li><u>מודגש, כי לימודי פוסט דוקטורט אינם חלק מלימודי הדוקטורט</u>. באם קיים משרת קבע המבקש ללמוד סוג לימודים זה נדרש להגיש בקשה לחטה״ס – המדור הסקטוריאלי.</li>
+            </ol>
           </div>
-        </article>
+        </details>
 
-        <article class="pol-card" data-title="סוגי לימודים מאושרים" hidden>
-          <h3>סוגי הלימודים המאושרים ללימודים תוכ״ש</h3>
-          <ol class="pol-list num">
-            <li>״לימודי טכנאי/הנדסאי״</li>
-            <li>לימודים לתארים השונים (עד שני כולל לימודי תיזה).</li>
-            <li>״מכינות קדם אקדמיות״ לקראת לימודים (מלאים ותוכ״ש)</li>
-            <li>״לימודי דוקטורט״- באישור מפקד פיקוד/זרוע, לאל״ם ומעלה באישור רמטכ״ל.</li>
-            <li>״לימודי אנגלית״- לטובת השגת הפטור באנגלית יאושרו במוסדות אשר מוכרים ע״י המל״ג. לימודים אלו יאושרו במקביל ללימודי התואר בהתאם לחטיבות ההיעדרות המוגדרות ולא מעבר לכך (כולל היעדרות לטובת הלימודים).</li>
-          </ol>
-        </article>
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">4</span>
+            <span class="pol-head"><h3>לימודי אנגלית</h3><span class="pol-sub">שלוש דרכים להשגת הפטור באנגלית</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <ol class="pol-list num">
+              <li>לימודי האנגלית הם תנאי הכרחי להשלמת הזכאות לתואר הראשון.</li>
+              <li>את הפטור באנגלית ניתן להשיג באחת מהדרכים הבאות:
+                <ol class="pol-list">
+                  <li>למידה לא פרונטאלית במסגרת האוניברסיטה הפתוחה.</li>
+                  <li>מעבר בחינת פסיכומטרי/אמירנ״ט בציון המזכה בפטור (134/234 בהתאמה).</li>
+                  <li>למידה פרונטאלית במוסדות השונים, מוכרי מל״ג הנלמדים לרוב במתכונת של פעמיים בשבוע. יאושר במתכונת זו פיצול אחד בלבד, למטרת לימודי האנגלית וללא חריגה מחטיבת הזמן שאושרה להיעדרות.</li>
+                </ol>
+              </li>
+              <li>על המשרת לעמוד בכלל התנאים ללימודי תוכ״ש המפורטים באוגדן זה.</li>
+            </ol>
+          </div>
+        </details>
 
-        <article class="pol-card" data-title="לימודי דוקטורט" hidden>
-          <h3>לימודי דוקטורט</h3>
-          <ol class="pol-list num">
-            <li>אוכלוסיית היעד:
-              <ol class="pol-list">
-                <li><b>גיל</b>: 25 לפחות בתחילת הלימודים.</li>
-                <li>קצינים <b>במינוי סרן קבע ומעלה</b>, נגדים <b>בדרגת רס״ר</b> ומעלה.</li>
-              </ol>
-            </li>
-            <li>על המחקר להיות בזיקה ישירה למקצוע הצבאי.</li>
-            <li>אישור לימודי דוקטורט תוך כדי שירות הינו בכפוף לכלל ההתניות של מדיניות הלימודים תוכ״ש.</li>
-            <li>בכל אחת ממתכונות הלימודים, תוכ״ש ומלאים, יידרש אישור מחודש בעת החלפתן. (לדוגמא: קצין שאושר לדוקטורט במתכונת תוכ״ש ומבקש לבצע שנה בלימודים מלאים יבחן מחדש, על אף שתוקף אישור התוכ״ש עודנו עומד).</li>
-            <li><u>מודגש, כי לימודי פוסט דוקטורט אינם חלק מלימודי הדוקטורט</u>. באם קיים משרת קבע המבקש ללמוד סוג לימודים זה נדרש להגיש בקשה לחטה״ס – המדור הסקטוריאלי.</li>
-          </ol>
-        </article>
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">5</span>
+            <span class="pol-head"><h3>לימודי תואר שני במקביל לתואר ראשון</h3><span class="pol-sub">אפשרי, כל עוד ההיעדרות לא עולה על יום מלא בשבוע</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <ol class="pol-list num">
+              <li>משרת קבע רשאי לשלב לימודי תואר שני במקביל לתואר ראשון ובפרט כי שילובם אינו עולה על מדיניות לימודים תוכ״ש (יום מלא בשבוע).</li>
+              <li>יש לפנות למדור הסקטוריאלי ולעדכן נגררת לימודים בהתאם ולהזין בסוג תעודה תואר ראשון + שני.</li>
+            </ol>
+          </div>
+        </details>
 
-        <article class="pol-card" data-title="לימודי אנגלית" hidden>
-          <h3>לימודי אנגלית</h3>
-          <ol class="pol-list num">
-            <li>לימודי האנגלית הם תנאי הכרחי להשלמת הזכאות לתואר הראשון.</li>
-            <li>את הפטור באנגלית ניתן להשיג באחת מהדרכים הבאות:
-              <ol class="pol-list">
-                <li>למידה לא פרונטאלית במסגרת האוניברסיטה הפתוחה.</li>
-                <li>מעבר בחינת פסיכומטרי/אמירנ״ט בציון המזכה בפטור (134/234 בהתאמה).</li>
-                <li>למידה פרונטאלית במוסדות השונים, מוכרי מל״ג הנלמדים לרוב במתכונת של פעמיים בשבוע. יאושר במתכונת זו פיצול אחד בלבד, למטרת לימודי האנגלית וללא חריגה מחטיבת הזמן שאושרה להיעדרות.</li>
-              </ol>
-            </li>
-            <li>על המשרת לעמוד בכלל התנאים ללימודי תוכ״ש המפורטים באוגדן זה.</li>
-          </ol>
-        </article>
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">6</span>
+            <span class="pol-head"><h3>מתכונת לימודים תוכ״ש</h3><span class="pol-sub">איך מחושבת ההיעדרות, ומה לגבי חופשה לבחינות</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <ol class="pol-list num">
+              <li>משרת שאושר ללימודים תוך כדי שירות, יוכל לשלב לימודיו במקביל לשירותו הצבאי ולרכוש השכלה על תיכונית. לשם כך הוגדרו חטיבות היעדרות לטובת לימודים על חשבון שעות פעילות.</li>
+              <li>חטיבת ההיעדרות תחושב כולל <b>זמני נסיעות</b> אל המוסד/מהמוסד.</li>
+              <li>חטיבת ההיעדרות תחושב ע״פ מערכת שעות בלבד כולל שיעורים מקוונים.</li>
+              <li>בנוסף לחטיבת ההיעדרות המאושרת ניתן ללמוד לאחר שעות הפעילות וביום ו׳ ללא הגבלת שעות ו/או פיצולים, באישור מפקד היחידה (לדוגמה: משרת קבע היוצא מהיחידה החל מהשעה 17:30 ולימודיו במוסד מתחילים בשעה 18:00).</li>
+              <li>משרתי הקבע הלומדים במתכונת תוכ״ש <b>אינם זכאים לחופשה ע״ח המערכת לקראת בחינות ועבור בחינות, עבודות וכו׳</b>. היערכות להשלמת החובות האקדמיים תעשה על חשבון חופשתו השנתית של הלומד או מעבר לשעות הפעילות.</li>
+            </ol>
+          </div>
+        </details>
 
-        <article class="pol-card" data-title="תואר שני במקביל לראשון" hidden>
-          <h3>לימודי תואר שני במקביל לתואר ראשון</h3>
-          <ol class="pol-list num">
-            <li>משרת קבע רשאי לשלב לימודי תואר שני במקביל לתואר ראשון ובפרט כי שילובם אינו עולה על מדיניות לימודים תוכ״ש (יום מלא בשבוע).</li>
-            <li>יש לפנות למדור הסקטוריאלי ולעדכן נגררת לימודים בהתאם ולהזין בסוג תעודה תואר ראשון + שני.</li>
-          </ol>
-        </article>
+        <details class="card acc pol-acc">
+          <summary>
+            <span class="acc-ic pol-n" aria-hidden="true">7</span>
+            <span class="pol-head"><h3>ערוצי הלימוד</h3><span class="pol-sub">עד 5 שעות היעדרות בשבוע, או יום לימודים מלא</span></span>
+            <span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="acc-body pol-body">
+            <ol class="pol-list num">
+              <li><u>לימודים תוכ״ש עד חטיבת היעדרות 5</u> – חטיבה זו ניתנת <b>לפיצול אחד</b>, כאשר <b>שעות ההיעדרות במצטבר הן 5 שעות</b>.</li>
+              <li><u>יום לימודים מלא</u> – <b>כל היעדרות של מעל ל־5 שעות שבועיות</b>, ועד 9 לכל היותר.
+                <ol class="pol-list">
+                  <li>בסמכות אלוף פיקוד/זרוע לאשר לימודים תוכ״ש יום מלא לסא״ל.</li>
+                  <li>ככלל, חטיבה זו ניתנת לעד <b>שני פיצולים</b>. ככל ששעת תחילת הלימודים 16:00 ואילך, מאושר פיצול נוסף ולכל היותר <b>שלושה פיצולים</b> באישור מפקד היחידה.</li>
+                  <li>קיזוז ימי חופשה יתקיימו בגין לימודים בחטיבת היעדרות יום מלא בשבוע בלבד, כמפורט בסעיף 7.</li>
+                </ol>
+              </li>
+            </ol>
+          </div>
+        </details>
 
-        <article class="pol-card" data-title="מתכונת תוכ״ש" hidden>
-          <h3>מתכונת לימודים תוכ״ש</h3>
-          <ol class="pol-list num">
-            <li>משרת שאושר ללימודים תוך כדי שירות, יוכל לשלב לימודיו במקביל לשירותו הצבאי ולרכוש השכלה על תיכונית. לשם כך הוגדרו חטיבות היעדרות לטובת לימודים על חשבון שעות פעילות.</li>
-            <li>חטיבת ההיעדרות תחושב כולל <b>זמני נסיעות</b> אל המוסד/מהמוסד.</li>
-            <li>חטיבת ההיעדרות תחושב ע״פ מערכת שעות בלבד כולל שיעורים מקוונים.</li>
-            <li>בנוסף לחטיבת ההיעדרות המאושרת ניתן ללמוד לאחר שעות הפעילות וביום ו׳ ללא הגבלת שעות ו/או פיצולים, באישור מפקד היחידה (לדוגמה: משרת קבע היוצא מהיחידה החל מהשעה 17:30 ולימודיו במוסד מתחילים בשעה 18:00).</li>
-            <li>משרתי הקבע הלומדים במתכונת תוכ״ש <b>אינם זכאים לחופשה ע״ח המערכת לקראת בחינות ועבור בחינות, עבודות וכו׳</b>. היערכות להשלמת החובות האקדמיים תעשה על חשבון חופשתו השנתית של הלומד או מעבר לשעות הפעילות.</li>
-          </ol>
-        </article>
-
-        <article class="pol-card" data-title="ערוצי הלימוד" hidden>
-          <h3>ערוצי הלימוד</h3>
-          <ol class="pol-list num">
-            <li><u>לימודים תוכ״ש עד חטיבת היעדרות 5</u> – חטיבה זו ניתנת <b>לפיצול אחד</b>, כאשר <b>שעות ההיעדרות במצטבר הן 5 שעות</b>.</li>
-            <li><u>יום לימודים מלא</u> – <b>כל היעדרות של מעל ל־5 שעות שבועיות</b>, ועד 9 לכל היותר.
-              <ol class="pol-list">
-                <li>בסמכות אלוף פיקוד/זרוע לאשר לימודים תוכ״ש יום מלא לסא״ל.</li>
-                <li>ככלל, חטיבה זו ניתנת לעד <b>שני פיצולים</b>. ככל ששעת תחילת הלימודים 16:00 ואילך, מאושר פיצול נוסף ולכל היותר <b>שלושה פיצולים</b> באישור מפקד היחידה.</li>
-                <li>קיזוז ימי חופשה יתקיימו בגין לימודים בחטיבת היעדרות יום מלא בשבוע בלבד, כמפורט בסעיף 7.</li>
-              </ol>
-            </li>
-          </ol>
-        </article>
-
-        <div class="pol-nav">
-          <button class="steps-btn prev" type="button" data-dir="-1"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>הקודם</button>
-          <span class="steps-count" aria-live="polite"></span>
-          <button class="steps-btn next" type="button" data-dir="1">הבא<svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -2423,6 +2513,6 @@
 </div>
 
 <!-- כל הקוד של האתר נמצא ב-app.js (נדרש בגלל מדיניות האבטחה שבראש הדף) -->
-<script src="app.js?v=8"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>
