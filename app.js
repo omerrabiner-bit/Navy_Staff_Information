@@ -173,6 +173,12 @@
     if(!t || t.classList.contains('page')){ window.scrollTo(0,0); setTimeout(function(){ window.scrollTo(0,0); }, 60); }
   });
 
+  // ===== מספר התוכניות על שערי ההשכלה (ארץ / חו״ל) =====
+  document.querySelectorAll('[data-count-for]').forEach(function(el){
+    var list = document.getElementById(el.dataset.countFor);
+    if(list) el.textContent = list.querySelectorAll('a.perk').length + ' תוכניות';
+  });
+
   // ===== סינון תוכניות (השכלה והעשרה) =====
   (function(){
     document.querySelectorAll('.filters').forEach(function(box){
@@ -203,6 +209,12 @@
           if(ok) shown++;
         });
         if(empty) empty.hidden = shown > 0;
+        // מפה: מסתירים את הנקודה של תוכנית שלא מתאימה לסינון
+        var page = box.closest('.page');
+        items.forEach(function(it){
+          if(!it.dataset.goto || !page) return;
+          page.querySelectorAll('[data-pin="' + it.dataset.goto + '"]').forEach(function(p){ p.style.display = it.style.display; });
+        });
         if(count) count.textContent = 'מוצגות ' + shown + ' מתוך ' + items.length + ' תוכניות';
       }
       box.querySelectorAll('select[data-key]').forEach(function(sel){
