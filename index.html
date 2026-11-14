@@ -691,7 +691,6 @@
   details.msg.lead{border-color:color-mix(in srgb, var(--c-new) 55%, var(--line))}
   /* אריחי גישה מהירה */
   .tiles{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:var(--s1)}
-  /* שלושה אריחים שווים בשורה אחת: תוכן ממורכז */
   .tiles a.tile{align-items:center; text-align:center; padding:var(--s2) var(--s1); min-height:128px}
   .tiles a.tile .t-ic{margin-bottom:var(--s1)}
   a.tile{
@@ -712,6 +711,25 @@
   a.tile{position:relative}
   a.tile .dot{position:absolute; top:12px; left:12px; width:9px; height:9px; border-radius:50%; background:#ff5a4e; display:none}
   a.tile.has-new .dot{display:block}
+  /* גישה מהירה בסגנון אשנבים: ארבעה כפתורים עגולים בשורה אחת, בתוך כרטיס אחד */
+  .tiles.qa-port{
+    --port:clamp(48px, 15vw, 60px);
+    grid-template-columns:repeat(4, minmax(0, 1fr)); gap:var(--s1);
+    padding:var(--s3) var(--s1) var(--s2);
+    background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--shadow);
+  }
+  .tiles.qa-port a.tile{background:transparent; border:0; box-shadow:none; padding:0; min-height:0; gap:0}
+  .tiles.qa-port a.tile .t-ic{
+    width:var(--port); height:var(--port); border-radius:50%; margin-bottom:12px;
+    background:var(--navy); color:#fff;
+    border:3px solid var(--card); outline:2px solid var(--c-action); box-shadow:0 0 0 6px var(--foam);
+  }
+  .is-dark .tiles.qa-port a.tile .t-ic{background:var(--foam); color:var(--c-action)}
+  .tiles.qa-port a.tile .t-ic svg{width:26px; height:26px}
+  .tiles.qa-port a.tile .t-name{font-size:var(--fs-sm); line-height:1.35}
+  .tiles.qa-port a.tile .t-sub{display:none}
+  .tiles.qa-port a.tile .dot{top:-4px; left:auto; right:calc(50% - var(--port) / 2); width:12px; height:12px; border:2px solid var(--card)}
+  .tiles.qa-port a.tile:focus-visible{outline:2px solid var(--c-action); outline-offset:4px; border-radius:var(--r-sm)}
 
   /* כרטיס פניות קומפקטי: כתובת גלויה + שליחה + העתקה */
   .contact{
@@ -927,7 +945,7 @@
 <main>
 
   <!-- ===== הודעות ===== -->
-  <section class="page" id="news" data-updated="2026-11-11" data-title="דף הבית">
+  <section class="page" id="news" data-updated="2026-11-14" data-title="דף הבית">
     <h1 class="sr-only">מחלקת סגל, חיל הים – דף הבית</h1>
     <div class="sec-head">
       <h2>עדכונים אחרונים</h2>
@@ -992,7 +1010,7 @@
     <div class="sec-head">
       <h2>גישה מהירה</h2>
     </div>
-    <div class="tiles">
+    <div class="tiles qa-port">
       <a class="tile" href="#plans" data-goto="plans">
         <span class="t-ic"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg></span>
         <span class="t-name">תוכניות שירות</span>
@@ -1007,6 +1025,11 @@
         <span class="t-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/></svg></span>
         <span class="t-name">השכלה והעשרה</span>
         <span class="t-sub">לימודים ותוכניות</span>
+      </a>
+      <a class="tile" href="#gantt" data-goto="gantt">
+        <span class="t-ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M7 14h6M11 17h6"/></svg></span>
+        <span class="t-name">גאנט אירועים</span>
+        <span class="t-sub">לוח אירועים לפי נושא</span>
       </a>
     </div>
   </section>
