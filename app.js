@@ -499,3 +499,124 @@
       });
     });
   })();
+
+  // ===== גאנט אירועים: לוח חודשי. אירוע של כמה ימים = פס רציף, אירוע של יום אחד = נקודה =====
+  (function(){
+    var page = document.getElementById('gantt'), data = document.getElementById('gcData');
+    if(!page || !data) return;
+    var MONTHS = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+    var DAYS = ['א׳','ב׳','ג׳','ד׳','ה׳','ו׳','ש׳'];
+    function parse(iso){ var p = iso.split('-'); return new Date(+p[0], +p[1] - 1, +p[2], 12); }
+    function key(d){ return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+    function addDays(d, n){ var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+    function short(d){ return d.getDate() + '.' + (d.getMonth() + 1); }
+
+    var topicName = {};
+    page.querySelectorAll('.gc-chip').forEach(function(c){ topicName[c.dataset.topic] = c.textContent.trim(); });
+    var events = Array.prototype.map.call(data.querySelectorAll('li'), function(li){
+      var s = li.dataset.start, e = li.dataset.end || s;
+      return {topic: li.dataset.topic, title: li.textContent.trim(), s: s, e: e < s ? s : e};
+    }).sort(function(a, b){ return a.s < b.s ? -1 : a.s > b.s ? 1 : (b.e > a.e ? 1 : -1); });
+
+    var active = {}; Object.keys(topicName).forEach(function(t){ active[t] = true; });
+    var today = new Date(); today.setHours(12, 0, 0, 0);
+    var todayKey = key(today);
+    var view = new Date(today.getFullYear(), today.getMonth(), 1, 12);
+    var selKey = todayKey;
+    var weeksBox = document.getElementById('gcWeeks'), titleEl = document.getElementById('gcTitle'), panel = document.getElementById('gcPanel');
+
+    function visible(){ return events.filter(function(ev){ return active[ev.topic]; }); }
+    function el(tag, cls, txt){ var x = document.createElement(tag); if(cls) x.className = cls; if(txt != null) x.textContent = txt; return x; }
+
+    function render(){
+      titleEl.textContent = MONTHS[view.getMonth()] + ' ' + view.getFullYear();
+      weeksBox.textContent = '';
+      var evs = visible();
+      var start = addDays(view, -view.getDay());                 // יום ראשון של השבוע הראשון
+      var last = new Date(view.getFullYear(), view.getMonth() + 1, 0, 12);
+      var end = addDays(last, 6 - last.getDay());                 // שבת של השבוע האחרון
+      for(var ws = start; ws <= end; ws = addDays(ws, 7)){
+        var wsKey = key(ws), weKey = key(addDays(ws, 6));
+        var week = el('div', 'gc-week');
+        // פסים של אירועים רב-יומיים בשבוע הזה, כל אחד בשורה פנויה
+        var lanes = [], bars = [];
+        evs.forEach(function(ev){
+          if(ev.s === ev.e || ev.e < wsKey || ev.s > weKey) return;
+          var a = ev.s < wsKey ? 0 : parse(ev.s).getDay(), b = ev.e > weKey ? 6 : parse(ev.e).getDay();
+          var lane = 0; while(lanes[lane] != null && lanes[lane] >= a) lane++;
+          lanes[lane] = b;
+          bars.push({ev: ev, a: a, b: b, lane: lane, cs: ev.s < wsKey, ce: ev.e > weKey});
+        });
+        week.style.gridTemplateRows = '24px' + (lanes.length ? ' repeat(' + lanes.length + ', 20px)' : '') + ' minmax(14px, auto)';
+        var lastRow = lanes.length + 2;
+        for(var i = 0; i < 7; i++){
+          var d = addDays(ws, i), k = key(d), other = d.getMonth() !== view.getMonth();
+          var dayEvs = evs.filter(function(ev){ return ev.s <= k && ev.e >= k; });
+          var btn = el('button', 'gc-day' + (other ? ' other' : '') + (k === selKey ? ' sel' : ''));
+          btn.type = 'button'; btn.style.gridColumn = (i + 1);
+          btn.dataset.key = k;
+          btn.setAttribute('aria-label', d.getDate() + ' ב' + MONTHS[d.getMonth()] + (dayEvs.length ? ', ' + dayEvs.length + ' אירועים' : ', אין אירועים'));
+          if(k === selKey) btn.setAttribute('aria-current', 'date');
+          week.appendChild(btn);
+          var num = el('span', 'gc-num' + (other ? ' other' : '') + (k === todayKey ? ' today' : ''), d.getDate());
+          num.style.gridColumn = (i + 1); num.setAttribute('aria-hidden', 'true');
+          week.appendChild(num);
+          var singles = dayEvs.filter(function(ev){ return ev.s === ev.e; });
+          if(singles.length){
+            var dots = el('span', 'gc-dots'); dots.style.gridColumn = (i + 1); dots.style.gridRow = lastRow; dots.setAttribute('aria-hidden', 'true');
+            singles.slice(0, 3).forEach(function(ev){ var dot = el('i'); dot.dataset.topic = ev.topic; dots.appendChild(dot); });
+            week.appendChild(dots);
+          }
+        }
+        bars.forEach(function(br){
+          var bar = el('span', 'gc-bar' + (br.cs ? ' cont-s' : '') + (br.ce ? ' cont-e' : ''), br.b > br.a ? br.ev.title : '');
+          bar.dataset.topic = br.ev.topic; bar.setAttribute('aria-hidden', 'true');
+          bar.style.gridColumn = (br.a + 1) + ' / ' + (br.b + 2);
+          bar.style.gridRow = br.lane + 2;
+          week.appendChild(bar);
+        });
+        weeksBox.appendChild(week);
+      }
+      renderPanel();
+    }
+
+    function renderPanel(){
+      var d = parse(selKey);
+      panel.textContent = '';
+      panel.appendChild(el('h3', null, 'יום ' + DAYS[d.getDay()] + ', ' + d.getDate() + ' ב' + MONTHS[d.getMonth()]));
+      var list = visible().filter(function(ev){ return ev.s <= selKey && ev.e >= selKey; });
+      if(!list.length){ panel.appendChild(el('div', 'gc-none', 'אין אירועים ביום הזה')); return; }
+      list.forEach(function(ev){
+        var card = el('div', 'gc-ev'); card.dataset.topic = ev.topic;
+        var txt = el('div');
+        txt.appendChild(el('strong', null, ev.title));
+        txt.appendChild(el('span', null, (ev.s === ev.e ? short(parse(ev.s)) : short(parse(ev.s)) + '–' + short(parse(ev.e))) + ' · ' + (topicName[ev.topic] || '')));
+        card.appendChild(txt);
+        panel.appendChild(card);
+      });
+    }
+
+    weeksBox.addEventListener('click', function(e){
+      var b = e.target.closest('.gc-day'); if(!b) return;
+      selKey = b.dataset.key;
+      var d = parse(selKey);
+      if(d.getMonth() !== view.getMonth()){ view = new Date(d.getFullYear(), d.getMonth(), 1, 12); }
+      render();
+      var again = weeksBox.querySelector('.gc-day[data-key="' + selKey + '"]'); if(again) again.focus({preventScroll: true});
+    });
+    function shift(n){
+      view = new Date(view.getFullYear(), view.getMonth() + n, 1, 12);
+      selKey = (view.getMonth() === today.getMonth() && view.getFullYear() === today.getFullYear()) ? todayKey : key(view);
+      render();
+    }
+    document.getElementById('gcPrev').addEventListener('click', function(){ shift(-1); });
+    document.getElementById('gcNext').addEventListener('click', function(){ shift(1); });
+    page.querySelectorAll('.gc-chip').forEach(function(c){
+      c.addEventListener('click', function(){
+        active[c.dataset.topic] = !active[c.dataset.topic];
+        c.setAttribute('aria-pressed', active[c.dataset.topic] ? 'true' : 'false');
+        render();
+      });
+    });
+    render();
+  })();
