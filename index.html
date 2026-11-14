@@ -847,7 +847,8 @@
   .gc-chip[aria-pressed="true"] .gc-sw{background:var(--tc)}
   .gc-chip:focus-visible, .gc-nav:focus-visible, .gc-day:focus-visible{outline:2px solid var(--c-action); outline-offset:2px}
   [data-topic="off"]{--tc:var(--t-off)} [data-topic="nco"]{--tc:var(--t-nco)}
-  .card.gc{padding:var(--s1)}
+  .card.gc{padding:var(--s1); transition:none}
+  .card.gc:active{transform:none}                     /* הלוח לא מתכווץ בלחיצה כמו שאר הכרטיסים */
   .gc-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--s1)}
   .gc-head h3{margin:0; font-size:var(--fs-md)}
   .gc-nav{
